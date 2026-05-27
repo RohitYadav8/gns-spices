@@ -96,17 +96,17 @@ const AuthPage = () => {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FFF6DE] px-6 py-10 text-[#332D20]">
       
       {/* BACKGROUND GLOWS */}
-      <div className="pointer-events-none absolute left-0 top-0 h-[450px] w-[450px] rounded-full bg-[#8BDFDD]/20 blur-[130px]" />
+      <div className="pointer-events-none absolute left-0 top-0 h-112.5 w-112.5 rounded-full bg-[#8BDFDD]/20 blur-[130px]" />
 
-      <div className="pointer-events-none absolute bottom-0 right-0 h-[450px] w-[450px] rounded-full bg-[#F48F68]/10 blur-[150px]" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-112.5 w-112.5 rounded-full bg-[#F48F68]/10 blur-[150px]" />
 
       {/* BIG BRAND TEXT */}
-      <h1 className="pointer-events-none absolute left-1/2 top-5 -translate-x-1/2 select-none text-[140px] font-black uppercase tracking-widest text-[#332D20]/[0.02] md:text-[220px]">
+      <h1 className="pointer-events-none absolute left-1/2 top-5 -translate-x-1/2 select-none text-[140px] font-black uppercase tracking-widest text-[#332D20]/2 md:text-[220px]">
         GNS
       </h1>
 
       {/* CARD */}
-      <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-[32px] border-2 border-[#FFE394]/60 bg-white shadow-xl shadow-[#332D20]/5">
+      <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-4xl border-2 border-[#FFE394]/60 bg-white shadow-xl shadow-[#332D20]/5">
         
         <div className="p-6 sm:p-10 lg:p-12">
           
@@ -264,13 +264,13 @@ const AuthPage = () => {
 
           {/* DIVIDER */}
           <div className="my-8 flex items-center gap-4">
-            <div className="h-[1px] flex-1 bg-[#FFE394]" />
+            <div className="h-px flex-1 bg-[#FFE394]" />
 
             <span className="text-[10px] font-black tracking-widest text-[#332D20]/40">
               OR CONTINUE WITH
             </span>
 
-            <div className="h-[1px] flex-1 bg-[#FFE394]" />
+            <div className="h-px flex-1 bg-[#FFE394]" />
           </div>
 
           {/* SOCIAL BUTTONS */}

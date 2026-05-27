@@ -51,7 +51,7 @@ const PrivateLabelHero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left_top,rgba(139,223,221,0.18),transparent_35%)]"></div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1A120B] via-[#2B1B15]/95 to-[#3A1F16]/80"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-[#1A120B] via-[#2B1B15]/95 to-[#3A1F16]/80"></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32 flex items-center min-h-screen">
@@ -61,13 +61,13 @@ const PrivateLabelHero = () => {
           {/* Top Label */}
           <div className="flex items-center gap-4 mb-8">
 
-            <div className="w-16 h-[2px] bg-[#FFE394]"></div>
+            <div className="w-16 h-0.5 bg-[#FFE394]"></div>
 
             <span className="uppercase tracking-[5px] text-[#FFE394] text-sm font-semibold">
               Private Label Manufacturing
             </span>
 
-            <div className="w-16 h-[2px] bg-[#FFE394]"></div>
+            <div className="w-16 h-0.5 bg-[#FFE394]"></div>
 
           </div>
 
@@ -115,13 +115,13 @@ const PrivateLabelHero = () => {
 
         {/* Top Label */}
         <div className="flex items-center gap-4 mb-5">
-          <div className="w-14 h-[2px] bg-[#F48F68]" />
+          <div className="w-14 h-0.5 bg-[#F48F68]" />
 
           <span className="uppercase tracking-[5px] text-[#F48F68] text-sm font-semibold">
             The Process
           </span>
 
-          <div className="w-14 h-[2px] bg-[#F48F68]" />
+          <div className="w-14 h-0.5 bg-[#F48F68]" />
         </div>
 
         {/* Heading */}
@@ -139,7 +139,7 @@ const PrivateLabelHero = () => {
             >
 
               {/* Circle */}
-              <div className="min-w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[#FFE394] to-[#F48F68] flex items-center justify-center text-black text-3xl font-bold shadow-[0_0_25px_rgba(244,143,104,0.35)]">
+              <div className="min-w-18 h-18 rounded-full bg-linear-to-br from-[#FFE394] to-[#F48F68] flex items-center justify-center text-black text-3xl font-bold shadow-[0_0_25px_rgba(244,143,104,0.35)]">
   {step.number}
 </div>
 
@@ -157,7 +157,7 @@ const PrivateLabelHero = () => {
                 </p>
 
                 {/* Accent Line */}
-                <div className="w-28 h-[3px] rounded-full bg-gradient-to-r from-[#F48F68] to-[#8BDFDD] mt-5"></div>
+                <div className="w-28 h-0.75 rounded-full bg-linear-to-r from-[#F48F68] to-[#8BDFDD] mt-5"></div>
               </div>
 
             </div>
@@ -171,13 +171,13 @@ const PrivateLabelHero = () => {
      <section className="relative overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 lg:px-20">
 
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#120905] to-[#2A120C]"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-black via-[#120905] to-[#2A120C]"></div>
 
       {/* Coral Glow */}
-      <div className="absolute right-0 top-0 h-[450px] w-[450px] bg-[#F48F68]/20 blur-[140px] rounded-full"></div>
+      <div className="absolute right-0 top-0 h-112.5 w-112.5 bg-[#F48F68]/20 blur-[140px] rounded-full"></div>
 
       {/* Cyan Glow */}
-      <div className="absolute left-0 bottom-0 h-[350px] w-[350px] bg-[#8BDFDD]/10 blur-[120px] rounded-full"></div>
+      <div className="absolute left-0 bottom-0 h-87.5 w-87.5 bg-[#8BDFDD]/10 blur-[120px] rounded-full"></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
