@@ -5,10 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 const products = [
-  { title: "Kashmiri Chilli", desc: "Deep red colour with mild heat for curries & marinades.", image: "/kashmiri.jpg", price: "£8" },
-  { title: "Turmeric Powder", desc: "Premium Lakadong turmeric with rich aroma and colour.", image: "/turmeric.jpg", price: "£6" },
-  { title: "Garam Masala", desc: "Bold signature blend crafted for authentic Indian cooking.", image: "/garam-masala.jpg", price: "£10" },
-  { title: "Whole Cumin", desc: "Freshly sourced cumin seeds packed with natural oils.", image: "/cumin.jpg", price: "£7" },
+  { title: "Kashmiri Chilli", desc: "Deep red colour with mild heat for curries & marinades.", image: "/red-chilli-powder.png", price: "£8" },
+  { title: "Turmeric Powder", desc: "Premium Lakadong turmeric with rich aroma and colour.", image: "/turmeric-powder.png", price: "£6" },
+  { title: "Garam Masala", desc: "Bold signature blend crafted for authentic Indian cooking.", image: "/garam-masala.png", price: "£10" },
+  { title: "Whole Cumin", desc: "Freshly sourced cumin seeds packed with natural oils.", image: "/cumin.png", price: "£7" },
 ];
 
 export default function BestsellerSection() {

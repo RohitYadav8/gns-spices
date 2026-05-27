@@ -167,53 +167,100 @@ const PrivateLabelHero = () => {
       </div>
     </section>
     
-  
-     <section className="relative overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 lg:px-20">
+  <section className="relative overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 lg:px-20">
 
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-[#2A120C] via-[#1A120B] to-black"></div>
+  {/* SOFT BACKGROUND */}
+  <div className="absolute inset-0 bg-gradient-to-br from-[#FFF6DE] via-[#FFF6DE] to-[#f8ecd0]" />
 
-      {/* Coral Glow */}
-      <div className="absolute right-0 top-0 h-112.5 w-112.5 bg-[#F48F68]/20 blur-[140px] rounded-full"></div>
+  {/* CORAL GLOW */}
+  <div className="absolute right-0 top-0 h-[450px] w-[450px] rounded-full bg-[#F48F68]/15 blur-[140px]" />
 
-      {/* Cyan Glow */}
-      <div className="absolute left-0 bottom-0 h-87.5 w-87.5 bg-[#8BDFDD]/10 blur-[120px] rounded-full"></div>
+  {/* CYAN GLOW */}
+  <div className="absolute left-0 bottom-0 h-[350px] w-[350px] rounded-full bg-[#8BDFDD]/20 blur-[120px]" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+  {/* YELLOW GLOW */}
+  <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFE394]/20 blur-[120px]" />
 
-        {/* Heading */}
-        <h1 className="text-3xl font-bold tracking-tight text-white">
+  {/* CONTENT */}
+  <div className="relative z-10 max-w-5xl mx-auto">
 
-          Minimum order:
-          <span className="text-[#FFE394]">
-            {" "}500 units per SKU
-          </span>
+    {/* LABEL */}
+    <div className="mb-6 flex items-center justify-center gap-4">
 
-        </h1>
+      <div className="h-[2px] w-16 bg-[#F48F68]" />
 
-        {/* Description */}
-        <p className="text-white/80 text-lg md:text-2xl leading-relaxed mt-8 max-w-3xl mx-auto">
+      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#F48F68]">
+        PRIVATE LABEL
+      </span>
 
-          Typical lead time 8–12 weeks.
-          Smaller pilot runs considered case-by-case.
+      <div className="h-[2px] w-16 bg-[#F48F68]" />
 
-        </p>
+    </div>
 
-        {/* Button */}
-        <div className="mt-14">
+    {/* HEADING */}
+    <h1 className="text-center text-3xl font-black leading-tight tracking-[-0.04em] text-[#332D20] md:text-6xl">
 
-          <button className="bg-[#F48F68] hover:bg-[#ff7b5c] transition-all duration-300 text-white font-bold px-12 py-5 rounded-2xl shadow-[0_0_35px_rgba(244,143,104,0.45)] text-lg md:text-xl">
+      Minimum order:
+      <span className="bg-gradient-to-r from-[#F48F68] via-[#FFE394] to-[#8BDFDD] bg-clip-text text-transparent">
+        {" "}500 units per SKU
+      </span>
 
-            Start a project
+    </h1>
 
-          </button>
+    {/* DESCRIPTION */}
+    <p className="mt-10 max-w-3xl mx-auto text-center text-[18px] leading-[2] text-[#332D20]/70 md:text-[22px]">
 
-        </div>
+      Typical lead time 8–12 weeks.
+      Smaller pilot runs considered case-by-case.
 
+    </p>
+
+    {/* CTA */}
+    <div className="mt-16 flex justify-center">
+
+      <button
+        className="
+          rounded-full
+          bg-[#F48F68]
+          px-12
+          py-5
+          text-lg
+          font-black
+          text-white
+          shadow-[0_20px_60px_rgba(244,143,104,0.35)]
+          transition-all
+          duration-500
+          hover:-translate-y-1
+          hover:scale-[1.02]
+          hover:bg-[#eb7d52]
+        "
+      >
+
+        Start a project
+
+      </button>
+
+    </div>
+
+    {/* TRUST BADGES */}
+    <div className="mt-16 flex flex-wrap items-center justify-center gap-4">
+
+      <div className="rounded-full border border-[#FFE394]/70 bg-white/80 px-5 py-3 text-sm font-semibold text-[#332D20]/70 shadow-md backdrop-blur-md">
+        ISO 22000 Certified
       </div>
 
-    </section>
+      <div className="rounded-full border border-[#FFE394]/70 bg-white/80 px-5 py-3 text-sm font-semibold text-[#332D20]/70 shadow-md backdrop-blur-md">
+        Export Quality
+      </div>
+
+      <div className="rounded-full border border-[#FFE394]/70 bg-white/80 px-5 py-3 text-sm font-semibold text-[#332D20]/70 shadow-md backdrop-blur-md">
+        Farm Direct Sourcing
+      </div>
+
+    </div>
+
+  </div>
+</section>
     <Footer/>
     </>
    
