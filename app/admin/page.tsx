@@ -62,9 +62,14 @@ export default async function AdminDashboardPage() {
               className="flex items-center justify-between rounded-2xl bg-[#FFF6DE]/50 p-6 border border-[#FFE394]/20"
             >
               <div>
-                <h3 className="font-black text-lg">{order.customerName}</h3>
-                <p className="text-sm text-[#F48F68]/60">{order.email}</p>
-              </div>
+  <h3 className="font-bold text-white">
+    {order.customerName || "Unknown Customer"}
+  </h3>
+
+  <p className="text-sm text-[#c9996b]">
+    {order.email || "No email"}
+  </p>
+</div>
               <div className="text-right">
                 <p className="font-black text-[#F48F68]">£{order.totalAmount}</p>
                 <p className="text-[10px] font-black uppercase tracking-wider text-[#2D7A78] bg-[#8BDFDD]/20 px-2 py-0.5 rounded-full mt-1">
