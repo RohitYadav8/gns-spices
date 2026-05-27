@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#F48F68]/10 blur-[140px] pointer-events-none" />
 
       {/* TOP SECTION */}
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 py-24 md:grid-cols-2 lg:grid-cols-4">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 md:grid-cols-2 lg:grid-cols-4">
 
         {/* LEFT */}
         <div>
@@ -19,30 +19,30 @@ export default function Footer() {
             <img
               src="/GNS-LOGO.png"
               alt="GNS Spices"
-              className="h-20 w-auto rounded-[24px] bg-white p-3 shadow-xl"
+              className="h-14 w-auto rounded-2xl bg-white p-2 shadow-xl"
             />
           </div>
 
           {/* TEXT */}
-          <p className="max-w-sm text-lg leading-10 text-[#332D20]/75 font-medium">
+          <p className="max-w-sm text-base leading-7 text-[#332D20]/75 font-medium">
             Three generations of farming, sourcing, and
             slow-roasting. From our family in Kerala to
             kitchens worldwide.
           </p>
 
           {/* ESTD */}
-          <p className="mt-10 text-sm font-black tracking-[6px] text-[#F48F68]">
+          <p className="mt-6 text-sm font-black tracking-[6px] text-[#F48F68]">
             ESTD. 1972
           </p>
         </div>
 
         {/* SHOP */}
         <div>
-          <h3 className="mb-8 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
             Shop
           </h3>
 
-          <ul className="space-y-5 text-lg text-[#332D20]/75 font-medium">
+          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
 
             {[
               "All spices",
@@ -66,11 +66,11 @@ export default function Footer() {
 
         {/* BUSINESS */}
         <div>
-          <h3 className="mb-8 text-sm font-black uppercase tracking-[4px] text-[#8BDFDD]">
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#8BDFDD]">
             Business
           </h3>
 
-          <ul className="space-y-5 text-lg text-[#332D20]/75 font-medium">
+          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
 
             {[
               "Wholesale",
@@ -92,11 +92,11 @@ export default function Footer() {
 
         {/* TRUST */}
         <div>
-          <h3 className="mb-8 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
             Trust
           </h3>
 
-          <ul className="space-y-5 text-lg text-[#332D20]/75 font-medium">
+          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
 
             {[
               "FSSAI certified",
@@ -106,7 +106,7 @@ export default function Footer() {
             ].map((item, i) => (
               <li
                 key={i}
-                className="rounded-full border border-[#FFE394] bg-white/70 px-5 py-3 shadow-sm backdrop-blur-sm"
+                className="rounded-full border border-[#FFE394] bg-white/70 px-4 py-2 text-sm shadow-sm backdrop-blur-sm"
               >
                 {item}
               </li>
@@ -117,7 +117,7 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM */}
-      <div className="relative z-10 border-t border-[#FFE394]/40 py-8">
+      <div className="relative z-10 border-t border-[#FFE394]/40 py-6">
 
         <div className="mx-auto flex max-w-7xl items-center justify-center px-6">
 

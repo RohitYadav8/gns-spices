@@ -51,7 +51,7 @@ const PrivateLabelHero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left_top,rgba(139,223,221,0.18),transparent_35%)]"></div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-linear-to-r from-[#1A120B] via-[#2B1B15]/95 to-[#3A1F16]/80"></div>
+      <div className="absolute inset-0 bg-white/20"></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32 flex items-center min-h-screen">
@@ -61,18 +61,18 @@ const PrivateLabelHero = () => {
           {/* Top Label */}
           <div className="flex items-center gap-4 mb-8">
 
-            <div className="w-16 h-0.5 bg-[#FFE394]"></div>
+            <div className="w-16 h-0.5 bg-[#F48F68]"></div>
 
-            <span className="uppercase tracking-[5px] text-[#FFE394] text-sm font-semibold">
+            <span className="uppercase tracking-[5px] text-[#F48F68] text-sm font-semibold">
               Private Label Manufacturing
             </span>
 
-            <div className="w-16 h-0.5 bg-[#FFE394]"></div>
+            <div className="w-16 h-0.5 bg-[#F48F68]"></div>
 
           </div>
 
           {/* Heading */}
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mt-5 max-w-3xl leading-tight">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-[#332D20] mt-5 max-w-3xl leading-tight">
 
             Launch your spice brand.
             <br />
@@ -84,7 +84,7 @@ const PrivateLabelHero = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-white/75 text-lg md:text-2xl leading-relaxed mt-10 max-w-2xl">
+          <p className="text-[#332D20]/80 text-lg md:text-2xl leading-relaxed mt-10 max-w-2xl">
 
             From formulation and packaging design to QC and export —
             one partner, one price, one shipment.
@@ -109,7 +109,7 @@ const PrivateLabelHero = () => {
       </div>
 
     </section>
-     <section className="w-full bg-[#FFF6DE] px-6 py-16">
+     <section className="w-full bg-[#F5E8C7] px-6 py-16">
 
       <div className="max-w-5xl mx-auto">
 
@@ -171,7 +171,7 @@ const PrivateLabelHero = () => {
      <section className="relative overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 lg:px-20">
 
       {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-black via-[#120905] to-[#2A120C]"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-[#2A120C] via-[#1A120B] to-black"></div>
 
       {/* Coral Glow */}
       <div className="absolute right-0 top-0 h-112.5 w-112.5 bg-[#F48F68]/20 blur-[140px] rounded-full"></div>
@@ -183,7 +183,7 @@ const PrivateLabelHero = () => {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
 
         {/* Heading */}
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-3xl font-bold tracking-tight text-white">
 
           Minimum order:
           <span className="text-[#FFE394]">
@@ -193,7 +193,7 @@ const PrivateLabelHero = () => {
         </h1>
 
         {/* Description */}
-        <p className="text-black text-lg md:text-2xl leading-relaxed mt-8 max-w-3xl mx-auto">
+        <p className="text-white/80 text-lg md:text-2xl leading-relaxed mt-8 max-w-3xl mx-auto">
 
           Typical lead time 8–12 weeks.
           Smaller pilot runs considered case-by-case.
