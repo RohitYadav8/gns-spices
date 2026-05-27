@@ -31,46 +31,46 @@ function CheckoutPage() {
         city: '',
         postalCode: '',
     });
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-    });
-};
-   const handleCompletePurchase = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    setLoading(true);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+    const handleCompletePurchase = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
+        e.preventDefault();
+        setLoading(true);
 
-    try {
-      // Stripe checkout session ke liye request
-      const res = await fetch('/api/admin/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: [{ name: 'GNS Premium Box', price: finalTotal, quantity: 1 }],
-          customerDetails: formData,
-        }),
-      });
+        try {
+            // Stripe checkout session ke liye request
+            const res = await fetch('/api/admin/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    items: [{ name: 'GNS Premium Box', price: finalTotal, quantity: 1 }],
+                    customerDetails: formData,
+                }),
+            });
 
-      const data = await res.json();
+            const data = await res.json();
 
-      if (data.url) {
-        // Stripe ke secure page par redirect
-        window.location.href = data.url;
-      } else {
-        alert('Payment initiation failed: ' + (data.error || 'Unknown error'));
-        setLoading(false);
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error connecting to Stripe!');
-      setLoading(false);
-    }
-  };
+            if (data.url) {
+                // Stripe ke secure page par redirect
+                window.location.href = data.url;
+            } else {
+                alert('Payment initiation failed: ' + (data.error || 'Unknown error'));
+                setLoading(false);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to Stripe!');
+            setLoading(false);
+        }
+    };
     return (
         <section className="relative min-h-screen overflow-hidden bg-[#FFF6DE] text-[#332D20]">
 
@@ -192,6 +192,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                     "
                                     />
                                 </div>
+                               
 
                                 {/* ADDRESS */}
                                 <div>

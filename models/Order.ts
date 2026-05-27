@@ -18,6 +18,7 @@ const OrderSchema = new Schema({
   paymentStatus: { type: String, default: 'Pending' },
   shippingAddress: {
     fullName: { type: String, required: false }, // false
+    email: { type: String, required: false }, //
     phone: { type: String, required: false },    // false
     addressLine: { type: String, required: false },// false
     city: { type: String, required: false },      // false

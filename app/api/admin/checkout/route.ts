@@ -17,11 +17,10 @@ export async function POST(req: Request) {
     const subtotal = items.reduce((acc: any, item: any) => acc + (item.price * item.quantity), 0);
 
     // 2. Database mein Order Create karna
-    // Schema ke hisaab se saari zaroori fields yahan daalni hongi
     const newOrder = await Order.create({
-      user: null, // Guest checkout ke liye null
+      user: null, 
       items: items.map((item: any) => ({
-        product: new mongoose.Types.ObjectId(), // Agar ID nahi hai toh naya ID
+        product: new mongoose.Types.ObjectId(),
         name: item.name,
         quantity: item.quantity,
         price: item.price,
@@ -31,6 +30,7 @@ export async function POST(req: Request) {
       totalAmount: subtotal,
       shippingAddress: {
         fullName: customerDetails.fullName,
+        email: customerDetails.email, // <--- YE LINE ADD KARNI HAI
         phone: customerDetails.phone,
         addressLine: customerDetails.addressLine,
         city: customerDetails.city,
@@ -44,6 +44,7 @@ export async function POST(req: Request) {
     // 3. Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
+      customer_email: customerDetails.email, // <--- Stripe par bhi email bhej rahe hain
       line_items: items.map((item: any) => ({
         price_data: {
           currency: 'gbp',
