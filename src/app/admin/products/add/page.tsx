@@ -38,7 +38,7 @@ export default function AdminProductsPage() {
 
   // 2. Delete Handler Logic
   const handleDelete = async (productId: string) => {
-    const confirmDelete = window.confirm("Kya aap sach me ye product delete karna chahte hain?");
+    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
 
     try {
@@ -51,7 +51,7 @@ export default function AdminProductsPage() {
       const data = await res.json();
       
       if (data.success) {
-        alert("🗑️ Product successfully delete ho gaya!");
+        alert("🗑️ Product deleted successfully!");
         // UI se bina reload kiye state update
         setProducts(products.filter((item) => item._id !== productId));
       } else {
@@ -157,8 +157,8 @@ export default function AdminProductsPage() {
         {/* Empty State */}
         {products.length === 0 && (
           <div className="py-24 text-center">
-            <h3 className="text-xl font-bold text-gray-400">Dashboard me koi masala nahi mila!</h3>
-            <p className="text-sm text-gray-500 mt-1">Naye products add product form se dalein.</p>
+            <h3 className="text-xl font-bold text-gray-400">No products found in the dashboard!</h3>
+            <p className="text-sm text-gray-500 mt-1">Add new products using the add product form.</p>
           </div>
         )}
       </main>

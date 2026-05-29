@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }, // Guest ke liye false
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false }, // False for guest
   items: [
     {
       product: { type: mongoose.Schema.Types.ObjectId, required: false }, // false

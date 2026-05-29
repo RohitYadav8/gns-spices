@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import Order from '@/models/Order';
 
 // UNIVERSAL ROADMAP FOR DB CONNECTION
-// Agar relative paths crash ho rahe hain, toh hum seedhe process environment 
-// aur mongoose instance ko yahin par dynamically reuse kar lenge!
+// If relative paths crash, we directly use process environment 
+// and dynamically reuse the mongoose instance here!
 async function forceConnectDB() {
   if (mongoose.connection.readyState >= 1) {
     return mongoose.connection;

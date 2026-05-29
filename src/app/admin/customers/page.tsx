@@ -141,11 +141,11 @@ export default function CustomersPage() {
               {/* LOADING */}
               {fetching ? (
                 <div className="p-12 text-center font-semibold text-[#332D20]/60">
-                  Customers load ho rahe hain...
+                  Loading customers...
                 </div>
               ) : customers.length === 0 ? (
                 <div className="p-12 text-center font-semibold text-[#332D20]/60">
-                  Koi customer register nahi hua hai.
+                  No registered customers found.
                 </div>
               ) : (
                 <div className="overflow-x-auto">

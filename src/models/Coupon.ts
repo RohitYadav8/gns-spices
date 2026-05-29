@@ -21,7 +21,7 @@ const CouponSchema = new Schema<ICoupon>(
       type: Number,
       required: [true, 'Discount percentage zaroori hai'],
       min: [1, 'Discount kam se kam 1% hona chahiye'],
-      max: [100, 'Discount 100% se zyada nahi ho sakta'],
+      max: [100, 'Discount cannot be more than 100%'],
     },
     expiryDate: {
       type: Date,

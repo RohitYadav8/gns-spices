@@ -78,7 +78,7 @@ export default function CouponPage() {
       const data = text ? JSON.parse(text) : {};
 
       if (res.ok) {
-        alert('Coupon kamyabi se ban gaya!');
+        alert('Coupon created successfully!');
 
         setCode('');
         setDiscount('');
@@ -120,7 +120,7 @@ export default function CouponPage() {
           prev.filter((coupon) => coupon._id !== id)
         );
 
-        alert('Coupon delete ho gaya');
+        alert('Coupon deleted successfully');
       } else {
         alert(data.message || 'Delete failed');
       }
@@ -348,7 +348,7 @@ export default function CouponPage() {
               {/* LOADING */}
               {fetching ? (
                 <div className="p-12 text-center font-semibold text-[#332D20]/60">
-                  Coupons load ho rahe hain...
+                  Loading coupons...
                 </div>
               ) : coupons.length === 0 ? (
                 <div className="p-12 text-center font-semibold text-[#332D20]/60">

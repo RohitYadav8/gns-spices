@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from "@/lib/db"; // Aapka sahi database import
 import Coupon from '@/models/Coupon';
 
-// 1. GET: Saare coupons fetch karne ke liye
+// 1. GET: To fetch all coupons
 export async function GET() {
   try {
     // Sahi function call
@@ -17,7 +17,7 @@ export async function GET() {
   }
 }
 
-// 2. POST: Naya coupon create karne ke liye
+// 2. POST: To create a new coupon
 export async function POST(request: Request) {
   try {
     // Sahi function call
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   }
 }
 
-// 3. DELETE: Coupon remove karne ke liye
+// 3. DELETE: To remove a coupon
 export async function DELETE(request: Request) {
   try {
     // Sahi function call
