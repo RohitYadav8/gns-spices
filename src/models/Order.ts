@@ -21,6 +21,7 @@ const OrderSchema = new Schema({
     email: { type: String, required: false }, //
     phone: { type: String, required: false },    // false
     addressLine: { type: String, required: false },// false
+    landmark: { type: String, required: false },  // false
     city: { type: String, required: false },      // false
     postalCode: { type: String, required: false } // false
   }

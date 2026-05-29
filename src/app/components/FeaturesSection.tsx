@@ -47,9 +47,9 @@ export default function FeaturesSection() {
     <section className="relative overflow-hidden bg-[#FFF6DE] py-24">
 
       {/* BACKGROUND GLOWS */}
-      <div className="absolute left-0 top-0 h-[320px] w-[320px] rounded-full bg-[#8BDFDD]/20 blur-[120px]" />
+      <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-[#8BDFDD]/20 blur-[120px]" />
 
-      <div className="absolute right-0 bottom-0 h-[320px] w-[320px] rounded-full bg-[#F48F68]/10 blur-[120px]" />
+      <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-[#F48F68]/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
 
@@ -113,7 +113,7 @@ export default function FeaturesSection() {
 
                   {/* ICON */}
                   <div
-                    className="mb-6 flex h-18 w-18 items-center justify-center rounded-[24px] border border-white/40 shadow-lg transition-all duration-500 group-hover:scale-110"
+                    className="mb-6 flex h-18 w-18 items-center justify-center rounded-3xl border border-white/40 shadow-lg transition-all duration-500 group-hover:scale-110"
                     style={{
                       background: `${f.accent}15`,
                     }}

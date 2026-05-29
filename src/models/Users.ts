@@ -20,6 +20,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "customer",
     },
+    phone: { type: String, default: "" },
+    addressLine: { type: String, default: "" },
+    landmark: { type: String, default: "" },
+    city: { type: String, default: "" },
+    postalCode: { type: String, default: "" },
   },
   {
     timestamps: true,

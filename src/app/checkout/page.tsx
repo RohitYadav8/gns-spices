@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 function CheckoutPage() {
     const router = useRouter();
@@ -29,9 +30,25 @@ function CheckoutPage() {
         email: '',
         phone: '',
         addressLine: '',
+        landmark: '',
         city: '',
         postalCode: '',
     });
+
+    const { user } = useAuth();
+    useEffect(() => {
+        if (user) {
+            setFormData({
+                fullName: user.name || '',
+                email: user.email || '',
+                phone: user.phone || '',
+                addressLine: user.addressLine || '',
+                landmark: user.landmark || '',
+                city: user.city || '',
+                postalCode: user.postalCode || '',
+            });
+        }
+    }, [user]);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
@@ -236,6 +253,7 @@ function CheckoutPage() {
                                     <input
                                         type="text"
                                         name="addressLine"
+                                        value={formData.addressLine}
                                         onChange={handleInputChange}
                                         placeholder="House no, street, area"
                                         required
@@ -249,6 +267,36 @@ function CheckoutPage() {
                       py-4
                       outline-none
                       focus:border-[#F48F68]
+                      text-[#332D20]
+                      placeholder:text-[#332D20]/40
+                      transition-all
+                    "
+                                    />
+                                </div>
+
+                                {/* LANDMARK */}
+                                <div>
+                                    <label className="block text-sm font-bold mb-3 text-[#332D20]">
+                                        Landmark
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="landmark"
+                                        value={formData.landmark}
+                                        onChange={handleInputChange}
+                                        placeholder="Near hospital, park..."
+                                        required
+                                        className="
+                      w-full
+                      rounded-2xl
+                      border border-[#FFE394]
+                      bg-white/70
+                      backdrop-blur-sm
+                      px-5
+                      py-4
+                      outline-none
+                      focus:border-[#8BDFDD]
                       text-[#332D20]
                       placeholder:text-[#332D20]/40
                       transition-all
