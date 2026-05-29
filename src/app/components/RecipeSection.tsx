@@ -9,21 +9,21 @@ const recipes = [
     title: "Kerala Chicken Curry",
     time: "45 MIN",
     serves: "SERVES 4",
-    image: "/kerala-curry.jpg", // public folder mein image honi chahiye
+    image: "/kerala-chicken-curry.png", // public folder mein image honi chahiye
   },
   {
     badge: "GREEN CHANA MASALA",
     title: "Slow-Cooked Chana",
     time: "2 HR",
     serves: "SERVES 6",
-    image: "/chana-masala.jpg",
+    image: "/slow-cooked-chana.png",
   },
   {
     badge: "KASHMIRI SAFFRON",
     title: "Saffron Rice Pulao",
     time: "35 MIN",
     serves: "SERVES 4",
-    image: "/saffron-pulao.jpg",
+    image: "/saffron-rice-pulao.png",
   },
 ];
 
@@ -40,11 +40,11 @@ export default function RecipesSection() {
                 FROM OUR KITCHEN
               </p>
             </div>
-            <h2 className="text-4xl md:text-6xl font-black text-[#332D20] tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-[#332D20] tracking-tight">
               Recipes worth the simmer
             </h2>
           </div>
-          <p className="max-w-xs text-[#332D20]/70 font-medium">
+          <p className=" ml-4 max-w-xs text-[#332D20]/70 font-medium">
             Slow recipes our family makes on Sundays — written down for the first time, with the masalas that bring them to life.
           </p>
         </div>
