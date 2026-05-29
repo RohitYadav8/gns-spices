@@ -26,6 +26,7 @@ function CheckoutPage() {
 
     const [formData, setFormData] = useState({
         fullName: '',
+        email: '',
         phone: '',
         addressLine: '',
         city: '',
@@ -37,6 +38,8 @@ function CheckoutPage() {
             [e.target.name]: e.target.value,
         });
     };
+    const [paymentMethod, setPaymentMethod] = useState('Card');
+
     const handleCompletePurchase = async (
         e: React.FormEvent<HTMLFormElement>
     ) => {
@@ -53,13 +56,14 @@ function CheckoutPage() {
                 body: JSON.stringify({
                     items: [{ name: 'GNS Premium Box', price: finalTotal, quantity: 1 }],
                     customerDetails: formData,
+                    paymentMethod: paymentMethod
                 }),
             });
 
             const data = await res.json();
 
             if (data.url) {
-                // Stripe ke secure page par redirect
+                // Redirect to Stripe OR Success page depending on URL returned
                 window.location.href = data.url;
             } else {
                 alert('Payment initiation failed: ' + (data.error || 'Unknown error'));
@@ -161,6 +165,35 @@ function CheckoutPage() {
                       placeholder:text-[#332D20]/40
                       transition-all
                     "
+                                    />
+                                </div>
+
+                                {/* EMAIL */}
+                                <div>
+                                    <label className="block text-sm font-bold mb-3 text-[#332D20]">
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        onChange={handleInputChange}
+                                        placeholder="Enter your email"
+                                        required
+                                        className="
+                                          w-full
+                                          rounded-2xl
+                                          border border-[#FFE394]
+                                          bg-white/70
+                                          backdrop-blur-sm
+                                          px-5
+                                          py-4
+                                          outline-none
+                                          focus:border-[#F48F68]
+                                          text-[#332D20]
+                                          placeholder:text-[#332D20]/40
+                                          transition-all
+                                        "
                                     />
                                 </div>
 
@@ -284,6 +317,42 @@ function CheckoutPage() {
 
                                 </div>
 
+                                {/* PAYMENT METHODS */}
+                                <div className="pt-4 border-t border-[#FFE394]/50">
+                                    <label className="block text-sm font-black mb-4 text-[#332D20] uppercase tracking-wider">
+                                        Select Payment Method
+                                    </label>
+                                    <div className="flex flex-col space-y-3">
+                                        <label className={`flex items-center gap-3 p-4 border-2 rounded-2xl cursor-pointer transition-all ${paymentMethod === 'Card' ? 'border-[#F48F68] bg-[#F48F68]/10' : 'border-[#FFE394] bg-white/70'}`}>
+                                            <input type="radio" name="payment" value="Card" checked={paymentMethod === 'Card'} onChange={() => setPaymentMethod('Card')} className="w-5 h-5 accent-[#F48F68]" />
+                                            <span className="font-bold">Card Payment (Stripe)</span>
+                                        </label>
+
+                                        <label className={`flex items-center gap-3 p-4 border-2 rounded-2xl cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-[#F48F68] bg-[#F48F68]/10' : 'border-[#FFE394] bg-white/70'}`}>
+                                            <input type="radio" name="payment" value="COD" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="w-5 h-5 accent-[#F48F68]" />
+                                            <span className="font-bold">Cash on Delivery</span>
+                                        </label>
+
+                                        <label className={`flex items-center gap-3 p-4 border-2 rounded-2xl cursor-pointer transition-all ${paymentMethod === 'GPay' ? 'border-[#F48F68] bg-[#F48F68]/10' : 'border-[#FFE394] bg-white/70'}`}>
+                                            <input type="radio" name="payment" value="GPay" checked={paymentMethod === 'GPay'} onChange={() => setPaymentMethod('GPay')} className="w-5 h-5 accent-[#F48F68]" />
+                                            <span className="font-bold">GPay / QR Code</span>
+                                        </label>
+                                    </div>
+                                    
+                                    {paymentMethod === 'GPay' && (
+                                        <div className="mt-5 p-5 text-center border-2 border-dashed border-[#F48F68] rounded-2xl bg-white/50">
+                                            <p className="font-black text-[#F48F68] mb-3">Scan QR to Pay</p>
+                                            <div className="w-40 h-40 mx-auto bg-white border border-[#FFE394] rounded-xl flex items-center justify-center shadow-inner">
+                                                <div className="text-center p-2">
+                                                    <p className="text-[10px] text-gray-400 font-bold uppercase mb-1">DUMMY QR</p>
+                                                    <div className="w-24 h-24 bg-[url('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=dummy@upi&pn=GNS%20Spices&cu=INR')] bg-cover opacity-80" />
+                                                </div>
+                                            </div>
+                                            <p className="text-xs text-[#332D20]/60 font-bold mt-3">After paying, click "Confirm Order" below.</p>
+                                        </div>
+                                    )}
+                                </div>
+
                                 {/* BUTTON */}
                                 <button
                                     type="submit"
@@ -305,7 +374,7 @@ function CheckoutPage() {
                     disabled:opacity-60
                   "
                                 >
-                                    {loading ? 'Processing...' : `Pay ${finalTotal}`}
+                                    {loading ? 'Processing...' : paymentMethod === 'Card' ? `Pay £${finalTotal} Securely` : `Confirm Order`}
                                 </button>
 
                             </form>

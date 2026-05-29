@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import mongoose from 'mongoose';
 import connectDB from '@/lib/db'; 
 import Order from '@/models/Order';
+import { sendOrderEmail } from '@/lib/sendEmail';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: undefined, 
@@ -11,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const { items, customerDetails } = await req.json();
+    const { items, customerDetails, paymentMethod } = await req.json();
 
     // 1. Calculations
     const subtotal = items.reduce((acc: any, item: any) => acc + (item.price * item.quantity), 0);
@@ -36,12 +37,23 @@ export async function POST(req: Request) {
         city: customerDetails.city,
         postalCode: customerDetails.postalCode
       },
-      paymentMethod: 'Stripe',
+      paymentMethod: paymentMethod || 'Stripe',
       status: 'Pending',
       paymentStatus: 'Pending'
     });
 
-    // 3. Stripe Checkout Session
+    if (paymentMethod === 'COD' || paymentMethod === 'GPay') {
+      sendOrderEmail({
+        orderId: newOrder._id.toString(),
+        customer: customerDetails,
+        items: items,
+        total: subtotal
+      }).catch(console.error);
+
+      return NextResponse.json({ url: `${process.env.NEXT_PUBLIC_URL}/success` });
+    }
+
+    // 3. Stripe Checkout Session (ONLY FOR CARD)
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       customer_email: customerDetails.email, // <--- Stripe par bhi email bhej rahe hain

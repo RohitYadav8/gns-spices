@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 const CartContext = createContext<any>(null);
 
@@ -52,11 +52,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const clearCart = useCallback(() => {
+    setCart([]);
+  }, []);
+
   if (!isClient) return null;
 
   return (
-    // Value me updateQuantity ko pass kar diya hai
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+    // Value me updateQuantity aur clearCart ko pass kar diya hai
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );
