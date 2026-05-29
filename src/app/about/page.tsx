@@ -21,8 +21,8 @@ export default function AboutPage() {
             </h1>
 
             <p className="text-[#332D20]/70 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
-              GNS Spices sirf ek brand nahi, teen peedhiyon ka bharosa hai.
-              1972 se hum asli Indian swad ko duniya tak pahuncha rahe hain.
+              GNS Spices is not just a brand, it's our dream.
+              We have been crafting authentic Indian spices since 1972.
             </p>
           </div>
 
@@ -41,13 +41,13 @@ export default function AboutPage() {
 
             <div className="space-y-8">
               <h2 className="text-4xl font-black text-[#F48F68] uppercase tracking-tight">
-                Har Daane Mein Shudhta
+                Purity In Every Seed
               </h2>
 
               <p className="text-[#332D20]/80 text-lg leading-relaxed">
-                Humare masale Kerala ke behtareen khetton se seedha aap tak aate hain.
-                Hum slow-roasting process ka use karte hain taaki masalon ki natural
-                khushbu aur essential oils hamesha barkarar rahein.
+                Our spices are sourced from Kerala and Rajasthan.
+                We use a slow-roasting process so that
+                the aroma and essential oils are locked in.
               </p>
 
               <ul className="space-y-4">

@@ -36,6 +36,9 @@ const AuthPage = () => {
   const [password, setPassword] =
     useState("");
 
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
+
   const [loading, setLoading] =
     useState(false);
 
@@ -44,6 +47,11 @@ const AuthPage = () => {
     e: React.FormEvent
   ) => {
     e.preventDefault();
+
+    if (!isLogin && password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -77,6 +85,7 @@ const AuthPage = () => {
         setName("");
         setEmail("");
         setPassword("");
+        setConfirmPassword("");
 
         // REDIRECT
         router.push("/products");
@@ -253,6 +262,39 @@ const AuthPage = () => {
                 </button>
               </div>
             </div>
+
+            {/* CONFIRM PASSWORD */}
+            {!isLogin && (
+              <div className="space-y-2">
+                <label className="block text-xs font-black uppercase tracking-wider text-[#332D20]/80">
+                  Confirm Password
+                </label>
+
+                <div className="relative">
+                  <Lock
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-[#332D20]/40"
+                  />
+
+                  <input
+                    type={
+                      showPassword
+                        ? "text"
+                        : "password"
+                    }
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChange={(e) =>
+                      setConfirmPassword(
+                        e.target.value
+                      )
+                    }
+                    className="h-14 w-full rounded-xl border-2 border-[#FFE394]/40 bg-[#FFE394]/15 pl-12 pr-12 text-sm font-semibold text-[#332D20] outline-none placeholder:text-[#332D20]/40 focus:border-[#8BDFDD]"
+                  />
+                </div>
+              </div>
+            )}
+
 
             {/* FORGOT PASSWORD */}
             {isLogin && (

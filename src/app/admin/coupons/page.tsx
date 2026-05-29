@@ -56,7 +56,7 @@ export default function CouponPage() {
     e.preventDefault();
 
     if (!code || !discount || !expiryDate) {
-      return alert('Saari fields bharein!');
+      return alert('Please fill all fields!');
     }
 
     setLoading(true);
@@ -86,7 +86,7 @@ export default function CouponPage() {
 
         fetchCoupons();
       } else {
-        alert(data.message || 'Kuch gadbad hui');
+        alert(data.message || 'Something went wrong');
       }
     } catch (error) {
       console.error(error);
@@ -99,7 +99,7 @@ export default function CouponPage() {
   // DELETE COUPON
   const handleDelete = async (id: string) => {
     const confirmDelete = confirm(
-      'Kya aap is coupon ko delete karna chahte hain?'
+      'Are you sure you want to delete this coupon?'
     );
 
     if (!confirmDelete) return;
@@ -352,7 +352,7 @@ export default function CouponPage() {
                 </div>
               ) : coupons.length === 0 ? (
                 <div className="p-12 text-center font-semibold text-[#332D20]/60">
-                  Koi active coupons nahi hain.
+                  No active coupons found.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
