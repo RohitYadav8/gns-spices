@@ -34,7 +34,8 @@ export async function POST(req: Request) {
         orderId: updatedOrder._id.toString(),
         customer: updatedOrder.shippingAddress,
         items: updatedOrder.items,
-        total: updatedOrder.totalAmount
+        total: updatedOrder.totalAmount,
+        paymentMethod: updatedOrder.paymentMethod
       }).catch(console.error);
     }
   }
