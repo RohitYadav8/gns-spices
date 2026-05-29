@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 import {
   Mail,
@@ -17,6 +18,7 @@ import {
 
 const AuthPage = () => {
   const router = useRouter();
+  const { user, login, logout } = useAuth();
 
   const [showPassword, setShowPassword] =
     useState(false);
@@ -70,6 +72,7 @@ const AuthPage = () => {
       console.log(data);
 
       if (data.success) {
+        login(data.user);
         // RESET FORM
         setName("");
         setEmail("");
@@ -109,8 +112,28 @@ const AuthPage = () => {
       <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-4xl border-2 border-[#FFE394]/60 bg-white shadow-xl shadow-[#332D20]/5">
         
         <div className="p-6 sm:p-10 lg:p-12">
-          
-          {/* HEADER */}
+          {user ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#FFE394]/30 text-4xl font-black text-[#F48F68]">
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <h2 className="text-3xl font-black tracking-tight text-[#332D20]">
+                Welcome, {user.name.split(" ")[0]}!
+              </h2>
+              <p className="mt-2 text-sm font-medium text-[#332D20]/60">
+                {user.email}
+              </p>
+              
+              <button
+                onClick={() => logout()}
+                className="mt-10 flex h-12 w-full max-w-[200px] items-center justify-center gap-2 rounded-xl bg-white border-2 border-[#FFE394]/60 text-sm font-bold text-[#332D20] transition-all duration-300 hover:border-[#F48F68] hover:bg-[#F48F68]/10"
+              >
+                LOGOUT
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* HEADER */}
           <div className="mb-8">
             <h2 className="text-4xl font-black tracking-tight text-[#332D20]">
               {isLogin
@@ -301,6 +324,8 @@ const AuthPage = () => {
                 : "Login"}
             </button>
           </div>
+          </>
+          )}
         </div>
       </div>
     </main>

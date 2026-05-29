@@ -12,11 +12,20 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const { email, password } = body;
+    const email = body.email?.trim().toLowerCase();
+    const password = body.password;
+
+    if (!email || !password) {
+      return NextResponse.json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
 
     // FIND USER
+    // We use a regex for case-insensitive search in case the user was saved with uppercase letters
     const user = await User.findOne({
-      email,
+      email: { $regex: new RegExp(`^${email}$`, "i") },
     });
 
     // USER NOT FOUND
@@ -28,14 +37,16 @@ export async function POST(req: Request) {
     }
 
     // CHECK PASSWORD
-    const isPasswordCorrect =
-      await bcrypt.compare(
-        password,
-        user.password
-      );
+    let isPasswordCorrect = false;
+    try {
+      isPasswordCorrect = await bcrypt.compare(password, user.password);
+    } catch (err) {
+      console.error("Bcrypt compare error:", err);
+    }
 
     // INVALID PASSWORD
     if (!isPasswordCorrect) {
+      console.log(`Failed login attempt for ${email}: Invalid password`);
       return NextResponse.json({
         success: false,
         message: "Invalid password",

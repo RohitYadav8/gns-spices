@@ -11,12 +11,14 @@ import {
 } from "lucide-react";
 
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const { cart } = useCart();
+  const { user } = useAuth();
 
   const totalItems = cart.reduce(
     (acc: number, item: any) => acc + (item.quantity || 1),
@@ -199,14 +201,20 @@ const Navbar = () => {
                 shadow-md
               "
             >
-              <User
-                size={21}
-                className="
-                  text-[#332D20]
-                  transition-all
-                  duration-300
-                "
-              />
+              {user ? (
+                <span className="font-bold text-[#332D20] text-lg">
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+              ) : (
+                <User
+                  size={21}
+                  className="
+                    text-[#332D20]
+                    transition-all
+                    duration-300
+                  "
+                />
+              )}
             </div>
           </Link>
 
@@ -372,7 +380,7 @@ const Navbar = () => {
               transition-all
             "
           >
-            Account
+            {user ? `Hi, ${user.name.split(" ")[0]}` : "Account"}
           </Link>
 
         </div>
