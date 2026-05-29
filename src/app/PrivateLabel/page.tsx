@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 const steps = [
@@ -55,8 +56,11 @@ const PrivateLabelHero = () => {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32 flex items-center min-h-screen">
-
-        <div className="max-w-3xl">
+        
+        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
+          
+          {/* LEFT SIDE: Text & CTA */}
+          <div className="max-w-2xl">
 
           {/* Top Label */}
           <div className="flex items-center gap-4 mb-8">
@@ -94,20 +98,60 @@ const PrivateLabelHero = () => {
           {/* Buttons */}
           <div className="flex flex-wrap gap-5 mt-14">
 
-            <button className="bg-[#F48F68] hover:bg-[#ff7e53] transition-all duration-300 text-white font-bold px-10 py-5 rounded-2xl shadow-[0_0_35px_rgba(244,143,104,0.45)] text-lg">
+            <Link href="/contact" className="bg-[#F48F68] hover:bg-[#ff7e53] transition-all duration-300 text-white font-bold px-10 py-5 rounded-2xl shadow-[0_0_35px_rgba(244,143,104,0.45)] text-lg inline-block text-center">
 
               Start a project
 
-            </button>
+            </Link>
+          </div>
 
-        
-
+          {/* Stats / Highlights (NEW) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-16 pt-10 border-t border-[#F48F68]/20">
+            <div>
+              <h3 className="text-3xl font-black text-[#F48F68]">100+</h3>
+              <p className="text-sm font-bold text-[#332D20]/70 uppercase tracking-widest mt-1">Brands Built</p>
+            </div>
+            <div>
+              <h3 className="text-3xl font-black text-[#F48F68]">50+</h3>
+              <p className="text-sm font-bold text-[#332D20]/70 uppercase tracking-widest mt-1">Custom Blends</p>
+            </div>
+            <div>
+              <h3 className="text-3xl font-black text-[#F48F68]">FDA</h3>
+              <p className="text-sm font-bold text-[#332D20]/70 uppercase tracking-widest mt-1">Approved Labs</p>
+            </div>
           </div>
 
         </div>
 
+        {/* RIGHT SIDE: Image (NEW) */}
+        <div className="relative hidden lg:block">
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#F48F68] to-[#8BDFDD] rounded-[40px] transform rotate-3 scale-105 opacity-20 blur-lg"></div>
+          <div className="absolute -inset-4 border-2 border-dashed border-[#F48F68]/30 rounded-[40px] transform -rotate-2"></div>
+          
+          {/* The Image */}
+          <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-4 border-white/50 aspect-[4/5]">
+            <img 
+              src="/private_label_hero.png" 
+              alt="Private Label Spices" 
+              className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
+            />
+            {/* Overlay badge */}
+            <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-xl">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#FFF6DE] rounded-full flex items-center justify-center border border-[#FFE394]">
+                  <span className="text-xl">✨</span>
+                </div>
+                <div>
+                  <p className="font-black text-[#332D20]">Premium Quality</p>
+                  <p className="text-sm text-[#332D20]/70 font-semibold">Ready for your brand</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
+      </div>
     </section>
      <section className="w-full bg-[#F5E8C7] px-6 py-16">
 
@@ -218,7 +262,8 @@ const PrivateLabelHero = () => {
     {/* CTA */}
     <div className="mt-16 flex justify-center">
 
-      <button
+      <Link
+        href="/contact"
         className="
           rounded-full
           bg-[#F48F68]
@@ -233,12 +278,13 @@ const PrivateLabelHero = () => {
           hover:-translate-y-1
           hover:scale-[1.02]
           hover:bg-[#eb7d52]
+          inline-block text-center
         "
       >
 
         Start a project
 
-      </button>
+      </Link>
 
     </div>
 
