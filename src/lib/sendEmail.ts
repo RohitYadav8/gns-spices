@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendOrderEmail = async (orderDetails: any) => {
-  const { customer, items, total, orderId } = orderDetails;
+  const { customer, items, total, orderId, paymentMethod = 'Stripe' } = orderDetails;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -18,7 +18,7 @@ export const sendOrderEmail = async (orderDetails: any) => {
     html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2 style="color: #F48F68;">New Order Received! 🚀</h2>
-        <p>A new order has been placed on your store.</p>
+        <p>A new order has been placed on your store. (<strong>Payment Method:</strong> ${paymentMethod})</p>
         
         <div style="background: #FFF6DE; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
           <h3 style="margin-top: 0;">Customer Details</h3>

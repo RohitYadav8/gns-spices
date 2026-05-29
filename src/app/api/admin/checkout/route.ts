@@ -47,7 +47,8 @@ export async function POST(req: Request) {
         orderId: newOrder._id.toString(),
         customer: customerDetails,
         items: items,
-        total: subtotal
+        total: subtotal,
+        paymentMethod: paymentMethod
       }).catch(console.error);
 
       return NextResponse.json({ url: `${process.env.NEXT_PUBLIC_URL}/success` });
