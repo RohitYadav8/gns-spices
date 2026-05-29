@@ -13,7 +13,7 @@ export const sendOrderEmail = async (orderDetails: any) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: 'forsatyam2018@gmail.com', // Admin Email
+    to: process.env.EMAIL_USER, // Admin Email via ENV
     subject: `New Order Received - ${orderId}`,
     html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
