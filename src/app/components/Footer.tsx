@@ -2,129 +2,78 @@
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#FFE394]/40 bg-[#FFF6DE] text-[#332D20]">
-
-      {/* BACKGROUND GLOW */}
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#8BDFDD]/20 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#F48F68]/10 blur-[140px] pointer-events-none" />
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#0a0503] text-white">
+      {/* BACKGROUND GLOWS */}
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-amber-900/10 blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-red-900/10 blur-[150px] pointer-events-none" />
 
       {/* TOP SECTION */}
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-2 lg:grid-cols-4">
 
-        {/* LEFT */}
+        {/* LEFT - LOGO & DESCRIPTION */}
         <div>
-
-          {/* LOGO */}
           <div className="mb-8">
             <img
-              src="/GNS-LOGO.png"
+              src="/GNS-LOGO.png" // यहाँ अपना लोगो पाथ रखें
               alt="GNS Spices"
-              className="h-14 w-auto rounded-2xl bg-white p-2 shadow-xl"
+              className="h-16 w-auto   p-2 "
             />
           </div>
-
-          {/* TEXT */}
-          <p className="max-w-sm text-base leading-7 text-[#332D20]/75 font-medium">
-            Three generations of farming, sourcing, and
-            slow-roasting. From our family in Kerala to
-            kitchens worldwide.
+          <p className="max-w-sm text-base leading-7 text-zinc-400 font-medium">
+            Three generations of farming, sourcing, and slow-roasting. From our family in Kerala to kitchens worldwide.
           </p>
-
-          {/* ESTD */}
-          <p className="mt-6 text-sm font-black tracking-[6px] text-[#F48F68]">
+          <p className="mt-6 text-sm font-black tracking-[6px] text-amber-500">
             ESTD. 1972
           </p>
         </div>
 
         {/* SHOP */}
         <div>
-          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
-            Shop
-          </h3>
-
-          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
-
-            {[
-              "All spices",
-              "Pure powders",
-              "Whole seeds",
-              "Signature masalas",
-              "Whole spices",
-            ].map((item, i) => (
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Shop</h3>
+          <ul className="space-y-3 text-base text-zinc-400 font-medium">
+            {["All spices", "Pure powders", "Whole seeds", "Signature masalas"].map((item, i) => (
               <li key={i}>
-                <a
-                  href="#"
-                  className="transition-all duration-300 hover:text-[#F48F68] hover:translate-x-1 inline-block"
-                >
+                <a href="#" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   {item}
                 </a>
               </li>
             ))}
-
           </ul>
         </div>
 
         {/* BUSINESS */}
         <div>
-          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#8BDFDD]">
-            Business
-          </h3>
-
-          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
-
-            {[
-              "Wholesale",
-              "Private label",
-              "Request a quote",
-            ].map((item, i) => (
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Business</h3>
+          <ul className="space-y-3 text-base text-zinc-400 font-medium">
+            {["Wholesale", "Private label", "Request a quote"].map((item, i) => (
               <li key={i}>
-                <a
-                  href="#"
-                  className="transition-all duration-300 hover:text-[#8BDFDD] hover:translate-x-1 inline-block"
-                >
+                <a href="#" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                   {item}
                 </a>
               </li>
             ))}
-
           </ul>
         </div>
 
         {/* TRUST */}
         <div>
-          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-[#F48F68]">
-            Trust
-          </h3>
-
-          <ul className="space-y-3 text-base text-[#332D20]/75 font-medium">
-
-            {[
-              "FSSAI certified",
-              "ISO 22000 facility",
-              "Halal & Kosher options",
-              "Lab-tested every batch",
-            ].map((item, i) => (
-              <li
-                key={i}
-                className="rounded-full border border-[#FFE394] bg-white/70 px-4 py-2 text-sm shadow-sm backdrop-blur-sm"
-              >
+          <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Trust</h3>
+          <ul className="space-y-3 text-base text-zinc-400 font-medium">
+            {["FSSAI certified", "ISO 22000 facility", "Halal & Kosher", "Lab-tested"].map((item, i) => (
+              <li key={i} className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300 backdrop-blur-sm">
                 {item}
               </li>
             ))}
-
           </ul>
         </div>
       </div>
 
       {/* BOTTOM */}
-      <div className="relative z-10 border-t border-[#FFE394]/40 py-6">
-
+      <div className="relative z-10 border-t border-white/10 py-8">
         <div className="mx-auto flex max-w-7xl items-center justify-center px-6">
-
-          <p className="text-center text-sm font-medium text-[#332D20]/60">
+          <p className="text-center text-sm font-medium text-zinc-600">
             © 2026 GNS Spices. Crafted in India. Shipped worldwide.
           </p>
-
         </div>
       </div>
     </footer>

@@ -9,7 +9,7 @@ const recipes = [
     title: "Kerala Chicken Curry",
     time: "45 MIN",
     serves: "SERVES 4",
-    image: "/kerala-chicken-curry.png", // public folder mein image honi chahiye
+    image: "/kerala-chicken-curry.png",
   },
   {
     badge: "GREEN CHANA MASALA",
@@ -29,22 +29,22 @@ const recipes = [
 
 export default function RecipesSection() {
   return (
-    <section className="bg-[#FFF6DE] py-24 px-6 md:px-12">
+    <section className="bg-[#0a0503] py-24 px-6 md:px-12 text-white">
       <div className="max-w-7xl mx-auto">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-0.5 bg-[#F48F68]" />
-              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-[#F48F68]">
+              <div className="w-10 h-0.5 bg-amber-500" />
+              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-amber-500">
                 FROM OUR KITCHEN
               </p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-[#332D20] tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               Recipes worth the simmer
             </h2>
           </div>
-          <p className=" ml-4 max-w-xs text-[#332D20]/70 font-medium">
+          <p className="ml-4 max-w-xs text-zinc-400 font-medium leading-relaxed">
             Slow recipes our family makes on Sundays — written down for the first time, with the masalas that bring them to life.
           </p>
         </div>
@@ -55,7 +55,7 @@ export default function RecipesSection() {
             <motion.div
               key={i}
               whileHover={{ y: -10 }}
-              className="group cursor-pointer rounded-4xl overflow-hidden bg-white border-2 border-[#FFE394]/40 shadow-sm transition-all hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
+              className="group cursor-pointer rounded-[2rem] overflow-hidden bg-white/[0.03] border border-white/10 transition-all hover:border-amber-500/50 hover:bg-white/[0.06]"
             >
               {/* IMAGE CONTAINER */}
               <div className="relative h-48 w-full overflow-hidden">
@@ -65,19 +65,20 @@ export default function RecipesSection() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all" />
               </div>
 
               {/* CARD CONTENT */}
               <div className="p-8">
-                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#332D20]/50 mb-3 block">
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-amber-500 mb-3 block">
                   {recipe.badge}
                 </span>
-                <h3 className="text-2xl font-black text-[#332D20] mb-4">
+                <h3 className="text-2xl font-bold text-white mb-4">
                   {recipe.title}
                 </h3>
-                <div className="flex gap-4 text-[11px] font-black uppercase tracking-widest text-[#F48F68]">
+                <div className="flex gap-4 text-[11px] font-black uppercase tracking-widest text-zinc-500">
                   <span>{recipe.time}</span>
-                  <span className="text-[#332D20]/20">•</span>
+                  <span className="text-zinc-700">•</span>
                   <span>{recipe.serves}</span>
                 </div>
               </div>

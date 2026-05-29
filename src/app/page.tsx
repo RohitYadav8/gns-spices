@@ -8,7 +8,6 @@ import B2BSection from "./components/B2BSection";
 import NewsletterSection from "./components/NewsletterSection";
 import Footer from "./components/Footer";
 import AboutProductsSection from "./components/AboutProductsSection";
-import Bestseller from "./components/Bestsellers";
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
       <AboutProductsSection />
       <RecipesSection />
       <B2BSection />
-      <Bestseller />
       <NewsletterSection />
       <Footer />
     </main>

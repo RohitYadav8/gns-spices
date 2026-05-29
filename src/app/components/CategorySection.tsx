@@ -4,13 +4,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface Category {
   _id: string;
   name: string;
   description: string;
-  bg: string;
-  text: string;
+  image: string;
 }
 
 export default function CategorySection() {
@@ -18,119 +18,73 @@ export default function CategorySection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await fetch("/api/categories");
-        const data = await res.json();
-        if (data.success) {
-          setCategories(data.categories);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCategories();
+    // डमी डेटा (इसे आप अपने API कॉल से बदल सकते हैं)
+    const mockCategories = [
+      { _id: "1", name: "Whole Spices", description: "Freshly sourced, sun-dried whole seeds directly from the farm.", image: "/whole-spices.png" },
+      { _id: "2", name: "Pure Powders", description: "Stone-ground for maximum aroma, texture, and natural flavor.", image: "/pure-powders-1.png" },
+      { _id: "3", name: "Signature Masala", description: "Hand-crafted secret blends passed down through generations.", image: "/signature-masalas.png" },
+      { _id: "4", name: "Whole Seeds", description: "Everyday kitchen staples, essential for authentic Indian tadka.", image: "/whole-seeds.png" },
+    ];
+    setCategories(mockCategories);
+    setLoading(false);
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#FFF6DE] py-28 min-h-[600px]">
-      {/* BACKGROUND GLOW */}
-      <div className="absolute left-0 top-0 h-[350px] w-[350px] bg-[#8BDFDD]/20 blur-[120px]" />
-      <div className="absolute right-0 bottom-0 h-[350px] w-[350px] bg-[#F48F68]/10 blur-[140px]" />
-
-      {/* SOFT BACKGROUND */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FFF6DE] via-[#FFF6DE] to-[#f8ecd0]" />
+    <section className="relative overflow-hidden bg-[#0a0503] py-28 min-h-[600px] text-white">
+      {/* BACKGROUND GLOWS - PREMIUM FEEL */}
+      <div className="absolute left-0 top-0 h-[500px] w-[500px] bg-amber-900/10 blur-[150px]" />
+      <div className="absolute right-0 bottom-0 h-[500px] w-[500px] bg-red-900/10 blur-[150px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
-        {/* TOP LABEL */}
-        <div className="mb-6 flex items-center justify-center gap-4">
-          <div className="h-0.5 w-16 bg-[#F48F68]" />
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#F48F68]">
-            OUR RANGE
-          </span>
-          <div className="h-0.5 w-16 bg-[#F48F68]" />
+        <div className="mb-20 flex flex-col items-center">
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <div className="h-0.5 w-16 bg-amber-600" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500">OUR RANGE</span>
+            <div className="h-0.5 w-16 bg-amber-600" />
+          </div>
+          <h2 className="text-center text-4xl font-bold tracking-tight text-white">Shop by category</h2>
         </div>
 
-        {/* HEADING */}
-        <h2 className="text-center text-3xl font-black tracking-[-0.04em] text-[#332D20] md:text-4xl">
-          Shop by category
-        </h2>
-
-        {/* LOADING STATE */}
         {loading ? (
-          <div className="mt-20 flex justify-center">
-             <div className="w-12 h-12 border-4 border-[#FFE394] border-t-[#F48F68] rounded-full animate-spin" />
-          </div>
-        ) : categories.length === 0 ? (
-          <div className="mt-20 flex justify-center text-[#332D20]/60 font-semibold">
-            <p>Categories list is empty.</p>
-          </div>
+          <div className="flex justify-center"><div className="w-10 h-10 border-4 border-amber-900 border-t-amber-500 rounded-full animate-spin" /></div>
         ) : (
-          /* CARDS */
-          <div className="mt-20 grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
             {categories.map((item, i) => (
               <motion.div
-                key={item._id || i}
-                initial={{ opacity: 0, y: 40 }}
+                key={item._id}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.12,
-                }}
+                transition={{ delay: i * 0.1 }}
               >
-                <Link
-                  href={`/shop?category=${encodeURIComponent(item.name)}`}
-                  className="group block"
-                >
-                  <div
-                    className={`
-                      ${item.bg || 'bg-[#FFE394]'}
-                      ${item.text || 'text-[#332D20]'}
-                      relative overflow-hidden
-                      rounded-[36px]
-                      h-[380px]
-                      border border-white/40
-                      p-8
-                      shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-                      backdrop-blur-xl
-                      transition-all duration-500
-                      group-hover:-translate-y-3
-                      group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.12)]
-                    `}
-                  >
-                    {/* SOFT GLOW */}
-                    <div className="absolute left-[-60px] top-[-60px] h-55 w-55 rounded-full bg-white/20 blur-[70px]" />
+                <Link href={`/shop?category=${encodeURIComponent(item.name)}`} className="group block h-full">
+                  {/* CARD CONTAINER */}
+                  <div className="relative overflow-hidden rounded-[2rem] h-[450px] border border-white/10 bg-zinc-900/50 transition-all duration-500 hover:border-amber-500/50 hover:bg-zinc-900/80">
 
-                    {/* CONTENT */}
-                    <div className="relative z-10 flex h-full flex-col">
-                      
-                      {/* TOP & TEXT (FLEX-GROW pushes button down) */}
-                      <div className="flex-grow">
-                        <p className="text-[10px] font-black uppercase tracking-[0.35em] opacity-70 mb-8">
-                          CATEGORY
-                        </p>
+                    {/* IMAGE SECTION */}
+                    {/* IMAGE SECTION */}
+                    <div className="relative h-[250px] w-full overflow-hidden bg-black/20">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        // 'object-cover' की जगह 'object-contain' का इस्तेमाल करें अगर पूरी इमेज दिखानी है, 
+                        // या 'object-cover' रहने दें और 'object-center' सुनिश्चित करें।
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/20" />
+                    </div>
 
-                        <h3 className="text-[28px] font-black leading-[1.1] tracking-tight">
-                          {item.name}
-                        </h3>
+                    {/* CONTENT SECTION */}
+                    <div className="p-8">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500 mb-2">CATEGORY</p>
+                      <h3 className="text-2xl font-bold mb-3 text-white">{item.name}</h3>
+                      <p className="text-sm text-zinc-400 mb-8 leading-relaxed line-clamp-2">{item.description}</p>
 
-                        <p className="mt-4 max-w-[240px] text-[15px] leading-relaxed opacity-80 line-clamp-3">
-                          {item.description}
-                        </p>
+                      {/* EXPLORE LINK */}
+                      <div className="absolute bottom-8 left-8 flex items-center gap-2 text-sm font-bold text-amber-500 group-hover:gap-4 transition-all">
+                        Explore <ArrowRight size={16} />
                       </div>
-
-                      {/* BUTTON ALIGNED TO EXACT BOTTOM */}
-                      <div className="mt-4">
-                        <span className="inline-flex items-center gap-2 border-b border-current pb-1 text-base font-bold transition-all duration-300 group-hover:gap-4">
-                          Explore
-                          <ArrowRight size={18} />
-                        </span>
-                      </div>
-
                     </div>
                   </div>
                 </Link>

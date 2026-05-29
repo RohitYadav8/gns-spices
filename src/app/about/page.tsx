@@ -31,7 +31,7 @@ export default function AboutPage() {
 
             <div className="relative h-125 rounded-[40px] overflow-hidden shadow-2xl group border-2 border-[#FFE394]/40">
               <Image
-                src="/mhbjgg.png"
+                src="/Our-Story.png"
                 alt="Spices background"
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
