@@ -15,17 +15,17 @@ export default function BestsellerSection() {
   return (
     <section className="relative overflow-hidden bg-[#FFF6DE] py-28">
       {/* BACKGROUND ELEMENTS */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#8BDFDD]/20 blur-[150px]" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#F48F68]/10 blur-[150px]" />
+      <div className="absolute top-0 left-0 w-125 h-125 bg-[#8BDFDD]/20 blur-[150px]" />
+      <div className="absolute bottom-0 right-0 w-125 h-125 bg-[#F48F68]/10 blur-[150px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         {/* HEADER */}
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="mb-5 flex items-center gap-4">
-              <div className="h-[2px] w-14 bg-[#F48F68]" />
+              <div className="h-0.5 w-14 bg-[#F48F68]" />
               <span className="text-[10px] font-black uppercase tracking-[0.35em] text-[#F48F68]">BESTSELLERS</span>
-              <div className="h-[2px] w-14 bg-[#F48F68]" />
+              <div className="h-0.5 w-14 bg-[#F48F68]" />
             </div>
             <h2 className="text-4xl font-black tracking-tight text-[#332D20] md:text-6xl">From our shelves</h2>
           </div>
@@ -38,7 +38,7 @@ export default function BestsellerSection() {
         <div className="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {products.map((item, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border-2 border-[#FFE394]/40 bg-white p-5 transition-all duration-300 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-4xl border-2 border-[#FFE394]/40 bg-white p-5 transition-all duration-300 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5">
                 
                 {/* IMAGE */}
                 <div className="relative h-[240px] w-full overflow-hidden rounded-2xl mb-6">
@@ -62,7 +62,7 @@ export default function BestsellerSection() {
   <div className="relative">
     <span>Explore</span>
     {/* Line ab text ke neeche rahegi aur cut nahi hogi */}
-    <div className="h-[2px] w-full bg-[#FFE394] mt-0.5" />
+    <div className="h-0.5 w-full bg-[#FFE394] mt-0.5" />
   </div>
   <ArrowRight size={14} />
 </Link>

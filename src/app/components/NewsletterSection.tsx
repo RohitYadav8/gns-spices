@@ -14,16 +14,16 @@ export default function Newsletter() {
   return (
     <section className="relative py-24 px-6 md:px-12 bg-[#FFF6DE] overflow-hidden">
       {/* Subtle Background Accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#8BDFDD]/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-[#8BDFDD]/10 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Label */}
         <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="w-10 h-[2px] bg-[#F48F68]" />
+          <div className="w-10 h-0.5 bg-[#F48F68]" />
           <span className="uppercase tracking-[3px] text-[10px] font-black text-[#F48F68]">
             Stay in the kitchen
           </span>
-          <div className="w-10 h-[2px] bg-[#F48F68]" />
+          <div className="w-10 h-0.5 bg-[#F48F68]" />
         </div>
 
         {/* Heading */}

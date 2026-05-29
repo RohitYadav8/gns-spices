@@ -79,7 +79,7 @@ const SpicesHero = () => {
       <div className="flex flex-col md:flex-row gap-10 max-w-7xl w-full justify-center">
 
         {/* Retailer Card */}
-        <div className="flex-1 rounded-[32px] border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(244,143,104,0.25)]">
+        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(244,143,104,0.25)]">
 
           <h2 className="text-2xl font-bold mb-4 text-amber-400">
             Retailer
@@ -93,10 +93,10 @@ const SpicesHero = () => {
         </div>
 
         {/* Highlight Wholesale Card */}
-        <div className="flex-1 rounded-[32px] border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
+        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
 
 
-          <div className="h-full rounded-[32px] bg-gradient-to-br from-[#F48F68] via-[#ff7b63] to-[#8BDFDD] p-10 text-black">
+          <div className="h-full rounded-4xl bg-gradient-to-br from-[#F48F68] via-[#ff7b63] to-[#8BDFDD] p-10 text-black">
 
             <h2 className="text-2xl font-bold mb-4 text-amber-400">
               Wholesale
@@ -111,7 +111,7 @@ const SpicesHero = () => {
         </div>
 
         {/* Distributor Card */}
-        <div className="flex-1 rounded-[32px] border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
+        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
 
           <h2 className="text-2xl font-bold mb-4 text-amber-400">
             Distributor
@@ -134,13 +134,13 @@ const SpicesHero = () => {
 
         {/* Top Label */}
         <div className="flex items-center gap-4 mb-5">
-          <div className="w-14 h-[2px] bg-[#F48F68]" />
+          <div className="w-14 h-0.5 bg-[#F48F68]" />
 
           <span className="uppercase tracking-[5px] text-[#F48F68] text-sm font-semibold">
             The Process
           </span>
 
-          <div className="w-14 h-[2px] bg-[#F48F68]" />
+          <div className="w-14 h-0.5 bg-[#F48F68]" />
         </div>
 
         {/* Heading */}
@@ -176,7 +176,7 @@ const SpicesHero = () => {
                 </p>
 
                 {/* Accent Line */}
-                <div className="w-28 h-[3px] rounded-full bg-gradient-to-r from-[#F48F68] to-[#8BDFDD] mt-5"></div>
+                <div className="w-28 h-0.75 rounded-full bg-gradient-to-r from-[#F48F68] to-[#8BDFDD] mt-5"></div>
               </div>
 
             </div>

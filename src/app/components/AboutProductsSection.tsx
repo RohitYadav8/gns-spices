@@ -73,7 +73,7 @@ export default function AboutProductsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Quote Card */}
-            <div className="bg-[#8BDFDD]/20 rounded-[32px] p-10 relative overflow-hidden border-2 border-[#8BDFDD]/30">
+            <div className="bg-[#8BDFDD]/20 rounded-4xl p-10 relative overflow-hidden border-2 border-[#8BDFDD]/30">
               <div className="absolute top-0 right-4 text-[120px] text-[#8BDFDD]/40 font-serif leading-none select-none">
                 "
               </div>

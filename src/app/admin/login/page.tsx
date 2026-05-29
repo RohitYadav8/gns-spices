@@ -44,7 +44,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-[#f6f2ef] flex items-center justify-center px-6">
 
-      <div className="w-full max-w-md bg-white rounded-[32px] p-8 shadow-2xl border border-black/5">
+      <div className="w-full max-w-md bg-white rounded-4xl p-8 shadow-2xl border border-black/5">
 
         {/* Heading */}
         <div className="mb-8 text-center">

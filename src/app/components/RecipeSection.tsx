@@ -35,7 +35,7 @@ export default function RecipesSection() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-[2px] bg-[#F48F68]" />
+              <div className="w-10 h-0.5 bg-[#F48F68]" />
               <p className="text-[10px] font-black uppercase tracking-[0.35em] text-[#F48F68]">
                 FROM OUR KITCHEN
               </p>
@@ -55,7 +55,7 @@ export default function RecipesSection() {
             <motion.div
               key={i}
               whileHover={{ y: -10 }}
-              className="group cursor-pointer rounded-[32px] overflow-hidden bg-white border-2 border-[#FFE394]/40 shadow-sm transition-all hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
+              className="group cursor-pointer rounded-4xl overflow-hidden bg-white border-2 border-[#FFE394]/40 shadow-sm transition-all hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
             >
               {/* IMAGE CONTAINER */}
               <div className="relative h-48 w-full overflow-hidden">

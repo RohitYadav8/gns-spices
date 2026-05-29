@@ -179,7 +179,7 @@ const PrivateLabelHero = () => {
   <div className="absolute left-0 bottom-0 h-[350px] w-[350px] rounded-full bg-[#8BDFDD]/20 blur-[120px]" />
 
   {/* YELLOW GLOW */}
-  <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFE394]/20 blur-[120px]" />
+  <div className="absolute left-1/2 top-1/2 h-75 w-75 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FFE394]/20 blur-[120px]" />
 
   {/* CONTENT */}
   <div className="relative z-10 max-w-5xl mx-auto">
@@ -187,13 +187,13 @@ const PrivateLabelHero = () => {
     {/* LABEL */}
     <div className="mb-6 flex items-center justify-center gap-4">
 
-      <div className="h-[2px] w-16 bg-[#F48F68]" />
+      <div className="h-0.5 w-16 bg-[#F48F68]" />
 
       <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#F48F68]">
         PRIVATE LABEL
       </span>
 
-      <div className="h-[2px] w-16 bg-[#F48F68]" />
+      <div className="h-0.5 w-16 bg-[#F48F68]" />
 
     </div>
 

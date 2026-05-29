@@ -97,7 +97,7 @@ const [selectedCategory, setSelectedCategory] =
       <section className="relative min-h-screen overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 text-[#332D20]">
 
         <div className="absolute top-0 left-0 h-[600px] w-[600px] bg-[#8BDFDD]/20 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 h-[500px] w-[500px] bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 h-125 w-125 bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
 
         <h1 className="absolute top-10 left-1/2 -translate-x-1/2 text-[120px] md:text-[240px] font-black text-[#332D20]/[0.03] uppercase select-none pointer-events-none">
           GNS
@@ -109,7 +109,7 @@ const [selectedCategory, setSelectedCategory] =
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
             <div>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-[3px] bg-[#F48F68]" />
+                <div className="w-12 h-0.75 bg-[#F48F68]" />
                 <p className="uppercase tracking-[4px] text-xs font-extrabold text-[#F48F68]">
                   Premium Spice Collection
                 </p>
@@ -167,7 +167,7 @@ const [selectedCategory, setSelectedCategory] =
             {filteredProducts.map((item) => (
               <div
                 key={item._id}
-                className="group relative overflow-hidden rounded-[32px] border-2 border-[#FFE394]/40 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
+                className="group relative overflow-hidden rounded-4xl border-2 border-[#FFE394]/40 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
               >
                 <div className="absolute right-4 top-4 z-20 rounded-full bg-[#FFE394] px-3 py-1 text-xs font-extrabold text-[#332D20] border border-[#FFE394]">
                   {item.category}

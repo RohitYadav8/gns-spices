@@ -8,8 +8,8 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-[#FFFBF0] py-24 text-[#332D20]">
       {/* Background Orbs */}
-      <div className="absolute top-[-10%] left-[-5%] h-[500px] w-[500px] rounded-full bg-[#FFE394]/30 blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[-5%] h-[500px] w-[500px] rounded-full bg-[#F48F68]/20 blur-[120px]" />
+      <div className="absolute top-[-10%] left-[-5%] h-125 w-125 rounded-full bg-[#FFE394]/30 blur-[120px]" />
+      <div className="absolute bottom-[-10%] right-[-5%] h-125 w-125 rounded-full bg-[#F48F68]/20 blur-[120px]" />
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2">
         
@@ -35,7 +35,7 @@ export default function HeroSection() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="grid grid-cols-2 gap-4 h-[500px]"
+          className="grid grid-cols-2 gap-4 h-125"
         >
           {/* Main Product */}
           <div className="relative col-span-1 row-span-2 overflow-hidden rounded-[30px] border border-white shadow-2xl">

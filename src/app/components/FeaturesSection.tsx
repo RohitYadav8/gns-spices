@@ -56,13 +56,13 @@ export default function FeaturesSection() {
         {/* TOP LABEL */}
         <div className="mb-6 flex items-center justify-center gap-4">
 
-          <div className="h-[2px] w-16 bg-[#F48F68]" />
+          <div className="h-0.5 w-16 bg-[#F48F68]" />
 
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#F48F68]">
             WHY GNSSPICES
           </span>
 
-          <div className="h-[2px] w-16 bg-[#F48F68]" />
+          <div className="h-0.5 w-16 bg-[#F48F68]" />
 
         </div>
 
@@ -102,7 +102,7 @@ export default function FeaturesSection() {
 
                 {/* TOP BORDER */}
                 <div
-                  className="absolute left-0 top-0 h-[3px] w-0 transition-all duration-500 group-hover:w-full"
+                  className="absolute left-0 top-0 h-0.75 w-0 transition-all duration-500 group-hover:w-full"
                   style={{
                     background: f.accent,
                   }}

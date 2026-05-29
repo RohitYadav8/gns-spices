@@ -126,7 +126,7 @@ const AuthPage = () => {
               
               <button
                 onClick={() => logout()}
-                className="mt-10 flex h-12 w-full max-w-[200px] items-center justify-center gap-2 rounded-xl bg-white border-2 border-[#FFE394]/60 text-sm font-bold text-[#332D20] transition-all duration-300 hover:border-[#F48F68] hover:bg-[#F48F68]/10"
+                className="mt-10 flex h-12 w-full max-w-50 items-center justify-center gap-2 rounded-xl bg-white border-2 border-[#FFE394]/60 text-sm font-bold text-[#332D20] transition-all duration-300 hover:border-[#F48F68] hover:bg-[#F48F68]/10"
               >
                 LOGOUT
               </button>

@@ -29,7 +29,7 @@ export default function AboutPage() {
           {/* Story Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32">
 
-            <div className="relative h-[500px] rounded-[40px] overflow-hidden shadow-2xl group border-2 border-[#FFE394]/40">
+            <div className="relative h-125 rounded-[40px] overflow-hidden shadow-2xl group border-2 border-[#FFE394]/40">
               <Image
                 src="/mhbjgg.png"
                 alt="Spices background"

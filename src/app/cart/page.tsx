@@ -69,7 +69,7 @@ export default function CartPage() {
 
         {/* INTERACTIVE GLOW MAPS (Shop page wale soft pastel blobs) */}
         <div className="absolute top-0 left-0 h-[600px] w-[600px] bg-[#8BDFDD]/20 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 h-[500px] w-[500px] bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 h-125 w-125 bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
 
         {/* LARGE DECORATIVE BACKGROUND TEXT */}
         <h1 className="absolute top-10 left-1/2 -translate-x-1/2 text-[120px] md:text-[240px] font-black text-[#332D20]/[0.02] uppercase select-none pointer-events-none">
@@ -97,7 +97,7 @@ export default function CartPage() {
 
           {cart.length === 0 ? (
             /* --- EMPTY CART VIEW (MATCHED WITH THEME) --- */
-            <div className="py-24 text-center border-2 border-[#FFE394]/40 rounded-[32px] bg-white shadow-sm backdrop-blur-3xl">
+            <div className="py-24 text-center border-2 border-[#FFE394]/40 rounded-4xl bg-white shadow-sm backdrop-blur-3xl">
               <ShoppingBag size={60} className="mx-auto mb-6 text-[#332D20]/30" strokeWidth={1.5} />
               <h2 className="text-2xl font-bold tracking-tight mb-8 text-[#332D20]/70">Your spice collection is currently empty.</h2>
               <Link href="/products" className="bg-[#F48F68] text-white px-10 py-4 rounded-full font-black uppercase tracking-widest hover:opacity-90 transition-all hover:scale-105 active:scale-95 shadow-md shadow-[#F48F68]/20">
@@ -152,7 +152,7 @@ export default function CartPage() {
 
               {/* --- SUMMARY COLUMN --- */}
               <div className="lg:col-span-5">
-                <div className="sticky top-32 p-8 rounded-[32px] border-2 border-[#FFE394]/40 bg-white shadow-md">
+                <div className="sticky top-32 p-8 rounded-4xl border-2 border-[#FFE394]/40 bg-white shadow-md">
                   <div className="flex items-center gap-2 mb-8 text-[#332D20]/60">
                     <CreditCard size={18} />
                     <span className="text-[10px] uppercase tracking-[0.4em] font-black">Order Summary</span>

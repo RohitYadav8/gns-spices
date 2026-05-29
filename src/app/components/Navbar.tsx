@@ -51,16 +51,16 @@ const Navbar = () => {
       }`}
     >
       {/* CYAN GLOW */}
-      <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-[#8BDFDD]/20 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-75 h-75 bg-[#8BDFDD]/20 blur-[120px] pointer-events-none" />
 
       {/* ORANGE GLOW */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#F48F68]/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-75 h-75 bg-[#F48F68]/10 blur-[120px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 flex items-center justify-between">
 
         {/* LOGO */}
         <Link href="/">
-          <div className="relative w-[170px] h-[55px] cursor-pointer">
+          <div className="relative w-42.5 h-13.75 cursor-pointer">
             <Image
               src="/GNS-LOGO.png"
               alt="Logo"
@@ -103,7 +103,7 @@ const Navbar = () => {
                   absolute
                   left-0
                   -bottom-2
-                  h-[2px]
+                  h-0.5
                   w-0
                   bg-[#F48F68]
                   transition-all
@@ -246,14 +246,14 @@ const Navbar = () => {
       <div
         className={`lg:hidden overflow-hidden transition-all duration-500 ${
           mobileMenu
-            ? "max-h-[500px] opacity-100 mt-4"
+            ? "max-h-125 opacity-100 mt-4"
             : "max-h-0 opacity-0"
         }`}
       >
         <div
           className="
             mx-4
-            rounded-[32px]
+            rounded-4xl
             border
             border-[#FFE394]
             bg-white/20

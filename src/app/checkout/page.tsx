@@ -75,10 +75,10 @@ function CheckoutPage() {
         <section className="relative min-h-screen overflow-hidden bg-[#FFF6DE] text-[#332D20]">
 
             {/* CYAN GLOW */}
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#8BDFDD]/20 blur-[140px] pointer-events-none" />
+            <div className="absolute top-0 left-0 w-125 h-125 bg-[#8BDFDD]/20 blur-[140px] pointer-events-none" />
 
             {/* ORANGE GLOW */}
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#F48F68]/10 blur-[160px] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-125 h-125 bg-[#F48F68]/10 blur-[160px] pointer-events-none" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
 
@@ -123,7 +123,7 @@ function CheckoutPage() {
                         <div className="relative z-10">
 
                             <div className="flex items-center gap-3 mb-10">
-                                <div className="w-12 h-[3px] bg-[#F48F68]" />
+                                <div className="w-12 h-0.75 bg-[#F48F68]" />
 
                                 <p className="uppercase tracking-[5px] text-xs font-black text-[#F48F68]">
                                     Shipping Details
@@ -327,12 +327,12 @@ function CheckoutPage() {
                     >
 
                         {/* ORANGE GLOW */}
-                        <div className="absolute bottom-0 left-0 w-[220px] h-[220px] bg-[#F48F68]/10 blur-[90px]" />
+                        <div className="absolute bottom-0 left-0 w-55 h-55 bg-[#F48F68]/10 blur-[90px]" />
 
                         <div className="relative z-10">
 
                             <div className="flex items-center gap-3 mb-8">
-                                <div className="w-10 h-[3px] bg-[#8BDFDD]" />
+                                <div className="w-10 h-0.75 bg-[#8BDFDD]" />
 
                                 <p className="uppercase tracking-[5px] text-xs font-black text-[#8BDFDD]">
                                     Order Summary

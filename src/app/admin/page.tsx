@@ -32,7 +32,7 @@ export default async function AdminDashboardPage() {
           { label: "Customers", value: totalUsers, icon: Users, color: "text-[#F48F68]", bg: "bg-[#F48F68]/10" },
           { label: "Products", value: totalProducts, icon: Package, color: "text-[#2D7A78]", bg: "bg-[#8BDFDD]/20" },
         ].map((stat, i) => (
-          <div key={i} className="rounded-[32px] bg-white p-8 border-2 border-[#FFE394]/40 shadow-sm">
+          <div key={i} className="rounded-4xl bg-white p-8 border-2 border-[#FFE394]/40 shadow-sm">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[#332D20]/50 font-black text-[10px] uppercase tracking-[0.2em]">{stat.label}</p>
@@ -47,7 +47,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* RECENT ORDERS (Filtered to show only Pending) */}
-      <div className="mt-10 rounded-[32px] bg-white border-2 border-[#FFE394]/40 p-8">
+      <div className="mt-10 rounded-4xl bg-white border-2 border-[#FFE394]/40 p-8">
         <div className="mb-8">
           <p className="text-[10px] font-black uppercase tracking-[0.35em] text-[#F48F68]">Orders</p>
           <h2 className="mt-2 text-3xl font-black">Recent Orders</h2>

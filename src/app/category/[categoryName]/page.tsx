@@ -103,7 +103,7 @@ export default function CategoryPage() {
         
         {/* Decorative Background Gradients */}
         <div className="absolute top-0 left-0 h-[600px] w-[600px] bg-[#8BDFDD]/20 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 h-[500px] w-[500px] bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 h-125 w-125 bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
 
         <h1 className="absolute top-10 left-1/2 -translate-x-1/2 text-[120px] md:text-[200px] font-black text-[#332D20]/[0.02] uppercase select-none pointer-events-none whitespace-nowrap">
           GNS SPICES
@@ -137,7 +137,7 @@ export default function CategoryPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search in this category..."
-                  className="w-full lg:w-[260px] bg-transparent outline-none text-sm text-[#332D20] placeholder-[#332D20]/40 font-semibold"
+                  className="w-full lg:w-65 bg-transparent outline-none text-sm text-[#332D20] placeholder-[#332D20]/40 font-semibold"
                 />
                 <button
                   type="button"
@@ -183,7 +183,7 @@ export default function CategoryPage() {
                   {filteredProducts.map((item) => (
                     <div
                       key={item._id}
-                      className="group relative overflow-hidden rounded-[32px] border-2 border-[#FFE394]/40 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
+                      className="group relative overflow-hidden rounded-4xl border-2 border-[#FFE394]/40 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[#8BDFDD] hover:shadow-xl hover:shadow-[#332D20]/5"
                     >
                       <div className="absolute right-4 top-4 z-20 rounded-full bg-[#FFE394] px-3 py-1 text-xs font-extrabold text-[#332D20] border border-[#FFE394] capitalize">
                         {item.category}
@@ -225,7 +225,7 @@ export default function CategoryPage() {
                   ))}
                 </div>
               ) : (
-                <div className="py-24 text-center bg-white rounded-[32px] border-2 border-[#FFE394]/40">
+                <div className="py-24 text-center bg-white rounded-4xl border-2 border-[#FFE394]/40">
                   <h2 className="text-2xl font-black text-[#332D20]/40">No Spices Found</h2>
                   <p className="text-[#332D20]/60 mt-2 font-semibold">Is category mein abhi koi naya stock nahi hai.</p>
                 </div>

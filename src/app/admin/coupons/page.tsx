@@ -133,10 +133,10 @@ export default function CouponPage() {
     <section className="relative overflow-hidden min-h-screen bg-[#FFF6DE] text-[#332D20]">
 
       {/* CYAN GLOW */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#8BDFDD]/20 blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-125 h-125 bg-[#8BDFDD]/20 blur-[140px] pointer-events-none" />
 
       {/* ORANGE GLOW */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#F48F68]/10 blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-125 h-125 bg-[#F48F68]/10 blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
 
@@ -163,7 +163,7 @@ export default function CouponPage() {
           {/* LEFT FORM */}
           <div
             className="
-              rounded-[32px]
+              rounded-4xl
               border
               border-[#FFE394]
               bg-white/70
@@ -176,7 +176,7 @@ export default function CouponPage() {
           >
 
             {/* INNER GLOW */}
-            <div className="absolute top-0 left-0 w-[220px] h-[220px] bg-[#8BDFDD]/20 blur-[100px]" />
+            <div className="absolute top-0 left-0 w-55 h-55 bg-[#8BDFDD]/20 blur-[100px]" />
 
             <div className="relative z-10">
 
@@ -320,7 +320,7 @@ export default function CouponPage() {
           <div
             className="
               lg:col-span-2
-              rounded-[32px]
+              rounded-4xl
               border
               border-[#FFE394]
               bg-white/70
@@ -332,7 +332,7 @@ export default function CouponPage() {
           >
 
             {/* ORANGE GLOW */}
-            <div className="absolute top-0 right-0 w-[260px] h-[260px] bg-[#F48F68]/10 blur-[120px]" />
+            <div className="absolute top-0 right-0 w-65 h-65 bg-[#F48F68]/10 blur-[120px]" />
 
             <div className="relative z-10">
 
