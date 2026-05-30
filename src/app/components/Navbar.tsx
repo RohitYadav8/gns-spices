@@ -22,7 +22,7 @@ export default function Navbar() {
             <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
             <Link href="/masalas" className="hover:text-white transition-colors">Masalas</Link>
             <Link href="/B2B" className="hover:text-white transition-colors">B2B</Link>
-            <Link href="/private-label" className="hover:text-white transition-colors">Private Label</Link>
+            <Link href="/PrivateLabel" className="hover:text-white transition-colors">Private Label</Link>
             <Link href="/cart" className="hover:text-white transition-colors">Cart</Link>
           </div>
 
