@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 import Image from "next/image";
 
+
 export default function AboutProductsSection() {
   return (
     <section className="py-24 bg-[#0a0503] text-white">
@@ -49,24 +50,43 @@ export default function AboutProductsSection() {
           </motion.div>
 
           {/* RIGHT: IMAGE + QUOTE */}
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-8">
-            
-            {/* Image (Text k side mein) */}
-            <div className="relative h-[400px] w-full rounded-[2rem] overflow-hidden border border-white/10">
-              <Image src="/Our-Story.png" alt="Legacy" fill className="object-cover" />
-            </div>
+       {/* RIGHT: IMAGE + QUOTE */}
+{/* RIGHT: IMAGE + QUOTE */}
+<motion.div
+  initial={{ opacity: 0, x: 30 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+>
+  <div className="relative h-[550px] w-full overflow-hidden rounded-[2rem] border border-white/10">
+    <Image
+      src="/Our-Story.png"
+      alt="Legacy"
+      fill
+      className="object-cover"
+    />
 
-            {/* Quote (Image k niche) */}
-            <div className="bg-amber-900/10 rounded-[2rem] p-8 relative overflow-hidden border border-amber-500/20">
-              <div className="absolute top-0 right-4 text-[80px] text-amber-500/20 font-serif leading-none select-none">"</div>
-              <div className="relative z-10">
-                <h3 className="text-xl md:text-2xl font-bold text-white leading-tight mb-6">
-                  "Pure spice doesn't need a sales pitch. It needs a fair price and an honest scale."
-                </h3>
-                <p className="text-amber-500 text-xs font-black uppercase tracking-widest">— G. N. Subramanian, Founder</p>
-              </div>
-            </div>
-          </motion.div>
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
+
+    {/* Quote Top */}
+    <div className="absolute top-8 left-8 right-8 z-10">
+      <div className="relative">
+        <div className="absolute -top-8 right-0 text-[90px] font-serif leading-none text-amber-500/20 select-none">
+          "
+        </div>
+
+        <h3 className="max-w-2xl text-2xl md:text-4xl font-bold leading-tight text-white">
+          "Pure spice doesn't need a sales pitch. It needs a fair price and an
+          honest scale."
+        </h3>
+
+        <p className="mt-6 text-xs font-black uppercase tracking-[0.25em] text-amber-500">
+          — G. N. Subramanian, Founder
+        </p>
+      </div>
+    </div>
+  </div>
+</motion.div>
 
         </div>
       </div>

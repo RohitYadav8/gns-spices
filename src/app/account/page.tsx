@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -17,7 +19,7 @@ import {
   MapPin,
   LogOut
 } from "lucide-react";
-import Navbar from "../components/Navbar";
+
 
 const AuthPage = () => {
   const router = useRouter();
@@ -155,8 +157,10 @@ const AuthPage = () => {
 
   if (!user) {
     return (
-      <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FFF6DE] px-6 py-10 text-[#332D20]">
-        <Navbar />
+      <>
+      <Navbar/>
+    <main className="relative min-h-screen overflow-hidden bg-[#FAF7F2] px-6 pt-32 pb-10 text-[#2D2A26] flex justify-center">
+        
         {/* BACKGROUND GLOWS */}
         <div className="pointer-events-none absolute left-0 top-0 h-112.5 w-112.5 rounded-full bg-[#8BDFDD]/20 blur-[130px]" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-112.5 w-112.5 rounded-full bg-[#F48F68]/10 blur-[150px]" />
@@ -231,6 +235,8 @@ const AuthPage = () => {
           </div>
         </div>
       </main>
+      <Footer/>
+      </>
     );
   }
 
@@ -502,6 +508,7 @@ const AuthPage = () => {
         </div>
       </div>
     </main>
+  
   );
 };
 

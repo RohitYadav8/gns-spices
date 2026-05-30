@@ -6,98 +6,205 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function AboutPage() {
+  const stats = [
+    { value: "50+", label: "Years Legacy" },
+    { value: "100%", label: "Natural" },
+    { value: "25+", label: "Countries Served" },
+    { value: "FSSAI", label: "Certified" },
+  ];
+
+  const features = [
+    "No Artificial Colours",
+    "Zero Preservatives",
+    "Stone Ground Quality",
+    "Ethically Sourced",
+  ];
+
   return (
     <>
       <Navbar />
 
-      {/* Main container with cream background */}
-      <div className="bg-[#FFF6DE] min-h-screen pt-32 pb-20 px-6 font-sans text-[#332D20]">
-        <div className="max-w-6xl mx-auto">
+      <main className="bg-[#0A0503] text-white min-h-screen pt-32 pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-          {/* Hero Section */}
-          <div className="text-center mb-24">
-            <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-6">
-              Our <span className="text-[#F48F68]">Legacy</span>
+          {/* Hero */}
+          <section className="text-center mb-28">
+            <p className="text-amber-400 text-[11px] font-black uppercase tracking-[0.35em] mb-4">
+              Since 1972
+            </p>
+
+            <h1 className="text-5xl md:text-7xl font-black leading-none">
+              Our <span className="text-amber-400">Legacy</span>
             </h1>
 
-            <p className="text-[#332D20]/70 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
-              GNS Spices is not just a brand, it's our dream.
-              We have been crafting authentic Indian spices since 1972.
+            <p className="max-w-3xl mx-auto mt-8 text-zinc-400 text-lg leading-relaxed">
+              Three generations of spice merchants dedicated to purity,
+              provenance and authentic Indian flavours.
             </p>
-          </div>
+          </section>
 
-          {/* Story Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32">
+          {/* Story */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
 
-            <div className="relative h-125 rounded-[40px] overflow-hidden shadow-2xl group border-2 border-[#FFE394]/40">
+            {/* Image */}
+            <div className="relative h-[600px] overflow-hidden rounded-[36px] border border-white/10 shadow-[0_0_60px_rgba(245,158,11,0.08)]">
+
               <Image
                 src="/Our-Story.png"
-                alt="Spices background"
+                alt="Our Story"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                priority
+                className="object-cover object-center transition-transform duration-700 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A120B]/50 via-transparent to-transparent"></div>
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+              {/* Floating Badge */}
+              <div className="absolute top-6 left-6 rounded-2xl border border-amber-500/20 bg-black/60 backdrop-blur-xl px-5 py-4">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-amber-400 font-black">
+                  Established
+                </p>
+
+                <h3 className="text-3xl font-bold mt-1">
+                  1972
+                </h3>
+              </div>
+
             </div>
 
-            <div className="space-y-8">
-              <h2 className="text-4xl font-black text-[#F48F68] uppercase tracking-tight">
-                Purity In Every Seed
-              </h2>
+            {/* Content */}
+            <div>
 
-              <p className="text-[#332D20]/80 text-lg leading-relaxed">
-                Our spices are sourced from Kerala and Rajasthan.
-                We use a slow-roasting process so that
-                the aroma and essential oils are locked in.
+              <p className="text-amber-400 text-[11px] font-black uppercase tracking-[0.35em] mb-4">
+                The Craft
               </p>
 
-              <ul className="space-y-4">
-                {[
-                  "No Artificial Colors",
-                  "Zero Preservatives",
-                  "Stone-Ground Quality",
-                  "Ethically Sourced",
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 text-[#332D20] font-black tracking-wide"
-                  >
-                    <span className="h-3 w-3 bg-[#F48F68] rounded-full"></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+              <h2 className="text-4xl md:text-6xl font-bold leading-tight mb-8">
+                Purity in
+                <span className="block text-amber-400">
+                  every seed.
+                </span>
+              </h2>
 
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 p-12 rounded-[40px] bg-white shadow-xl border-2 border-[#FFE394]/40 text-center mb-32">
-            {[
-              { val: "50+", label: "Years" },
-              { val: "100%", label: "Natural" },
-              { val: "25+", label: "Countries" },
-              { val: "FSSAI", label: "Certified" },
-            ].map((stat, i) => (
-              <div key={i}>
-                <h4 className="text-5xl font-black text-[#332D20]">{stat.val}</h4>
-                <p className="text-[#F48F68] uppercase text-[10px] font-black tracking-[0.2em] mt-3">
-                  {stat.label}
+              <div className="space-y-6 text-zinc-400 text-lg leading-relaxed">
+                <p>
+                  Our spices are sourced directly from trusted farming
+                  communities across Kerala and Rajasthan.
+                </p>
+
+                <p>
+                  Through careful harvesting, slow roasting and traditional
+                  grinding methods, we preserve the aroma, flavour and
+                  authenticity nature intended.
+                </p>
+
+                <p>
+                  Every batch is tested for consistency, ensuring the same
+                  quality reaches homes, restaurants and retailers worldwide.
                 </p>
               </div>
-            ))}
-          </div>
+
+              <div className="mt-10 space-y-5">
+                {features.map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-4"
+                  >
+                    <div className="h-3 w-3 rounded-full bg-amber-400" />
+
+                    <span className="font-semibold text-white">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          </section>
+
+          {/* Stats */}
+          <section className="mb-32">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-sm p-8 text-center hover:border-amber-500/30 transition"
+                >
+                  <h3 className="text-5xl font-bold text-amber-400">
+                    {stat.value}
+                  </h3>
+
+                  <p className="mt-4 text-xs uppercase tracking-[0.25em] text-zinc-500">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+          </section>
+
+          {/* Founder Quote */}
+          <section className="mb-32">
+
+            <div className="rounded-[36px] border border-white/10 bg-gradient-to-br from-[#120A07] to-black p-10 md:p-16 relative overflow-hidden">
+
+              <div className="absolute right-8 top-0 text-[160px] leading-none text-amber-500/10 font-serif">
+                "
+              </div>
+
+              <p className="text-amber-400 text-[11px] font-black uppercase tracking-[0.35em] mb-6">
+                Founder Note
+              </p>
+
+              <h2 className="max-w-4xl text-3xl md:text-5xl font-bold leading-tight">
+                Pure spice doesn't need a sales pitch.
+                <span className="block text-amber-400 mt-3">
+                  It needs a fair price and an honest scale.
+                </span>
+              </h2>
+
+              <p className="mt-8 text-zinc-400">
+                — G. N. Subramanian, Founder
+              </p>
+
+            </div>
+
+          </section>
 
           {/* CTA */}
-          <div className="text-center">
-            <Link
-              href="/shop"
-              className="inline-block bg-[#F48F68] text-white px-12 py-5 rounded-full font-black uppercase tracking-widest hover:bg-[#8BDFDD] hover:text-[#332D20] hover:scale-105 transition-all shadow-lg"
-            >
-              Explore Our Collection
-            </Link>
-          </div>
+          <section>
+
+            <div className="rounded-[40px] border border-white/10 bg-gradient-to-br from-[#120A07] to-black p-12 md:p-20 text-center">
+
+              <p className="text-amber-400 text-[11px] font-black uppercase tracking-[0.35em] mb-4">
+                Discover
+              </p>
+
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                Experience the
+                <span className="block text-amber-400">
+                  GNS Difference
+                </span>
+              </h2>
+
+              <p className="max-w-2xl mx-auto text-zinc-400 mb-10">
+                Authentic Indian spices crafted with generations of expertise.
+              </p>
+
+              <Link
+                href="/shop"
+                className="inline-flex items-center rounded-2xl bg-amber-500 px-10 py-5 font-bold text-black transition hover:bg-amber-400"
+              >
+                Explore Our Collection
+              </Link>
+
+            </div>
+
+          </section>
 
         </div>
-      </div>
+      </main>
 
       <Footer />
     </>

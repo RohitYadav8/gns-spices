@@ -1,195 +1,179 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-const steps = [
-  {
-    number: "1",
-    title: "Apply",
-    desc: "Share your legal name, tax ID, and what you sell.",
-  },
-  {
-    number: "2",
-    title: "Verify",
-    desc: "Our ops team verifies within 1–2 business days.",
-  },
-  {
-    number: "3",
-    title: "Get pricing",
-    desc: "Assigned tier + custom quote if needed.",
-  },
-  {
-    number: "4",
-    title: "Order",
-    desc: "Dashboard for recurring orders, reorders, and tracking.",
-  },
-];
-const SpicesHero = () => {
+import Navbar from "../components/Navbar";
+
+export default function B2BSection() {
+  const stats = [
+    { value: "4", label: "regions served" },
+    { value: "120+", label: "B2B customers" },
+    { value: "25kg", label: "max bulk SKU" },
+    { value: "24h", label: "RFQ response" },
+  ];
+
+  const pricing = [
+    {
+      title: "Retailer",
+      items: [
+        "5-15% off retail",
+        "Net 0 prepaid",
+        "Order online 24/7",
+      ],
+      featured: false,
+    },
+    {
+      title: "Wholesale",
+      items: [
+        "15-25% off retail",
+        "Bulk SKUs (5kg, 25kg)",
+        "Net 30 on approval",
+      ],
+      featured: true,
+    },
+    {
+      title: "Distributor",
+      items: [
+        "Custom contract pricing",
+        "Dedicated account manager",
+        "Container-load logistics",
+      ],
+      featured: false,
+    },
+  ];
+
+  const steps = [
+    {
+      number: "1",
+      title: "Apply",
+      desc: "Share your legal name, tax ID, and what you sell.",
+    },
+    {
+      number: "2",
+      title: "Verify",
+      desc: "Our ops team verifies within 1–2 business days.",
+    },
+    {
+      number: "3",
+      title: "Get pricing",
+      desc: "Assigned tier + custom quote if needed.",
+    },
+    {
+      number: "4",
+      title: "Order",
+      desc: "Dashboard for recurring orders, reorders, and tracking.",
+    },
+  ];
+
   return (
     <>
     <Navbar/>
-    
-    <section className="bg-[#FFF6DE]  pt-24 px-6 py-28 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        
-        {/* Left Content */}
-        <div className="space-y-6">
-          <span className="text-[#F48F68] font-bold tracking-widest uppercase text-sm">
-            For Trade
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-[#332D20] leading-tight">
-            Spices for <span className="text-[#F48F68]">serious</span> kitchens.
-          </h1>
-          <p className="text-lg text-[#332D20]/80 max-w-lg">
-            Tiered pricing, credit terms, and logistics built for restaurants, 
-            retailers, and distributors across the UK, India, and the Middle East.
-          </p>
-          <div className="flex flex-wrap gap-4 pt-4">
-            <button className="bg-[#F48F68] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#d97d5a] transition">
-              Apply for a business account
-            </button>
-            <button className="border-2 border-[#332D20] text-[#332D20] px-8 py-3 rounded-lg font-semibold hover:bg-[#332D20] hover:text-white transition">
-              Request a quote
-            </button>
+
+    <section className="bg-black text-white">
+      {/* Hero */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,#7c1d12,transparent_45%)] opacity-70" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-24">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            {/* Left */}
+            <div>
+              <p className="mb-4 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
+                <span className="h-px w-10 bg-amber-400" />
+                For Trade
+              </p>
+
+              <h1 className="max-w-xl text-5xl font-extrabold leading-tight md:text-6xl">
+                Spices for{" "}
+                <span className="text-amber-400">serious kitchens.</span>
+              </h1>
+
+              <p className="mt-6 max-w-xl text-lg text-zinc-300">
+                Tiered pricing, credit terms, and logistics built for
+                restaurants, retailers, and distributors across the UK,
+                India, and the Middle East.
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-4">
+                <button className="rounded-xl bg-amber-500 px-7 py-4 font-semibold text-black transition hover:bg-amber-400">
+                  Apply for a business account
+                </button>
+
+                <button className="rounded-xl border border-zinc-700 px-7 py-4 font-semibold text-white hover:bg-zinc-900">
+                  Request a quote
+                </button>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-5">
+              {stats.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm"
+                >
+                  <h3 className="text-5xl font-bold text-amber-400">
+                    {item.value}
+                  </h3>
+
+                  <p className="mt-3 text-zinc-400">{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Right Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { value: "4", label: "regions served" },
-            { value: "120+", label: "B2B customers" },
-            { value: "25kg", label: "max bulk SKU" },
-            { value: "24h", label: "RFQ response" },
-          ].map((stat, idx) => (
-            <div 
-              key={idx} 
-              className="bg-white p-8 rounded-2xl border border-[#FFE394] shadow-sm"
+      {/* Pricing Cards */}
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="grid gap-6 md:grid-cols-3">
+          {pricing.map((card) => (
+            <div
+              key={card.title}
+              className={`rounded-3xl border p-8 transition-all ${
+                card.featured
+                  ? "border-orange-500 bg-gradient-to-br from-red-500 via-red-600 to-orange-500 shadow-[0_0_40px_rgba(249,115,22,0.35)]"
+                  : "border-white/10 bg-zinc-950"
+              }`}
             >
-              <div className="text-4xl font-bold text-[#332D20] mb-2">{stat.value}</div>
-              <div className="text-[#332D20]/70 font-medium">{stat.label}</div>
+              <h3 className="mb-5 text-3xl font-bold">{card.title}</h3>
+
+              <ul className="space-y-3 text-sm text-zinc-200">
+                {card.items.map((item) => (
+                  <li key={item}>• {item}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
-
       </div>
-    </section>
-     <section className="w-full  bg-[#FFF6DE] flex items-center justify-center px-6 py-6">
 
-      {/* Cards Wrapper */}
-      <div className="flex flex-col md:flex-row gap-10 max-w-7xl w-full justify-center">
-
-        {/* Retailer Card */}
-        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(244,143,104,0.25)]">
-
-          <h2 className="text-2xl font-bold mb-4 text-amber-400">
-            Retailer
-          </h2>
-
-          <ul className="space-y-5 text-gray-700 text-[21px] leading-relaxed">
-            <li>• 5–15% off retail</li>
-            <li>• Net 0 prepaid</li>
-            <li>• Order online 24/7</li>
-          </ul>
-        </div>
-
-        {/* Highlight Wholesale Card */}
-        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
-
-
-          <div className="h-full rounded-4xl bg-gradient-to-br from-[#F48F68] via-[#ff7b63] to-[#8BDFDD] p-10 text-black">
-
-            <h2 className="text-2xl font-bold mb-4 text-amber-400">
-              Wholesale
-            </h2>
-
-            <ul className="space-y-5 text-[21px] leading-relaxed text-white/95">
-              <li>• 15–25% off retail</li>
-              <li>• Bulk SKUs (5kg, 25kg)</li>
-              <li>• Net 30 on approval</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Distributor Card */}
-        <div className="flex-1 rounded-4xl border border-black/10 bg-white/40 backdrop-blur-xl p-10 shadow-[0_15px_45px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(139,223,221,0.25)]">
-
-          <h2 className="text-2xl font-bold mb-4 text-amber-400">
-            Distributor
-          </h2>
-
-          <ul className="space-y-5 text-gray-700 text-[21px] leading-relaxed">
-            <li>• Custom contract pricing</li>
-            <li>• Dedicated account manager</li>
-            <li>• Container-load logistics</li>
-          </ul>
-          
-        </div>
-
+      {/* Divider */}
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="h-px bg-white/10" />
       </div>
-      
-    </section>
-     <section className="w-full bg-[#FFF6DE] px-6 py-16">
 
-      <div className="max-w-5xl mx-auto">
+      {/* Process */}
+      <div className="mx-auto max-w-4xl px-6 py-24">
+        <p className="mb-4 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-400">
+          <span className="h-px w-10 bg-amber-400" />
+          The Process
+        </p>
 
-        {/* Top Label */}
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-14 h-0.5 bg-[#F48F68]" />
+        <h2 className="mb-14 text-5xl font-bold">How it works</h2>
 
-          <span className="uppercase tracking-[5px] text-[#F48F68] text-sm font-semibold">
-            The Process
-          </span>
-
-          <div className="w-14 h-0.5 bg-[#F48F68]" />
-        </div>
-
-        {/* Heading */}
-        <h1 className="text-3xl md:text-4xl font-bold text-black mb-16">
-          How it works
-        </h1>
-
-        {/* Steps */}
-        <div className="space-y-12">
-
+        <div className="space-y-10">
           {steps.map((step) => (
-            <div
-              key={step.number}
-              className="flex items-start gap-6"
-            >
-
-              {/* Circle */}
-              <div className="min-w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[#FFE394] to-[#F48F68] flex items-center justify-center text-black text-3xl font-bold shadow-[0_0_25px_rgba(244,143,104,0.35)]">
-  {step.number}
-</div>
-
-               
-
-              {/* Text */}
-              <div>
-
-                <h2 className="text-xl font-bold text-black ">
-                  {step.title}
-                </h2>
-
-                <p className="text-gray-700 text-lg md:text-2xl leading-relaxed max-w-4xl">
-                  {step.desc}
-                </p>
-
-                {/* Accent Line */}
-                <div className="w-28 h-0.75 rounded-full bg-gradient-to-r from-[#F48F68] to-[#8BDFDD] mt-5"></div>
+            <div key={step.number} className="flex gap-6">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500 font-bold text-black">
+                {step.number}
               </div>
 
+              <div>
+                <h3 className="text-2xl font-semibold">{step.title}</h3>
+                <p className="mt-2 text-zinc-400">{step.desc}</p>
+              </div>
             </div>
           ))}
-
         </div>
       </div>
     </section>
-    
-    
-    <Footer/>
     </>
   );
-};
-
-export default SpicesHero;
+}
