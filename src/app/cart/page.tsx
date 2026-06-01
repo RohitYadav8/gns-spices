@@ -73,17 +73,17 @@ export default function CartPage() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="space-y-4">
-              <Link href="/products" className="group inline-flex items-center gap-2 text-zinc-400 hover:text-[#F48F68] transition-all">
+              <Link href="/products" className="group inline-flex items-center gap-2 text-amber-400 hover:text-amber-500 transition-all">
                 <ArrowLeft size={18} className="group-hover:-translate-x-2 transition-transform" />
                 <span className="text-xs uppercase tracking-[0.3em] font-extrabold">Back to Premium Spices</span>
               </Link>
-              <h1 className="text-5xl md:text-6xl font-black tracking-tight uppercase">
-                Your Cart<span className="text-[#F48F68]">.</span>
+              <h1 className="text-3xl md:text-4xl font-black tracking-tight uppercase">
+                Your Cart<span className="text-amber-400">.</span>
               </h1>
             </div>
             <div className="text-left md:text-right">
               <p className="text-zinc-500 text-xs uppercase tracking-widest mb-1 font-bold">Est. Delivery</p>
-              <p className="text-xl font-black text-[#8BDFDD]">2-3 Business Days</p>
+              <p className="text-xl font-black text-amber-400">2-3 Business Days</p>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ export default function CartPage() {
             <div className="py-24 text-center border border-zinc-800 rounded-3xl bg-[#110d0b]">
               <ShoppingBag size={60} className="mx-auto mb-6 text-zinc-700" strokeWidth={1.5} />
               <h2 className="text-2xl font-bold tracking-tight mb-8 text-zinc-300">Your spice collection is empty.</h2>
-              <Link href="/products" className="bg-[#F48F68] text-white px-10 py-4 rounded-full font-black uppercase hover:opacity-90 transition-all">
+              <Link href="/products" className="bg-amber-400 text-white px-10 py-4 rounded-full font-black uppercase hover:opacity-90 transition-all">
                 Browse Selection
               </Link>
             </div>
@@ -127,12 +127,12 @@ export default function CartPage() {
                   <h2 className="text-sm font-black uppercase tracking-[0.3em] mb-8 text-zinc-400">Order Summary</h2>
                   <div className="space-y-4">
                     <div className="flex justify-between text-sm"><span>Subtotal</span><span className="font-bold">£{subtotal}</span></div>
-                    <div className="flex justify-between text-sm"><span>Shipping</span><span className="text-[#8BDFDD] font-bold">{shipping === 0 ? "FREE" : `£${shipping}`}</span></div>
+                    <div className="flex justify-between text-sm"><span>Shipping</span><span className="text-amber-400 font-bold">{shipping === 0 ? "FREE" : `£${shipping}`}</span></div>
                     
                     <div className="pt-4 border-t border-zinc-800">
                       <div className="flex gap-2">
                         <input type="text" placeholder="COUPON CODE" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} className="flex-1 bg-black border border-zinc-700 px-4 py-3 rounded-xl text-xs font-bold uppercase" />
-                        <button onClick={handleApplyCoupon} className="bg-white text-black px-6 py-3 rounded-xl text-xs font-black uppercase">Apply</button>
+                        <button onClick={handleApplyCoupon} className="bg-amber-400 hover:bg-amber-500 text-black px-6 py-3 rounded-xl text-xs font-black uppercase">Apply</button>
                       </div>
                     </div>
 
@@ -148,7 +148,7 @@ export default function CartPage() {
                     </div>
 
                     <Link href={{ pathname: "/checkout", query: { discount: discountPercent, total: total } }}>
-                      <button className="w-full mt-6 h-14 bg-[#F48F68] hover:bg-[#d97d5a] text-white rounded-2xl font-black uppercase tracking-widest transition-all">
+                      <button className="w-full mt-6 h-14 bg-amber-400 hover:bg-amber-500 text-white rounded-2xl font-black uppercase tracking-widest transition-all">
                         Complete Purchase
                       </button>
                     </Link>
