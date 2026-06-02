@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { 
   LayoutDashboard, Package, Tags, ShoppingBag, 
   Ticket, Users, Settings, LogOut 
@@ -8,6 +8,13 @@ import {
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  // ✅ Yeh function add karo
+  async function handleSignOut() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+  }
 
   return (
     <aside className="w-[280px] bg-[#2c1208] text-white flex flex-col justify-between border-r border-white/10 h-screen sticky top-0">
@@ -20,23 +27,24 @@ export default function Sidebar() {
         <nav className="px-4 py-8 space-y-2">
           <p className="text-xs tracking-[3px] text-[#c9996b]/70 mb-5 uppercase px-2">Main Menu</p>
           
-          <SidebarItem icon={<LayoutDashboard size={18} />} title="Dashboard" href="/admin" active={pathname === "/admin"} />
+          <SidebarItem icon={<LayoutDashboard size={18} />} title="Dashboard" href="/admin/dashboard" active={pathname === "/admin/dashboard"} />
           <SidebarItem icon={<Package size={18} />} title="Products" href="/admin/products" active={pathname.includes("/admin/products")} />
           <SidebarItem icon={<Tags size={18} />} title="Categories" href="/admin/categories" active={pathname === "/admin/categories"} />
           <SidebarItem icon={<ShoppingBag size={18} />} title="Orders" href="/admin/orders" active={pathname === "/admin/orders"} />
-          
-          {/* Coupon link yahan add ho gaya */}
           <SidebarItem icon={<Ticket size={18} />} title="Coupons" href="/admin/coupons" active={pathname === "/admin/coupons"} />
-          
           <SidebarItem icon={<Users size={18} />} title="Customers" href="/admin/customers" active={pathname === "/admin/customers"} />
           <SidebarItem icon={<Settings size={18} />} title="Settings" href="/admin/settings" active={pathname === "/admin/settings"} />
         </nav>
       </div>
 
       <div className="p-4 border-t border-white/10">
-        <Link href="/" className="flex items-center gap-3 text-[#EDE9E6] px-5 py-4 hover:text-[#c9996b]">
+        {/* ✅ Link ki jagah button lagao */}
+        <button
+          onClick={handleSignOut}
+          className="flex items-center gap-3 text-[#EDE9E6] px-5 py-4 hover:text-[#c9996b] w-full"
+        >
           <LogOut size={18} /> Sign Out
-        </Link>
+        </button>
       </div>
     </aside>
   );

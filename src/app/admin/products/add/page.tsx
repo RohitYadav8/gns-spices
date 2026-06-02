@@ -18,7 +18,6 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetching all products from MongoDB
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -36,7 +35,6 @@ export default function AdminProductsPage() {
     fetchProducts();
   }, []);
 
-  // 2. Delete Handler Logic
   const handleDelete = async (productId: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
@@ -49,10 +47,8 @@ export default function AdminProductsPage() {
       });
 
       const data = await res.json();
-      
       if (data.success) {
         alert("🗑️ Product deleted successfully!");
-        // UI se bina reload kiye state update
         setProducts(products.filter((item) => item._id !== productId));
       } else {
         alert("⚠️ Error: " + data.message);
@@ -65,100 +61,84 @@ export default function AdminProductsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FFF8E7] flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-[#B12704] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FFF8E7] font-sans text-[#332D20]">
-      
-    
-     
-
-      {/* BIG BACKGROUND WATERMARK */}
-      <div className="text-center mt-12 relative select-none pointer-events-none">
-        <h1 className="text-[110px] md:text-[160px] font-black text-[#332D20]/[0.04] tracking-wider leading-none">
+    <div className="min-h-screen bg-black font-sans text-white">
+      {/* WATERMARK */}
+      <div className="text-center pt-20 pb-12 relative select-none pointer-events-none">
+        <h1 className="text-[110px] md:text-[160px] font-black text-white/[0.03] tracking-wider leading-none">
           GNS
         </h1>
       </div>
 
-      {/* PRODUCTS CONTAINER */}
-      <main className="max-w-7xl mx-auto px-6 pb-24 -mt-8 md:-mt-14">
-        
-        {/* PREMIUM STACKED CARDS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-start">
+      <main className="max-w-7xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((item) => (
-            <div 
+            <div
               key={item._id}
-              className="group bg-[#FDF9F0] rounded-[36px] p-6 shadow-sm border border-[#FFE394]/40 transition-all duration-500 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#7A1C04]/5 relative bg-gradient-to-b from-white to-[#FDF9F0]"
+              className="group bg-zinc-950 border border-white/10 rounded-[32px] p-6 transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_0_40px_rgba(245,158,11,0.15)]"
             >
-              {/* Product Image Container */}
-              <div className="bg-white rounded-[28px] p-4 flex items-center justify-center h-[280px] border border-gray-100 shadow-inner group-hover:bg-[#FFFDF9] transition-colors duration-500">
+              {/* IMAGE */}
+              <div className="bg-zinc-900 rounded-[24px] p-4 flex items-center justify-center h-[280px] border border-white/5">
                 {item.image ? (
-                  <Image 
-                    src={item.image} 
-                    alt={item.title || "GNS Pack"} 
-                    width={240} 
-                    height={240} 
-                    className="object-contain h-full w-full p-2 transition duration-500 group-hover:scale-105"
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={240}
+                    height={240}
+                    className="object-contain h-full w-full transition duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="text-gray-300 font-bold text-sm">Image Coming Soon</div>
+                  <div className="text-zinc-600 font-bold text-sm">Image Coming Soon</div>
                 )}
               </div>
 
-              {/* Product Info Section */}
+              {/* INFO */}
               <div className="mt-6 px-2">
-                <span className="text-[11px] font-black tracking-widest uppercase text-gray-400 block">
-                  Category: {item.category || "Whole Seeds"}
+                <span className="text-[11px] font-black tracking-widest uppercase text-amber-500">
+                  Category: {item.category}
                 </span>
-                
-                <h2 className="text-2xl font-black text-[#221E17] mt-1 tracking-tight group-hover:text-[#7A1C04] transition-colors">
-                  {item.title || "Untitled Spice"}
+
+                <h2 className="text-2xl font-black mt-1 text-white group-hover:text-amber-400 transition">
+                  {item.title}
                 </h2>
 
-                <p className="text-sm font-medium text-gray-600 mt-2 leading-relaxed min-h-[40px] line-clamp-2">
-                  {item.desc || "Rich in flavour and aroma — processed under premium quality standards."}
+                <p className="text-sm font-medium text-zinc-400 mt-2 leading-relaxed">
+                  {item.desc}
                 </p>
 
-                {/* Sub Metadata info */}
-                <div className="mt-4 pt-3 border-t border-gray-200/60 flex flex-col gap-1 text-[11px] font-bold text-gray-400 uppercase tracking-wide">
-                  <span className="text-[#C77A23]">Rajasthan</span>
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="bg-[#FFE394]/40 text-[#554A33] px-3 py-1 rounded-full text-[10px]">House Selection</span>
-                    <span>200g · 1kg</span>
-                  </div>
-                  <span className="text-gray-500/70 mt-1">Black · whole</span>
-                </div>
-
-                {/* PRICE & LAAL DELETE BUTTON */}
-                <div className="mt-6 pt-4 border-t border-gray-200/60 flex items-center justify-between gap-4">
+                {/* PRICE + DELETE */}
+                <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between gap-4">
                   <div>
-                    <span className="text-2xl font-black text-[#211E18]">£{item.price || 90}</span>
-                    <span className="text-xs font-bold text-gray-400"> / 200g</span>
+                    <span className="text-2xl font-black text-amber-500">
+                      £{item.price}
+                    </span>
+                    <span className="text-xs font-bold text-zinc-500"> / unit</span>
                   </div>
 
                   <button
                     onClick={() => handleDelete(item._id)}
-                    className="flex items-center justify-center gap-2 bg-[#D12B2B] hover:bg-[#B31E1E] text-white font-extrabold px-5 py-3 rounded-2xl text-xs uppercase tracking-wider transition-all active:scale-95 shadow-lg shadow-red-600/15"
+                    className="flex items-center justify-center gap-2 bg-white/5 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-400 border border-white/10 text-zinc-400 font-extrabold px-5 py-3 rounded-2xl text-xs uppercase tracking-wider transition-all"
                   >
                     <Trash2 size={14} strokeWidth={2.5} />
-                    Delete Product
+                    Delete
                   </button>
                 </div>
-
               </div>
             </div>
           ))}
         </div>
 
-        {/* Empty State */}
         {products.length === 0 && (
           <div className="py-24 text-center">
-            <h3 className="text-xl font-bold text-gray-400">No products found in the dashboard!</h3>
-            <p className="text-sm text-gray-500 mt-1">Add new products using the add product form.</p>
+            <h3 className="text-xl font-bold text-zinc-600">
+              No products found in the dashboard!
+            </h3>
           </div>
         )}
       </main>

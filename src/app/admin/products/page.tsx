@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { PlusCircle, Image as ImageIcon } from "lucide-react";
@@ -7,9 +7,10 @@ export default function AddProductPage() {
   const [formData, setFormData] = useState({
     title: "",
     category: "",
-    desc: "",
-    badge: "",
     price: "",
+    tier: "Professional Choice", 
+    tierDesc: "", 
+    mainDesc: "", 
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -17,7 +18,7 @@ export default function AddProductPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -39,15 +40,17 @@ export default function AddProductPage() {
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
       { method: "POST", body: data }
     );
+
     const resData = await response.json();
     if (resData.secure_url) return resData.secure_url;
-    else throw new Error("Image upload failed");
+    throw new Error("Image upload failed");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
+
     try {
       let imageUrl = "";
       if (imageFile) imageUrl = await uploadImageToCloudinary();
@@ -55,13 +58,17 @@ export default function AddProductPage() {
       const response = await fetch("/api/admin/add-product", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, price: Number(formData.price), image: imageUrl }),
+        body: JSON.stringify({
+          ...formData,
+          price: Number(formData.price),
+          image: imageUrl,
+        }),
       });
 
       const data = await response.json();
       if (data.success) {
         setMessage("🎉 Product Added Successfully!");
-        setFormData({ title: "", category: "", desc: "", badge: "", price: "" });
+        setFormData({ title: "", category: "", price: "", tier: "Professional Choice", tierDesc: "", mainDesc: "" });
         setImageFile(null);
         setImagePreview(null);
       } else {
@@ -75,72 +82,68 @@ export default function AddProductPage() {
   };
 
   return (
-    <div className="bg-[#f6f2ef] min-h-screen text-[#5C4F4A]">
-      {/* Header */}
-      <header className="h-24 bg-white border-b border-black/5 px-10 flex items-center">
-        <div>
-          <h2 className="text-3xl font-black">Add Product</h2>
-          <p className="text-[#5C766D] mt-1">Add new spices to your inventory</p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-black text-white p-10">
+      <div className="max-w-4xl bg-[#111111] border border-[#262626] rounded-3xl p-10 shadow-2xl">
+        <h2 className="text-3xl font-black mb-8 border-b border-[#262626] pb-4 flex items-center gap-3">
+          <PlusCircle className="text-[#fbbf24]" /> Add New Spice
+        </h2>
 
-      {/* Content */}
-      <div className="p-10 max-w-4xl">
-        <div className="bg-white rounded-[30px] border border-black/5 p-10 shadow-sm">
-          <div className="flex items-center gap-3 mb-8 border-b pb-4 border-black/5">
-            <PlusCircle className="text-[#d97f5f]" size={28} />
-            <h3 className="text-3xl font-black">Add New Product</h3>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Title</label>
+              <input name="title" value={formData.title} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Ground Byadgi Chilli" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Category</label>
+              <input name="category" value={formData.category} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Pure Powders" />
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Tier</label>
+            <select name="tier" value={formData.tier} onChange={handleChange} className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none text-white">
+              <option>Home Kitchen</option>
+              <option>Professional Choice</option>
+              <option>Chef's Reserve</option>
+            </select>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Product Title</label>
-              <input type="text" name="title" value={formData.title} onChange={handleChange} required placeholder="Black Pepper" className="w-full h-14 px-5 rounded-2xl border border-black/10 bg-[#f8f5f2]" />
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Tier Description</label>
+              <input 
+                name="tierDesc" 
+                value={formData.tierDesc} 
+                onChange={handleChange} 
+                className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" 
+                placeholder="e.g., medium, deep red"
+              />
+              <p className="mt-2 text-[10px] text-zinc-600 uppercase tracking-widest">
+                *This will appear under the tier name.
+              </p>
             </div>
-
             <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Category</label>
-              <input type="text" name="category" value={formData.category} onChange={handleChange} required placeholder="Whole Seeds" className="w-full h-14 px-5 rounded-2xl border border-black/10 bg-[#f8f5f2]" />
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Price</label>
+              <input type="number" name="price" value={formData.price} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" />
             </div>
+          </div>
 
-            <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Badge Emoji</label>
-              <input type="text" name="badge" value={formData.badge} onChange={handleChange} required placeholder="⚫" className="w-full h-14 px-5 rounded-2xl border border-black/10 bg-[#f8f5f2]" />
-            </div>
+          <div>
+            <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Main Description</label>
+            <textarea name="mainDesc" value={formData.mainDesc} onChange={handleChange} rows={3} className="w-full p-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" />
+          </div>
 
-            <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Price</label>
-              <input type="number" name="price" value={formData.price} onChange={handleChange} required placeholder="110" className="w-full h-14 px-5 rounded-2xl border border-black/10 bg-[#f8f5f2]" />
-            </div>
+          <div>
+            <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Image</label>
+            <input type="file" onChange={handleImageChange} className="w-full text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#fbbf24] file:text-black" />
+            {imagePreview && <img src={imagePreview} className="mt-4 h-32 w-32 object-cover rounded-xl border border-[#262626]" />}
+          </div>
 
-            <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Product Image</label>
-              <div className="relative w-full h-14 rounded-2xl border border-black/10 bg-[#f8f5f2] flex items-center px-5">
-                <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 opacity-0 cursor-pointer" />
-                <ImageIcon className="text-[#8d7568] mr-3" size={20} />
-                <span className="text-sm text-gray-500 truncate">{imageFile ? imageFile.name : "Select Product Image"}</span>
-              </div>
-            </div>
-
-            {imagePreview && (
-              <div>
-                <p className="text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Preview</p>
-                <img src={imagePreview} alt="preview" className="h-40 w-40 object-cover rounded-2xl" />
-              </div>
-            )}
-
-            <div>
-              <label className="block text-sm font-bold uppercase tracking-wider text-[#8d7568] mb-2">Description</label>
-              <textarea name="desc" value={formData.desc} onChange={handleChange} required rows={4} placeholder="Bold black peppercorns..." className="w-full p-5 rounded-2xl border border-black/10 bg-[#f8f5f2]" />
-            </div>
-
-            <button type="submit" disabled={loading} className={`w-full h-14 rounded-2xl font-bold text-white ${loading ? "bg-gray-400" : "bg-[#d97f5f] hover:bg-[#c26d4f]"}`}>
-              {loading ? "Uploading..." : "Add Product"}
-            </button>
-          </form>
-
-          {message && <div className="mt-6 p-4 rounded-2xl text-center font-semibold">{message}</div>}
-        </div>
+          <button disabled={loading} className="w-full h-14 bg-[#fbbf24] text-black font-bold rounded-xl hover:bg-[#d9a51e] transition-all">
+            {loading ? "Adding..." : "Add Product"}
+          </button>
+        </form>
       </div>
     </div>
   );

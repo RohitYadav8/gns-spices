@@ -1,14 +1,33 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { email, password } = body;
+  const { email, password } = await req.json();
 
-  console.log("Login Attempt:", email, password); // Terminal mein dekh kya aa raha hai
+  const cleanEmail = email?.trim().toLowerCase();
+  const cleanPassword = password?.trim();
 
-  if (email === "admin@gnsspices.com" && password === "Admin@123") {
-    return NextResponse.json({ success: true, message: "Login successful" });
+  console.log("LOGIN DATA:", cleanEmail, cleanPassword);
+
+  if (
+    cleanEmail === "admin@gnsspices.com" &&
+    cleanPassword === "Admin@123"
+  ) {
+    const res = NextResponse.json({
+      success: true,
+      message: "Login successful",
+    });
+
+    res.cookies.set("admin_token", "true", {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    });
+
+    return res;
   }
 
-  return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 401 });
+  return NextResponse.json(
+    { success: false, message: "Invalid credentials" },
+    { status: 401 }
+  );
 }

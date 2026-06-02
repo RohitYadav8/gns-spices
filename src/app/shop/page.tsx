@@ -88,8 +88,8 @@ export default function ProductsPage() {
                 onClick={() => setSelectedCategory(item)}
                 className={`px-6 py-2 rounded-full border transition-all ${
                   selectedCategory === item
-                    ? "bg-white text-black font-bold border-white"
-                    : "border-zinc-800 text-zinc-400 hover:border-zinc-500"
+                    ? "bg-amber-400 text-black font-bold border-white"
+                    : "border-zinc-800 text-zinc-400 hover:border-amber-400 hover:text-amber-400"
                 }`}
               >
                 {item}
@@ -116,7 +116,7 @@ export default function ProductsPage() {
                   <span className="text-xl font-black">£{item.price}</span>
                   <button
                     onClick={() => addToCart({ id: item._id, ...item })}
-                    className="bg-white text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-zinc-200"
+                    className="bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
                   >
                     Add
                   </button>

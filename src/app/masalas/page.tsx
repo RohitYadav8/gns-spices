@@ -92,8 +92,8 @@ export default function ProductsPage() {
                 onClick={() => setSelectedCategory(item)}
                 className={`px-6 py-3 rounded-full border transition-all ${
                   selectedCategory === item
-                    ? "bg-[#8BDFDD] text-black font-bold border-[#8BDFDD]"
-                    : "bg-[#110d0b] border-zinc-800 text-zinc-400 hover:border-zinc-500"
+                    ? "bg-amber-400 text-black font-bold border-amber-400"
+                    : "bg-[#110d0b] border-zinc-800 text-zinc-400 hover:border-amber-400 hover:text-amber-400"
                 }`}
               >
                 {item}
@@ -120,12 +120,12 @@ export default function ProductsPage() {
                 <div className="flex items-end justify-between border-t border-zinc-800 pt-4 mt-auto">
                   <div>
                     <p className="text-3xl font-black text-white">£{item.price}</p>
-                    <p className="text-[10px] font-black text-[#F48F68] uppercase tracking-widest">100G PACK</p>
+                    <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest">100G PACK</p>
                   </div>
                   
                   <button 
                     onClick={() => addToCart({ id: item._id, ...item })} 
-                    className="bg-[#F48F68] text-white px-8 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-all"
+                    className="bg-amber-400 text-black px-8 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-all"
                   >
                     <ShoppingCart size={18} />
                     Add

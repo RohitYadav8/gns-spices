@@ -168,7 +168,7 @@ const AuthPage = () => {
           <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-red-500/10 blur-[150px]" />
 
           {/* BIG BRAND TEXT */}
-          <h1 className="pointer-events-none absolute left-1/2 top-5 -translate-x-1/2 select-none text-[140px] font-black uppercase tracking-widest text-[#332D20]/2 md:text-[220px]">
+          <h1 className="pointer-events-none absolute left-1/2 top-5 -translate-x-1/2 select-none text-[140px] font-black uppercase tracking-widest text-white/2 md:text-[220px]">
             GNS
           </h1>
 
@@ -189,7 +189,7 @@ const AuthPage = () => {
               <form onSubmit={handleAuthSubmit} className="space-y-5">
                 {!isLogin && (
                   <div className="space-y-2">
-                    <label className="block text-xs font-black uppercase tracking-wider text-[#332D20]/80">Full Name</label>
+                    <label className="block text-xs font-black uppercase tracking-wider text-white/80">Full Name</label>
                     <div className="relative">
                       <User
                         size={18}
@@ -207,28 +207,28 @@ const AuthPage = () => {
                   </div>
                 )}
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase tracking-wider text-[#332D20]/80">Email Address</label>
+                  <label className="block text-xs font-black uppercase tracking-wider text-white/80">Email Address</label>
                   <div className="relative">
-                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#332D20]/40" />
-                    <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} className="h-14 w-full rounded-xl border-2 border-[#FFE394]/40 bg-[#FFE394]/15 pl-12 pr-4 text-sm font-semibold text-[#332D20] outline-none focus:border-[#8BDFDD]" />
+                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} className="h-14 w-full rounded-xl border border-white/10 bg-black pl-12 pr-4 text-sm font-semibold text-white outline-none focus:border-[#8BDFDD]" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase tracking-wider text-[#332D20]/80">Password</label>
+                  <label className="block text-xs font-black uppercase tracking-wider text-white/80">Password</label>
                   <div className="relative">
-                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#332D20]/40" />
-                    <input type={showPassword ? "text" : "password"} placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} className="h-14 w-full rounded-xl border-2 border-[#FFE394]/40 bg-[#FFE394]/15 pl-12 pr-12 text-sm font-semibold text-[#332D20] outline-none focus:border-[#8BDFDD]" />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#332D20]/40 hover:text-[#332D20]">
+                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                    <input type={showPassword ? "text" : "password"} placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} className="h-14 w-full rounded-xl border border-white/10 bg-black pl-12 pr-12 text-sm font-semibold text-white outline-none focus:border-[#8BDFDD]" />
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white">
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
                 </div>
                 {!isLogin && (
                   <div className="space-y-2">
-                    <label className="block text-xs font-black uppercase tracking-wider text-[#332D20]/80">Confirm Password</label>
+                    <label className="block text-xs font-black uppercase tracking-wider text-white/80">Confirm Password</label>
                     <div className="relative">
-                      <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#332D20]/40" />
-                      <input type={showPassword ? "text" : "password"} placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="h-14 w-full rounded-xl border-2 border-[#FFE394]/40 bg-[#FFE394]/15 pl-12 pr-12 text-sm font-semibold text-[#332D20] outline-none focus:border-[#8BDFDD]" />
+                      <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                      <input type={showPassword ? "text" : "password"} placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="h-14 w-full rounded-xl border border-white/10 bg-black pl-12 pr-12 text-sm font-semibold text-white outline-none focus:border-[#8BDFDD]" />
                     </div>
                   </div>
                 )}
@@ -238,7 +238,7 @@ const AuthPage = () => {
                 </button>
               </form>
 
-              <div className="mt-8 text-center text-sm font-medium text-[#332D20]/70">
+              <div className="mt-8 text-center text-sm font-medium text-white/70">
                 {isLogin ? "Don't have an account yet?" : "Already have an account?"}
                 <button onClick={() => setIsLogin(!isLogin)} className="ml-2 font-black text-amber-400 hover:underline">
                   {isLogin ? "Sign Up" : "Login"}
@@ -253,51 +253,54 @@ const AuthPage = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#FFF6DE] pt-32 pb-20 px-4 md:px-8">
-      <Navbar />
+    <>
+    <Navbar />
+    <main className="min-h-screen bg-black pt-32 pb-20 px-4 md:px-8">
+      
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
 
         {/* SIDEBAR */}
         <div className="col-span-1 space-y-4">
           {/* Profile Mini Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-[#FFE394]/40 p-4 flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-[#FFE394]/30 flex items-center justify-center text-xl font-black text-[#F48F68]">
-              {user.name.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <p className="text-xs text-[#332D20]/60 font-semibold">Hello,</p>
-              <h3 className="text-[#332D20] font-black">{user.name}</h3>
-            </div>
-          </div>
+          
 
           {/* Nav Links */}
-          <div className="bg-white rounded-2xl shadow-sm border border-[#FFE394]/40 overflow-hidden">
+          <div className="bg-zinc-950/80 rounded-2xl shadow-sm border border-white/10 overflow-hidden">
             <button
               onClick={() => setActiveTab("Orders")}
-              className={`w-full flex items-center justify-between p-5 border-b border-[#FFE394]/20 transition-all ${activeTab === 'Orders' ? 'bg-[#8BDFDD]/10 text-[#F48F68]' : 'text-[#332D20] hover:bg-gray-50'}`}
-            >
+              className={`w-full flex items-center justify-between p-5 border-b border-white/10 transition-all ${activeTab === 'Orders' ? 'bg-[#8BDFDD]/10 text-amber-400' : 'text-zinc-300 hover:bg-zinc-900'}`}
+            ><div className="bg-zinc-950/80 rounded-2xl border border-white/10 p-4 flex items-center gap-4 backdrop-blur-sm">
+  <div className="w-14 h-14 rounded-full bg-amber-400/20 flex items-center justify-center text-xl font-black text-amber-400 border border-amber-400/20">
+    {user.name.charAt(0).toUpperCase()}
+  </div>
+
+  <div>
+    <p className="text-xs text-zinc-500 font-semibold">Hello,</p>
+    <h3 className="text-white font-black">{user.name}</h3>
+  </div>
+</div>
               <div className="flex items-center gap-3">
-                <Package size={20} className={activeTab === 'Orders' ? "text-[#F48F68]" : "text-[#332D20]/50"} />
+                <Package size={20} className={activeTab === 'Orders' ? "text-amber-400" : "text-zinc-500"} />
                 <span className="font-bold text-sm tracking-wide">MY ORDERS</span>
               </div>
-              <ChevronRight size={18} className="text-[#332D20]/30" />
+              <ChevronRight size={18} className="text-white" />
             </button>
 
-            <div className="p-5 border-b border-[#FFE394]/20 bg-gray-50/50">
+            <div className="p-5 border-b border-white/10 bg-zinc-900/80">
               <div className="flex items-center gap-3 mb-4">
-                <Settings size={20} className="text-[#332D20]/50" />
-                <span className="font-bold text-sm tracking-wide text-[#332D20]/50">ACCOUNT SETTINGS</span>
+                <Settings size={20} className="text-zinc-500" />
+                <span className="font-bold text-sm tracking-wide text-zinc-500">ACCOUNT SETTINGS</span>
               </div>
               <div className="flex flex-col gap-1 pl-8">
                 <button
                   onClick={() => setActiveTab("Profile")}
-                  className={`text-left text-sm font-semibold py-2 transition-all ${activeTab === 'Profile' ? 'text-[#F48F68]' : 'text-[#332D20] hover:text-[#F48F68]'}`}
+                  className={`text-left text-sm font-semibold py-2 transition-all ${activeTab === 'Profile' ? 'text-amber-400' : 'text-white hover:text-amber-500'}`}
                 >
                   Profile Information
                 </button>
                 <button
                   onClick={() => setActiveTab("Addresses")}
-                  className={`text-left text-sm font-semibold py-2 transition-all ${activeTab === 'Addresses' ? 'text-[#F48F68]' : 'text-[#332D20] hover:text-[#F48F68]'}`}
+                  className={`text-left text-sm font-semibold py-2 transition-all ${activeTab === 'Addresses' ? 'text-amber-400' : 'text-white hover:text-amber-500'}`}
                 >
                   Manage Addresses
                 </button>
@@ -306,9 +309,9 @@ const AuthPage = () => {
 
             <button
               onClick={() => logout()}
-              className="w-full flex items-center gap-3 p-5 text-[#332D20] hover:bg-red-50 hover:text-red-500 transition-all"
+              className="w-full flex items-center gap-3 p-5 text-white hover:bg-amber-400 hover:text-white transition-all"
             >
-              <LogOut size={20} className="text-[#332D20]/50 hover:text-red-500" />
+              <LogOut size={20} className="text-zinc-500 hover:text-amber-400" />
               <span className="font-bold text-sm tracking-wide">LOGOUT</span>
             </button>
           </div>
@@ -316,13 +319,13 @@ const AuthPage = () => {
 
         {/* MAIN CONTENT */}
         <div className="col-span-1 lg:col-span-3">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#FFE394]/40 p-6 md:p-10 min-h-[600px]">
+          <div className="bg-zinc-950/80 rounded-2xl shadow-sm border border-white/10 p-6 md:p-10 min-h-[600px]">
 
             {activeTab === "Profile" && (
               <div className="animate-fade-in">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-black text-[#332D20]">Personal Information</h2>
-                  <button onClick={() => setIsEditingProfile(!isEditingProfile)} className="text-sm font-bold text-[#F48F68] hover:underline">
+                  <h2 className="text-2xl font-black text-white">Personal Information</h2>
+                  <button onClick={() => setIsEditingProfile(!isEditingProfile)} className="text-sm font-bold text-amber-400 hover:underline">
                     {isEditingProfile ? "Cancel" : "Edit"}
                   </button>
                 </div>
@@ -330,31 +333,31 @@ const AuthPage = () => {
                 <form onSubmit={handleProfileUpdate} className="space-y-8 max-w-2xl">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Full Name</label>
+                      <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Full Name</label>
                       <input
                         type="text"
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
                         disabled={!isEditingProfile}
                         required
-                        className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                        className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Email Address</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Email Address</label>
                     <input
                       type="email"
                       value={user.email}
                       disabled
-                      className="w-full h-12 bg-gray-100 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold cursor-not-allowed opacity-70"
+                      className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold cursor-not-allowed opacity-70"
                     />
-                    <p className="text-[10px] text-[#332D20]/50 mt-1">Email cannot be changed once registered.</p>
+                    <p className="text-[10px] text-zinc-500 mt-1">Email cannot be changed once registered.</p>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Mobile Number</label>
+                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Mobile Number</label>
                     <input
                       type="text"
                       value={editPhone}
@@ -362,7 +365,7 @@ const AuthPage = () => {
                       disabled={!isEditingProfile}
                       placeholder="Add your mobile number"
                       required
-                      className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                      className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                     />
                   </div>
 
@@ -378,7 +381,7 @@ const AuthPage = () => {
             {activeTab === "Addresses" && (
               <div className="animate-fade-in">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-black text-[#332D20]">Manage Addresses</h2>
+                  <h2 className="text-2xl font-black text-white">Manage Addresses</h2>
                   <button onClick={() => setIsEditingProfile(!isEditingProfile)} className="text-sm font-bold text-[#F48F68] hover:underline">
                     {isEditingProfile ? "Cancel" : "Edit Address"}
                   </button>
@@ -386,7 +389,7 @@ const AuthPage = () => {
 
                 <form onSubmit={handleProfileUpdate} className="space-y-6 max-w-2xl">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Address Line</label>
+                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Address Line</label>
                     <input
                       type="text"
                       value={editAddress}
@@ -394,12 +397,12 @@ const AuthPage = () => {
                       disabled={!isEditingProfile}
                       placeholder="House No., Street, Area"
                       required
-                      className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                      className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Landmark</label>
+                    <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Landmark</label>
                     <input
                       type="text"
                       value={editLandmark}
@@ -407,31 +410,31 @@ const AuthPage = () => {
                       disabled={!isEditingProfile}
                       placeholder="Near hospital, park, etc."
                       required
-                      className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                      className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">City / District</label>
+                      <label className="text-xs font-bold text-white/60 uppercase tracking-widest">City / District</label>
                       <input
                         type="text"
                         value={editCity}
                         onChange={(e) => setEditCity(e.target.value)}
                         disabled={!isEditingProfile}
                         required
-                        className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                        className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#332D20]/60 uppercase tracking-widest">Postal / ZIP Code</label>
+                      <label className="text-xs font-bold text-white/60 uppercase tracking-widest">Postal / ZIP Code</label>
                       <input
                         type="text"
                         value={editPostalCode}
                         onChange={(e) => setEditPostalCode(e.target.value)}
                         disabled={!isEditingProfile}
                         required
-                        className="w-full h-12 bg-gray-50 border border-gray-200 rounded-lg px-4 text-[#332D20] font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
+                        className="w-full h-12 bg-zinc-950/80 border border-white/10 rounded-lg px-4 text-white font-semibold focus:outline-none focus:border-[#F48F68] disabled:opacity-70"
                       />
                     </div>
                   </div>
@@ -447,7 +450,7 @@ const AuthPage = () => {
 
             {activeTab === "Orders" && (
               <div className="animate-fade-in">
-                <h2 className="text-2xl font-black text-[#332D20] mb-8">My Orders</h2>
+                <h2 className="text-2xl font-black text-white mb-8">My Orders</h2>
 
                 {ordersLoading ? (
                   <div className="flex items-center justify-center py-20">
@@ -456,10 +459,10 @@ const AuthPage = () => {
                 ) : orders.length === 0 ? (
                   <div className="text-center py-20">
                     <Package size={60} className="mx-auto text-[#FFE394] mb-4" />
-                    <h3 className="text-xl font-bold text-[#332D20]">No Orders Found</h3>
-                    <p className="text-[#332D20]/60 mt-2">Looks like you haven't placed any orders yet.</p>
+                    <h3 className="text-xl font-bold text-white">No Orders Found</h3>
+                    <p className="text-white/60 mt-2">Looks like you haven't placed any orders yet.</p>
                     <Link href="/shop">
-                      <button className="mt-6 h-12 px-8 bg-[#F48F68] text-white font-bold rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300 hover:bg-[#eb7d52]">
+                      <button className="mt-6 h-12 px-8 bg-amber-500 text-white font-bold rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300 hover:bg-[#eb7d52]">
                         Start Shopping
                       </button>
                     </Link>
@@ -467,23 +470,23 @@ const AuthPage = () => {
                 ) : (
                   <div className="space-y-6">
                     {orders.map((order: any) => (
-                      <div key={order._id} className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-all">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 mb-4 gap-4">
+                      <div key={order._id} className="border border-white/10 bg-zinc-900/50 rounded-2xl p-6 hover:border-amber-400/30 transition-all">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-4 mb-4 gap-4">
                           <div>
-                            <p className="text-xs text-[#332D20]/50 font-bold uppercase tracking-wider mb-1">Order ID</p>
-                            <p className="font-mono text-sm text-[#332D20] font-semibold">{order._id}</p>
+                            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-1">Order ID</p>
+                            <p className="font-mono text-sm text-white font-semibold">{order._id}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-[#332D20]/50 font-bold uppercase tracking-wider mb-1">Date</p>
-                            <p className="text-sm font-semibold text-[#332D20]">{new Date(order.createdAt).toLocaleDateString()}</p>
+                            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-1">Date</p>
+                            <p className="text-sm font-semibold text-white">{new Date(order.createdAt).toLocaleDateString()}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-[#332D20]/50 font-bold uppercase tracking-wider mb-1">Total</p>
-                            <p className="text-sm font-bold text-[#F48F68]">₹{order.totalAmount}</p>
+                            <p className="text-xs text-white/50 font-bold uppercase tracking-wider mb-1">Total</p>
+                            <p className="text-sm font-bold text-amber-400">£{order.totalAmount}</p>
                           </div>
                           <div>
-                            <span className={`px-4 py-1.5 rounded-full text-xs font-black tracking-wider uppercase ${order.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
-                                order.status === 'Delivered' ? 'bg-green-100 text-green-700' :
+                            <span className={`px-4 py-1.5 rounded-full text-xs font-black tracking-wider uppercase ${order.status === 'Pending' ? 'bg-amber-500 text-white' :
+                                order.status === 'Delivered' ? 'bg-amber-400 text-amber-500' :
                                   'bg-[#8BDFDD]/20 text-teal-800'
                               }`}>
                               {order.status}
@@ -494,16 +497,16 @@ const AuthPage = () => {
                         <div className="space-y-4">
                           {order.items.map((item: any, idx: number) => (
                             <div key={idx} className="flex items-center gap-4">
-                              <div className="w-16 h-16 bg-gray-100 rounded-xl overflow-hidden relative border border-gray-200">
+                              <div className="w-16 h-16 bg-zinc-950/80 rounded-xl overflow-hidden relative border border-white/10">
                                 {item.image ? (
                                   <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                                 ) : (
-                                  <div className="w-full h-full flex items-center justify-center text-[#332D20]/30 text-xs">No Img</div>
+                                  <div className="w-full h-full flex items-center justify-center text-white text-xs">No Img</div>
                                 )}
                               </div>
                               <div>
-                                <p className="font-bold text-[#332D20]">{item.name}</p>
-                                <p className="text-sm text-[#332D20]/60 font-semibold">Qty: {item.quantity} × ₹{item.price}</p>
+                                <p className="font-bold text-white">{item.name}</p>
+                                <p className="text-sm text-white font-semibold">Qty: {item.quantity} ×£{item.price}</p>
                               </div>
                             </div>
                           ))}
@@ -519,7 +522,8 @@ const AuthPage = () => {
         </div>
       </div>
     </main>
-
+    <Footer/>
+</>
   );
 };
 
