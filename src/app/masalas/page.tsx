@@ -1,11 +1,17 @@
 "use client";
 import Image from "next/image";
+import { useSearchParams } from 'next/navigation';
 import { useMemo, useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search, ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import { useSearchParams } from "next/navigation";
+
+interface Tier {
+  name: string;
+  weight: string;
+  desc: string;
+}
 
 interface Product {
   _id: string;
@@ -15,16 +21,18 @@ interface Product {
   badge: string;
   image: string;
   price: number;
+  origin?: string;
+  tiers?: Tier[];
 }
 
-const CATEGORIES = [
-  "All",
-  "Pure Powders",
-  "Whole Seeds",
-  "Signature Masalas",
-  "Whole Spices",
-  "Indian Pickles",
-];
+const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickels"];
+
+const TIER_COLORS: Record<string, string> = {
+  "Home Kitchen": "border-green-500 text-green-400",
+  "Professional Choice": "border-red-500 text-red-400",
+  "Chef's Reserve": "border-yellow-600 text-yellow-500",
+  "House Selection": "border-amber-400 text-amber-400",
+};
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
@@ -71,17 +79,37 @@ export default function ProductsPage() {
       {/* Dark Theme Background - Matching Navbar */}
       <section className="min-h-screen bg-[#0a0503] py-20 px-6 md:px-12 text-white">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl font-black mb-10 tracking-tight text-white">Shop</h1>
 
-          <div className="relative mb-10">
-            <Search className="absolute left-4 top-4 text-zinc-500" size={20} />
-            <input
-              type="text"
-              placeholder="Search spices, blends, origins..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-[#110d0b] border border-zinc-800 rounded-2xl px-12 py-4 outline-none focus:border-[#8BDFDD] text-white"
-            />
+          {/* HEADER + SEARCH SAME LINE */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <div className="mb-4 flex items-center gap-4">
+                <span className="h-px w-16 bg-amber-400" />
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-400 whitespace-nowrap">
+                  The Full Range
+                </span>
+                <span className="h-px w-16 bg-amber-400" />
+              </div>
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight">Shop</h1>
+              <p className="text-zinc-400 mt-2 text-sm">{products.length} products · Shipping to GB.</p>
+            </div>
+
+            {/* SEARCH RIGHT SIDE */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center bg-[#110d0b] rounded-2xl border border-zinc-800 h-14 px-4 w-80">
+                <Search className="text-zinc-500 shrink-0" size={20} />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search spices, blends, origins..."
+                  className="w-full bg-transparent outline-none text-white text-sm px-3"
+                />
+              </div>
+              <button className="btn-primary h-14 px-8 shrink-0">
+                Search
+              </button>
+            </div>
           </div>
 
           {/* Categories */}
@@ -102,38 +130,70 @@ export default function ProductsPage() {
           </div>
 
           {/* Product Cards - Dark Theme Styling */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {filteredProducts.map((item) => (
-              <div key={item._id} className="bg-[#110d0b] p-6 rounded-[30px] border border-zinc-800 hover:border-[#8BDFDD] transition-all flex flex-col h-full">
-                <div className="relative h-[250px] w-full bg-zinc-900 rounded-[20px] mb-6 overflow-hidden flex items-center justify-center">
-                  <Image src={item.image} alt={item.title} fill className="object-contain p-4" />
-                 
-                </div>
-
-                <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-2xl font-black text-white">{item.title}</h2>
-                  {item.badge && <span className="text-xl">{item.badge}</span>}
-                </div>
-
-                <p className="text-zinc-400 text-sm mb-6 flex-grow">{item.desc}</p>
-
-                <div className="flex items-end justify-between border-t border-zinc-800 pt-4 mt-auto">
-                  <div>
-                    <p className="text-3xl font-black text-white">£{item.price}</p>
-                    <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest">100G PACK</p>
-                  </div>
-                  
-                  <button 
-                    onClick={() => addToCart({ id: item._id, ...item })} 
-                    className="bg-amber-400 text-black px-8 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-all"
-                  >
-                    <ShoppingCart size={18} />
-                    Add
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
+                      {filteredProducts.map((item) => (
+                        <div key={item._id} className="bg-[#110d0b] p-6 rounded-3xl border border-zinc-800 hover:border-zinc-600 transition-all flex flex-col">
+          
+                          {/* IMAGE */}
+                          <div className="relative h-64 mb-6 bg-white rounded-2xl overflow-hidden">
+                            <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+                          </div>
+          
+                          {/* CATEGORY */}
+                          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">{item.category}</p>
+          
+                          {/* TITLE */}
+                          <h2 className="text-xl font-black mb-2">{item.title}</h2>
+          
+                          {/* DESC */}
+                          <p className="text-zinc-400 text-sm line-clamp-2 mb-3">{item.desc}</p>
+          
+                          {/* ORIGIN */}
+                          {item.origin && (
+                            <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-4">{item.origin}</p>
+                          )}
+          
+                          {/* TIERS */}
+                          {item.tiers && item.tiers.length > 0 && (
+                            <div className="border-t border-zinc-800 pt-4 mb-4 space-y-3">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                                {item.tiers.length === 1 ? "One Tier" : item.tiers.length === 2 ? "Two Tiers" : "Three Tiers"}
+                              </p>
+                              {item.tiers.map((tier, i) => (
+                                <div key={i}>
+                                  <div className="flex items-center justify-between">
+                                    <span className={`border px-3 py-1 rounded-full text-xs font-black uppercase ${TIER_COLORS[tier.name] || 'border-zinc-500 text-zinc-400'}`}>
+                                      {tier.name}
+                                    </span>
+                                    {tier.weight && (
+                                      <span className="text-zinc-400 text-xs">{tier.weight}</span>
+                                    )}
+                                  </div>
+                                  {tier.desc && (
+                                    <p className="text-zinc-500 text-xs mt-1">{tier.desc}</p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+          
+                          {/* PRICE + ADD */}
+                          <div className="mt-auto flex items-center justify-between border-t border-zinc-800 pt-4">
+                            <div>
+                              <span className="text-xl font-black">£{item.price}</span>
+                              <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
+                            </div>
+                            <button
+                              onClick={() => addToCart({ id: item._id, ...item })}
+                              className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
+                            >
+                              <ShoppingCart size={14} /> Add
+                            </button>
+                          </div>
+          
+                        </div>
+                      ))}
+                    </div>
         </div>
       </section>
       <Footer />
