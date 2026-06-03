@@ -21,6 +21,8 @@ export async function POST(req: Request) {
       httpOnly: true,
       path: "/",
       maxAge: 60 * 60 * 24,
+      secure: process.env.NODE_ENV === "production", // ✅ Yeh add karo
+      sameSite: "strict", // ✅ Yeh bhi add karo
     });
 
     return res;
