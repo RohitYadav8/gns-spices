@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function B2BSection() {
@@ -183,6 +184,7 @@ export default function B2BSection() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }
