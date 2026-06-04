@@ -8,14 +8,14 @@ const cards = [
     description:
       "Tiered pricing, credit terms, and a dedicated account manager. From restaurants to national retail chains.",
     image: "/wholesale-&-B2B.png",
-    href: "/wholesale",
+    href: "/B2B",
   },
   {
     title: "Private Label",
     description:
       "Launch your own spice range. We handle sourcing, blending, packaging, and compliance — your brand, our craft.",
     image: "/private-label.png",
-    href: "/private-label",
+    href: "/PrivateLabel",
   },
 ];
 
@@ -58,11 +58,11 @@ export default function B2BCards() {
                 href={card.href}
                 className="mt-2 inline-flex items-center gap-2"
               >
-                <span className="font-medium text-white">
-                  Learn More
-                </span>
-
-                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                <span className="underline decoration-white underline-offset-4 text-white">
+  Learn More
+</span>
+                
+                <span className="flex items-center justify-center text-white transition-all duration-300 group-hover:text-black">
                   →
                 </span>
               </Link>

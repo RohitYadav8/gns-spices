@@ -82,7 +82,7 @@ export default function CategorySection() {
                       <p className="text-sm text-zinc-400 mb-8 leading-relaxed line-clamp-2">{item.description}</p>
 
                       {/* EXPLORE LINK */}
-                      <div className="absolute bottom-8 left-8 flex items-center gap-2 text-sm font-bold text-amber-500 group-hover:gap-4 transition-all">
+                      <div className="absolute bottom-8 left-8 flex items-center gap-2 text-sm font-bold text-white group-hover:gap-4 transition-all">
                         Explore <ArrowRight size={16} />
                       </div>
                     </div>

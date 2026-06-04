@@ -8,6 +8,7 @@ import B2BSection from "./components/B2BSection";
 import NewsletterSection from "./components/NewsletterSection";
 import Footer from "./components/Footer";
 import AboutProductsSection from "./components/AboutProductsSection";
+import BestsellersSection from "./components/BestsellersSection";
 
 export default function Home() {
   return (
@@ -16,7 +17,9 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <CategorySection />
+       <BestsellersSection />
       <AboutProductsSection />
+    
       <RecipesSection />
       <B2BSection />
       <NewsletterSection />

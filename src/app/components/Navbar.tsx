@@ -37,11 +37,11 @@ export default function Navbar() {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
             <div className="flex items-center gap-8 text-sm font-medium text-zinc-300">
-              <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
-              <Link href="/masalas" className="hover:text-white transition-colors">Masalas</Link>
-              <Link href="/B2B" className="hover:text-white transition-colors">B2B</Link>
-              <Link href="/PrivateLabel" className="hover:text-white transition-colors">Private Label</Link>
-              <Link href="/cart" className="relative hover:text-white transition-colors">
+              <Link href="/shop" className="hover:text-amber-400 transition-colors">Shop</Link>
+              <Link href="/masalas" className="hover:text-amber-400 transition-colors">Masalas</Link>
+              <Link href="/B2B" className="hover:text-amber-400 transition-colors">B2B</Link>
+              <Link href="/PrivateLabel" className="hover:text-amber-400 transition-colors">Private Label</Link>
+              <Link href="/cart" className="relative hover:text-amber-400 transition-colors">
                 Cart
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-[2px]">
@@ -50,14 +50,14 @@ export default function Navbar() {
                 )}
               </Link>
             </div>
-            <Link href="/account" className="rounded-full border border-zinc-700 px-6 py-2 text-sm font-medium text-white hover:bg-white hover:text-black transition-all">
+            <Link href="/account" className="rounded-full border border-zinc-700 px-6 py-2 text-sm font-medium text-white hover:border-amber-400 hover:text-amber-400 transition-all">
               Account
             </Link>
           </div>
 
           {/* Mobile — Cart + Hamburger */}
           <div className="flex md:hidden items-center gap-4">
-            <Link href="/cart" className="relative text-zinc-300 hover:text-white">
+            <Link href="/cart" className="relative text-zinc-300 hover:text-amber-400">
               Cart
               {totalItems > 0 && (
                 <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-[2px]">

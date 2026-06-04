@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -9,7 +10,7 @@ export default function HeroSection() {
       <div className="absolute right-[-150px] bottom-0 h-[450px] w-[450px] rounded-full bg-red-700/10 blur-[180px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:py-32 grid lg:grid-cols-2 gap-16 items-center">
-        
+
         {/* Left Content */}
         <div className="animate-fade-in">
           <p className="mb-6 text-xs font-semibold tracking-[0.4em] text-yellow-400">GNSSPICES</p>
@@ -23,12 +24,18 @@ export default function HeroSection() {
             Hand-picked from our farms in Kerala, Tamil Nadu and Rajasthan. Slow-roasted in small batches. Shipped to chefs, retailers, and home cooks across 28 countries.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <button className="rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-600 px-8 py-4 font-bold text-black shadow-[0_10px_40px_rgba(255,190,0,0.35)] transition-all hover:scale-105">
-              Explore Collection
-            </button>
-            <button className="rounded-2xl border border-white/10 bg-white/5 px-8 py-4 font-semibold backdrop-blur-xl transition-all hover:bg-white/10">
-              For Businesses
-            </button>
+            <Link href="/shop">
+              <button className="rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-600 px-8 py-4 font-bold text-black shadow-[0_10px_40px_rgba(255,190,0,0.35)] transition-all hover:scale-105">
+                Shop the range
+              </button>
+            </Link>
+
+
+            <Link href="/B2B">
+              <button className="rounded-2xl border border-white/10 bg-white/5 px-8 py-4 font-semibold backdrop-blur-xl transition-all hover:bg-white/10">
+                For businesses
+              </button>
+            </Link>
           </div>
           <div className="mt-12 flex items-center gap-6 text-[10px] tracking-[0.3em] uppercase text-zinc-500">
             <span>FSSAI</span>
@@ -55,24 +62,24 @@ export default function HeroSection() {
 
             {/* Other items (1x1) */}
             <div className="relative overflow-hidden rounded-[30px]">
-               <Image src="/green-chilli-bhavnagri.png" alt="Green Chilli" fill className="object-cover" />
-               <div className="absolute inset-0 bg-black/40" />
+              <Image src="/green-chilli-bhavnagri.png" alt="Green Chilli" fill className="object-cover" />
+              <div className="absolute inset-0 bg-black/40" />
               {/* <div className="absolute bottom-4 left-4 z-10 text-xs font-bold">Green Chilli</div> */}
             </div>
             <div className="relative overflow-hidden rounded-[30px]">
-               <Image src="/saffron-kashmir.png" alt="Saffron" fill className="object-cover" />
-               <div className="absolute inset-0 bg-black/40" />
-               {/* <div className="absolute bottom-4 left-4 z-10 text-xs font-bold">Saffron</div> */}
+              <Image src="/saffron-kashmir.png" alt="Saffron" fill className="object-cover" />
+              <div className="absolute inset-0 bg-black/40" />
+              {/* <div className="absolute bottom-4 left-4 z-10 text-xs font-bold">Saffron</div> */}
             </div>
             <div className="relative overflow-hidden rounded-[30px]">
-               <Image src="/red-chilli-guntur.png" alt="Red Chilli" fill className="object-cover" />
-               <div className="absolute inset-0 bg-black/40" />
-               {/* <div className="absolute bottom-4 left-4 z-10 text-xs font-bold">Red Chilli</div> */}
+              <Image src="/red-chilli-guntur.png" alt="Red Chilli" fill className="object-cover" />
+              <div className="absolute inset-0 bg-black/40" />
+              {/* <div className="absolute bottom-4 left-4 z-10 text-xs font-bold">Red Chilli</div> */}
             </div>
             <div className="relative col-span-2 overflow-hidden rounded-[30px]">
-               <Image src="/black-pepper-garam-masala.png" alt="Black Pepper" fill className="object-cover" />
-               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent" />
-             { /* <div className="absolute bottom-4 left-4 z-10 text-sm font-bold">Black Pepper Garam Masala</div> */ }
+              <Image src="/black-pepper-garam-masala.png" alt="Black Pepper" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent" />
+              { /* <div className="absolute bottom-4 left-4 z-10 text-sm font-bold">Black Pepper Garam Masala</div> */}
             </div>
           </div>
         </div>

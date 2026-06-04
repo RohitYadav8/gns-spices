@@ -35,120 +35,138 @@ export default async function AdminDashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-black text-white">
-
-      {/* HEADER */}
-      <div className="p-8 md:p-12">
-        <div className="mb-12">
+    <div className="min-h-screen overflow-x-hidden bg-black text-white">
+      <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+        {/* Header */}
+        <div className="mb-8 sm:mb-12">
           <p className="text-[10px] font-black uppercase tracking-[0.35em] text-amber-400">
             Dashboard
           </p>
-          <h1 className="mt-2 text-3xl font-black">
+
+          <h1 className="mt-2 text-2xl font-black sm:text-3xl">
             Welcome back 👋
           </h1>
         </div>
 
-        {/* STATS */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-
+        {/* Stats */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {/* Revenue */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
                   Revenue
                 </p>
-                <h2 className="mt-2 text-4xl font-black text-amber-400">
+
+                <h2 className="mt-2 text-3xl font-black text-amber-400 sm:text-4xl">
                   £{totalRevenue}
                 </h2>
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-amber-500/10 flex items-center justify-center">
-                <PoundSterling className="text-amber-400" size={24} />
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 sm:h-14 sm:w-14">
+                <PoundSterling
+                  className="text-amber-400"
+                  size={24}
+                />
               </div>
             </div>
           </div>
 
           {/* Orders */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
                   Orders
                 </p>
-                <h2 className="mt-2 text-4xl font-black">
+
+                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
                   {totalOrders}
                 </h2>
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-blue-500/10 flex items-center justify-center">
-                <ShoppingBag className="text-blue-400" size={24} />
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 sm:h-14 sm:w-14">
+                <ShoppingBag
+                  className="text-blue-400"
+                  size={24}
+                />
               </div>
             </div>
           </div>
 
           {/* Customers */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
                   Customers
                 </p>
-                <h2 className="mt-2 text-4xl font-black">
+
+                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
                   {totalUsers}
                 </h2>
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-purple-500/10 flex items-center justify-center">
-                <Users className="text-purple-400" size={24} />
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/10 sm:h-14 sm:w-14">
+                <Users
+                  className="text-purple-400"
+                  size={24}
+                />
               </div>
             </div>
           </div>
 
           {/* Products */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
                   Products
                 </p>
-                <h2 className="mt-2 text-4xl font-black">
+
+                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
                   {totalProducts}
                 </h2>
               </div>
-              <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
-                <Package className="text-emerald-400" size={24} />
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 sm:h-14 sm:w-14">
+                <Package
+                  className="text-emerald-400"
+                  size={24}
+                />
               </div>
             </div>
           </div>
-
         </div>
 
-        {/* ORDERS */}
-        <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-
-          <h2 className="text-3xl font-black mb-6">
+        {/* Recent Orders */}
+        <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl sm:p-6 lg:p-8">
+          <h2 className="mb-6 text-2xl font-black sm:text-3xl">
             Recent Orders
           </h2>
 
           <div className="space-y-4">
-
             {pendingOrders.slice(0, 5).map((order: any) => (
               <div
                 key={order._id}
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 p-6 hover:bg-white/5 transition"
+                className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition hover:bg-white/5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
               >
                 <div>
                   <h3 className="font-black text-white">
                     {order.shippingAddress?.fullName || "Unknown"}
                   </h3>
+
                   <p className="text-sm text-zinc-400">
                     {order.shippingAddress?.city || "No City"}
                   </p>
                 </div>
 
-                <div className="text-right">
+                <div className="text-left sm:text-right">
                   <p className="font-black text-amber-400">
                     £{order.totalAmount}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">
+
+                  <p className="mt-1 text-xs text-zinc-400">
                     {order.status}
                   </p>
                 </div>
@@ -156,14 +174,12 @@ export default async function AdminDashboardPage() {
             ))}
 
             {pendingOrders.length === 0 && (
-              <p className="text-center text-zinc-500">
+              <p className="py-6 text-center text-zinc-500">
                 No pending orders
               </p>
             )}
-
           </div>
         </div>
-
       </div>
     </div>
   );

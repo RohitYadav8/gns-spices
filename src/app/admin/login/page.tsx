@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,6 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // API call to your backend route
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,9 +26,8 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (data.success) {
-        // Redirect to admin dashboard
         router.push("/admin");
-        router.refresh(); 
+        router.refresh();
       } else {
         alert(data.message || "Login failed, please check credentials.");
       }
@@ -42,45 +40,53 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-black flex items-center justify-center px-6 overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-red-600/20 blur-[140px]" />
-        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-amber-500/20 blur-[140px]" />
+    // min-h-[100dvh] use kiya hai taaki mobile browser ke bottom bar ke saath UI na kate
+    <main className="relative min-h-[100dvh] bg-black flex items-center justify-center px-4 md:px-6 overflow-hidden">
+      
+      {/* Background Glows (Optimized for mobile) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] h-72 w-72 md:h-96 md:w-96 rounded-full bg-red-600/20 blur-[100px] md:blur-[140px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] h-72 w-72 md:h-96 md:w-96 rounded-full bg-amber-500/20 blur-[100px] md:blur-[140px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-md rounded-[32px] border border-white/10 bg-zinc-950 p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(245,158,11,0.15)]">
+      {/* Main Login Card */}
+      <div className="relative z-10 w-full max-w-[400px] rounded-[32px] border border-white/10 bg-zinc-950 p-6 md:p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(245,158,11,0.15)]">
+        
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-black text-white">Admin Login</h1>
-          <p className="mt-3 text-zinc-400">Login to access admin dashboard</p>
+          <h1 className="text-3xl md:text-4xl font-black text-white">Admin Login</h1>
+          <p className="mt-2 text-sm md:text-base text-zinc-400">Login to access admin dashboard</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
+          
+          {/* Email Input */}
           <div>
-            <label className="block mb-2 text-sm font-semibold text-white">Email Address</label>
+            <label className="block mb-2 text-sm font-semibold text-zinc-300">Email Address</label>
             <div className="relative">
               <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
               <input
                 type="email"
-                placeholder="Enter email"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full h-14 rounded-xl border border-white/10 bg-black text-white placeholder:text-zinc-500 pl-12 pr-4 outline-none focus:border-amber-400 transition-all"
+                className="w-full h-14 rounded-xl border border-white/10 bg-black text-white placeholder:text-zinc-600 pl-12 pr-4 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
               />
             </div>
           </div>
 
+          {/* Password Input */}
           <div>
-            <label className="block mb-2 text-sm font-semibold text-white">Password</label>
+            <label className="block mb-2 text-sm font-semibold text-zinc-300">Password</label>
             <div className="relative">
               <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" />
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full h-14 rounded-xl border border-white/10 bg-black text-white placeholder:text-zinc-500 pl-12 pr-12 outline-none focus:border-amber-400 transition-all"
+                className="w-full h-14 rounded-xl border border-white/10 bg-black text-white placeholder:text-zinc-600 pl-12 pr-12 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
               />
               <button
                 type="button"
@@ -92,24 +98,19 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {/* Login Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-14 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-all flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(245,158,11,0.35)]"
+            className="w-full h-14 mt-4 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(245,158,11,0.35)]"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Verifying..." : "Login"}
             {!loading && <ArrowRight size={18} />}
           </button>
         </form>
 
-        <div className="mt-8 rounded-2xl border border-white/10 bg-black p-4">
-          <p className="mb-2 text-sm font-bold text-amber-400">Demo Credentials</p>
-          <p className="text-sm text-zinc-400">Email: admin@gnsspices.com</p>
-          <p className="text-sm text-zinc-400">Password: Admin@123</p>
-        </div>
-
         <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-zinc-400 hover:text-amber-400 transition-colors">
+          <Link href="/" className="text-xs md:text-sm text-zinc-500 hover:text-amber-400 transition-colors underline underline-offset-4">
             Back to Website
           </Link>
         </div>

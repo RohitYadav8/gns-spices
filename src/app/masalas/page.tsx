@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useSearchParams } from 'next/navigation';
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, Suspense } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search, ShoppingCart } from "lucide-react";
@@ -34,10 +34,10 @@ const TIER_COLORS: Record<string, string> = {
   "House Selection": "border-amber-400 text-amber-400",
 };
 
-export default function ProductsPage() {
+function PageContent() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "Signature Masalas";
+  const initialCategory = searchParams.get("category") || "All";
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");
@@ -71,16 +71,20 @@ export default function ProductsPage() {
     });
   }, [selectedCategory, search, products]);
 
-  if (loading) return <div className="min-h-screen bg-[#0a0503] flex items-center justify-center text-white">Loading...</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-[#0a0503] flex items-center justify-center text-white">
+      Loading...
+    </div>
+  );
 
   return (
     <>
       <Navbar />
-      <section className="min-h-screen bg-[#0a0503] py-20 px-6 md:px-12 text-white">
+      <section className="min-h-screen bg-[#0a0503] py-20 px-4 md:px-12 text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto">
 
           {/* HEADER + SEARCH */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
             <div>
               <div className="mb-4 flex items-center gap-4">
                 <span className="h-px w-16 bg-amber-400" />
@@ -93,28 +97,28 @@ export default function ProductsPage() {
               <p className="text-zinc-400 mt-2 text-sm">{products.length} products · Shipping to GB.</p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex items-center bg-[#110d0b] rounded-2xl border border-zinc-800 h-14 px-4 w-80">
-                <Search className="text-zinc-500 shrink-0" size={20} />
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <div className="flex items-center bg-[#110d0b] rounded-2xl border border-zinc-800 h-12 px-4 flex-1 md:w-72">
+                <Search className="text-zinc-500 shrink-0" size={18} />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search spices, blends, origins..."
+                  placeholder="Search spices..."
                   className="w-full bg-transparent outline-none text-white text-sm px-3"
                 />
               </div>
-              <button className="btn-primary h-14 px-8 shrink-0">Search</button>
+              <button className="btn-primary h-12 px-5 shrink-0">Search</button>
             </div>
           </div>
 
           {/* CATEGORIES */}
-          <div className="flex flex-wrap gap-3 mb-16">
+          <div className="flex flex-wrap gap-2 mb-10">
             {CATEGORIES.map((item) => (
               <button
                 key={item}
                 onClick={() => setSelectedCategory(item)}
-                className={`px-6 py-3 rounded-full border transition-all ${
+                className={`px-4 py-2 rounded-full border transition-all text-sm ${
                   selectedCategory === item
                     ? "bg-amber-400 text-black font-bold border-amber-400"
                     : "bg-[#110d0b] border-zinc-800 text-zinc-400 hover:border-amber-400 hover:text-amber-400"
@@ -126,30 +130,22 @@ export default function ProductsPage() {
           </div>
 
           {/* GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
             {filteredProducts.map((item) => (
-              <div key={item._id} className="bg-[#110d0b] p-6 rounded-3xl  transition-all">
+              <div key={item._id} className="bg-[#110d0b] p-5 rounded-3xl transition-all w-full">
 
-                {/* IMAGE */}
-                <div className="relative h-64 mb-6 bg-white rounded-2xl overflow-hidden">
+                <div className="relative h-56 mb-5 bg-white rounded-2xl overflow-hidden w-full">
                   <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
                 </div>
 
-                {/* CATEGORY */}
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">{item.category}</p>
-
-                {/* TITLE */}
                 <h2 className="text-xl font-black mb-2">{item.title}</h2>
-
-                {/* DESC */}
                 <p className="text-zinc-400 text-sm mb-3">{item.desc}</p>
 
-                {/* ORIGIN */}
                 {item.origin && (
                   <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-4">{item.origin}</p>
                 )}
 
-                {/* TIERS */}
                 {item.tiers && item.tiers.length > 0 && (
                   <div className="border-t border-zinc-800 pt-4 mb-4 space-y-3">
                     <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
@@ -173,7 +169,6 @@ export default function ProductsPage() {
                   </div>
                 )}
 
-                {/* PRICE + ADD */}
                 <div className="flex items-center justify-between border-t border-zinc-800 pt-4">
                   <div>
                     <span className="text-xl font-black">£{item.price}</span>
@@ -195,5 +190,17 @@ export default function ProductsPage() {
       </section>
       <Footer />
     </>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0503] flex items-center justify-center text-white">
+        Loading...
+      </div>
+    }>
+      <PageContent />
+    </Suspense>
   );
 }
