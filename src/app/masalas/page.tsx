@@ -38,7 +38,7 @@ export default function ProductsPage() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "Signature Masalas";
-  
+
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
@@ -76,11 +76,10 @@ export default function ProductsPage() {
   return (
     <>
       <Navbar />
-      {/* Dark Theme Background - Matching Navbar */}
       <section className="min-h-screen bg-[#0a0503] py-20 px-6 md:px-12 text-white">
         <div className="max-w-7xl mx-auto">
 
-          {/* HEADER + SEARCH SAME LINE */}
+          {/* HEADER + SEARCH */}
           <div className="flex items-center justify-between mb-6">
             <div>
               <div className="mb-4 flex items-center gap-4">
@@ -94,7 +93,6 @@ export default function ProductsPage() {
               <p className="text-zinc-400 mt-2 text-sm">{products.length} products · Shipping to GB.</p>
             </div>
 
-            {/* SEARCH RIGHT SIDE */}
             <div className="flex items-center gap-3">
               <div className="flex items-center bg-[#110d0b] rounded-2xl border border-zinc-800 h-14 px-4 w-80">
                 <Search className="text-zinc-500 shrink-0" size={20} />
@@ -106,13 +104,11 @@ export default function ProductsPage() {
                   className="w-full bg-transparent outline-none text-white text-sm px-3"
                 />
               </div>
-              <button className="btn-primary h-14 px-8 shrink-0">
-                Search
-              </button>
+              <button className="btn-primary h-14 px-8 shrink-0">Search</button>
             </div>
           </div>
 
-          {/* Categories */}
+          {/* CATEGORIES */}
           <div className="flex flex-wrap gap-3 mb-16">
             {CATEGORIES.map((item) => (
               <button
@@ -129,71 +125,72 @@ export default function ProductsPage() {
             ))}
           </div>
 
-          {/* Product Cards - Dark Theme Styling */}
-           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
-                      {filteredProducts.map((item) => (
-                        <div key={item._id} className="bg-[#110d0b] p-6 rounded-3xl border border-zinc-800 hover:border-zinc-600 transition-all flex flex-col">
-          
-                          {/* IMAGE */}
-                          <div className="relative h-64 mb-6 bg-white rounded-2xl overflow-hidden">
-                            <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
-                          </div>
-          
-                          {/* CATEGORY */}
-                          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">{item.category}</p>
-          
-                          {/* TITLE */}
-                          <h2 className="text-xl font-black mb-2">{item.title}</h2>
-          
-                          {/* DESC */}
-                          <p className="text-zinc-400 text-sm line-clamp-2 mb-3">{item.desc}</p>
-          
-                          {/* ORIGIN */}
-                          {item.origin && (
-                            <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-4">{item.origin}</p>
+          {/* GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 items-start">
+            {filteredProducts.map((item) => (
+              <div key={item._id} className="bg-[#110d0b] p-6 rounded-3xl  transition-all">
+
+                {/* IMAGE */}
+                <div className="relative h-64 mb-6 bg-white rounded-2xl overflow-hidden">
+                  <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+                </div>
+
+                {/* CATEGORY */}
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">{item.category}</p>
+
+                {/* TITLE */}
+                <h2 className="text-xl font-black mb-2">{item.title}</h2>
+
+                {/* DESC */}
+                <p className="text-zinc-400 text-sm mb-3">{item.desc}</p>
+
+                {/* ORIGIN */}
+                {item.origin && (
+                  <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-4">{item.origin}</p>
+                )}
+
+                {/* TIERS */}
+                {item.tiers && item.tiers.length > 0 && (
+                  <div className="border-t border-zinc-800 pt-4 mb-4 space-y-3">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                      {item.tiers.length === 1 ? "One Tier" : item.tiers.length === 2 ? "Two Tiers" : "Three Tiers"}
+                    </p>
+                    {item.tiers.map((tier, i) => (
+                      <div key={i}>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className={`border px-2 py-0.5 rounded-full text-[10px] font-black uppercase whitespace-nowrap shrink-0 ${TIER_COLORS[tier.name] || 'border-zinc-500 text-zinc-400'}`}>
+                            {tier.name}
+                          </span>
+                          {tier.weight && (
+                            <span className="text-zinc-400 text-xs shrink-0">{tier.weight}</span>
                           )}
-          
-                          {/* TIERS */}
-                          {item.tiers && item.tiers.length > 0 && (
-                            <div className="border-t border-zinc-800 pt-4 mb-4 space-y-3">
-                              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
-                                {item.tiers.length === 1 ? "One Tier" : item.tiers.length === 2 ? "Two Tiers" : "Three Tiers"}
-                              </p>
-                              {item.tiers.map((tier, i) => (
-                                <div key={i}>
-                                  <div className="flex items-center justify-between">
-                                    <span className={`border px-3 py-1 rounded-full text-xs font-black uppercase ${TIER_COLORS[tier.name] || 'border-zinc-500 text-zinc-400'}`}>
-                                      {tier.name}
-                                    </span>
-                                    {tier.weight && (
-                                      <span className="text-zinc-400 text-xs">{tier.weight}</span>
-                                    )}
-                                  </div>
-                                  {tier.desc && (
-                                    <p className="text-zinc-500 text-xs mt-1">{tier.desc}</p>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-          
-                          {/* PRICE + ADD */}
-                          <div className="mt-auto flex items-center justify-between border-t border-zinc-800 pt-4">
-                            <div>
-                              <span className="text-xl font-black">£{item.price}</span>
-                              <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
-                            </div>
-                            <button
-                              onClick={() => addToCart({ id: item._id, ...item })}
-                              className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
-                            >
-                              <ShoppingCart size={14} /> Add
-                            </button>
-                          </div>
-          
                         </div>
-                      ))}
-                    </div>
+                        {tier.desc && (
+                          <p className="text-zinc-500 text-xs mt-1">{tier.desc}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* PRICE + ADD */}
+                <div className="flex items-center justify-between border-t border-zinc-800 pt-4">
+                  <div>
+                    <span className="text-xl font-black">£{item.price}</span>
+                    <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
+                  </div>
+                  <button
+                    onClick={() => addToCart({ id: item._id, ...item })}
+                    className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
+                  >
+                    <ShoppingCart size={14} /> Add
+                  </button>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
       <Footer />

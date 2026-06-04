@@ -22,29 +22,55 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Load user from local storage initially for fast render
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
+    const loadUser = async () => {
+      try {
+        const storedUser = localStorage.getItem("user");
 
-      // Then fetch fresh data from database
-      if (parsedUser._id) {
-        fetch(`/api/user/profile?userId=${parsedUser._id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success && data.user) {
-              setUser(data.user);
-              localStorage.setItem("user", JSON.stringify(data.user));
-            }
-          })
-          .catch((err) => console.error("Error fetching fresh user data", err));
+        if (!storedUser) return;
+
+        const parsedUser: User = JSON.parse(storedUser);
+        setUser(parsedUser);
+
+        if (!parsedUser._id) return;
+
+        const response = await fetch(
+          `/api/user/profile?userId=${parsedUser._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // API route not found ya error
+        if (!response.ok) {
+          console.error(
+            `Profile API Error: ${response.status} ${response.statusText}`
+          );
+          return;
+        }
+
+        const data = await response.json();
+
+        if (data?.success && data?.user) {
+          setUser(data.user);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
+      } catch (error) {
+        console.error("Error fetching fresh user data:", error);
       }
-    }
+    };
+
+    loadUser();
   }, []);
 
   const login = (userData: User) => {
@@ -58,7 +84,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -66,8 +98,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };
