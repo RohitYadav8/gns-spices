@@ -39,6 +39,7 @@ export default function RecipesSection() {
               <p className="text-[10px] font-black uppercase tracking-[0.35em] text-amber-500">
                 FROM OUR KITCHEN
               </p>
+               <div className="w-10 h-0.5 bg-amber-500" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               Recipes worth the simmer
