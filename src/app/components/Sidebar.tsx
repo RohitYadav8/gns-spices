@@ -19,7 +19,7 @@ function SidebarItem({ icon, title, href, active, onClick }: any) {
   return (
     <Link
       href={href}
-      onClick={onClick} // ✅ auto-close handler
+      onClick={onClick}
       className={`flex items-center gap-4 px-5 h-14 rounded-2xl transition-all ${
         active ? "bg-[#d97f5f] text-white" : "text-[#EDE9E6] hover:bg-white/5"
       }`}
@@ -33,7 +33,6 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // ✅ जब sidebar खुले तो पीछे का scroll disable कर दो
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -54,10 +53,10 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 right-0 h-screen w-[280px] 
+        className={`fixed top-0 left-0 h-screen w-[280px] 
                     bg-[#2c1208] text-white flex flex-col justify-between 
-                    border-l border-white/10 transition-transform duration-300 z-40
-                    ${open ? "translate-x-0" : "translate-x-full md:translate-x-0"}`}
+                    border-r border-white/10 transition-transform duration-300 z-40
+                    ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
         {/* Header */}
         <div className="pl-12 py-7 border-b border-white/10">
