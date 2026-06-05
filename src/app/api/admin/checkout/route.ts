@@ -42,17 +42,7 @@ export async function POST(req: Request) {
       paymentStatus: 'Pending'
     });
 
-    if (paymentMethod === 'COD' || paymentMethod === 'GPay') {
-      sendOrderEmail({
-        orderId: newOrder._id.toString(),
-        customer: customerDetails,
-        items: items,
-        total: subtotal,
-        paymentMethod: paymentMethod
-      }).catch(console.error);
-
-      return NextResponse.json({ url: `${process.env.NEXT_PUBLIC_URL}/success` });
-    }
+    const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
 
     // 3. Stripe Checkout Session (ONLY FOR CARD)
     const session = await stripe.checkout.sessions.create({
@@ -67,8 +57,8 @@ export async function POST(req: Request) {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_URL}/checkout`,
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/checkout`,
       metadata: {
         orderId: newOrder._id.toString(),
       },

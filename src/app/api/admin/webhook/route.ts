@@ -23,20 +23,24 @@ export async function POST(req: Request) {
     await connectDB();
     
     // Aapke schema ke hisaab se update
-    const updatedOrder = await Order.findByIdAndUpdate(orderId, { 
-      paymentStatus: 'Paid',
-      status: 'Processing' // Payment hote hi hum order processing status mein daal sakte hain
-    }, { new: true });
+    const updatedOrder = await Order.findOneAndUpdate(
+      { _id: orderId, paymentStatus: 'Pending' }, 
+      { 
+        paymentStatus: 'Paid',
+        status: 'Processing' // Payment hote hi hum order processing status mein daal sakte hain
+      }, 
+      { returnDocument: 'after' }
+    );
 
     if (updatedOrder) {
       // Send email upon successful payment
-      sendOrderEmail({
+      await sendOrderEmail({
         orderId: updatedOrder._id.toString(),
         customer: updatedOrder.shippingAddress,
         items: updatedOrder.items,
         total: updatedOrder.totalAmount,
         paymentMethod: updatedOrder.paymentMethod
-      }).catch(console.error);
+      });
     }
   }
 

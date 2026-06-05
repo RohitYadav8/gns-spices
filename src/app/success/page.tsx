@@ -2,16 +2,27 @@
 
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useCart } from "@/app/context/CartContext";
+import { useSearchParams } from "next/navigation";
 
-export default function SuccessPage() {
+function SuccessContent() {
   const { clearCart } = useCart();
+  const searchParams = useSearchParams();
+  const session_id = searchParams.get('session_id');
 
-  // Clear cart when payment is successful
+  // Clear cart and verify payment when successful
   useEffect(() => {
     clearCart();
-  }, [clearCart]);
+    
+    if (session_id) {
+      fetch('/api/admin/verify-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id })
+      }).catch(console.error);
+    }
+  }, [clearCart, session_id]);
 
   return (
     <div className="min-h-screen bg-[#FFF8E7] flex items-center justify-center px-4">
@@ -43,5 +54,13 @@ export default function SuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FFF8E7] flex items-center justify-center">Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }

@@ -361,68 +361,7 @@ function CheckoutPage() {
 
                                 </div>
 
-                                {/* PAYMENT METHODS */}
-                                <div className="flex flex-col space-y-3">
 
-                                   <label
-  className={`flex items-center gap-3 p-4 rounded-2xl cursor-pointer transition-all border ${
-    paymentMethod === 'Card'
-      ? 'border-amber-400 bg-amber-400/10 shadow-[0_0_20px_rgba(251,191,36,0.15)]'
-      : 'border-white/10 bg-black/40 hover:border-amber-400/30'
-  }`}
->
-                                        <input
-                                            type="radio"
-                                            name="payment"
-                                            value="Card"
-                                            checked={paymentMethod === 'Card'}
-                                            onChange={() => setPaymentMethod('Card')}
-                                            className="w-5 h-5 accent-amber-400"
-                                        />
-                                        <span className="font-bold text-white">
-                                            Card Payment (Stripe)
-                                        </span>
-                                    </label>
-
-                                    <label
-                                        className={`flex items-center gap-3 p-4 border rounded-2xl cursor-pointer transition-all ${paymentMethod === 'COD'
-                                            ? 'border-amber-400 bg-amber-400/10'
-                                            : 'border-white/10 bg-zinc-950'
-                                            }`}
-                                    >
-                                        <input
-                                            type="radio"
-                                            name="payment"
-                                            value="COD"
-                                            checked={paymentMethod === 'COD'}
-                                            onChange={() => setPaymentMethod('COD')}
-                                            className="w-5 h-5 accent-amber-400"
-                                        />
-                                        <span className="font-bold text-white">
-                                            Cash on Delivery
-                                        </span>
-                                    </label>
-
-                                    <label
-                                        className={`flex items-center gap-3 p-4 border rounded-2xl cursor-pointer transition-all ${paymentMethod === 'GPay'
-                                            ? 'border-amber-400 bg-amber-400/10'
-                                            : 'border-white/10 bg-zinc-950'
-                                            }`}
-                                    >
-                                        <input
-                                            type="radio"
-                                            name="payment"
-                                            value="GPay"
-                                            checked={paymentMethod === 'GPay'}
-                                            onChange={() => setPaymentMethod('GPay')}
-                                            className="w-5 h-5 accent-amber-400"
-                                        />
-                                        <span className="font-bold text-white">
-                                            GPay / QR Code
-                                        </span>
-                                    </label>
-
-                                </div>
 
                                 {/* BUTTON */}
                                 <button
@@ -445,7 +384,7 @@ function CheckoutPage() {
     disabled:opacity-60
   "
                                 >
-                                    {loading ? 'Processing...' : paymentMethod === 'Card' ? `Pay £${finalTotal} Securely` : `Confirm Order`}
+                                    {loading ? 'Processing...' : `Pay £${finalTotal} Securely`}
                                 </button>
 
                             </form>
