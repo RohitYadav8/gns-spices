@@ -1,35 +1,37 @@
 import { NextResponse } from "next/server";
+import ConnectDB from "@/lib/db";
+import User from "@/models/Users";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  try {
+    await ConnectDB();
 
-  const cleanEmail = email?.trim().toLowerCase();
-  const cleanPassword = password?.trim();
+    const { email, password } = await req.json();
 
-  console.log("LOGIN DATA:", cleanEmail, cleanPassword);
+    const cleanEmail = email?.trim().toLowerCase();
+    const cleanPassword = password?.trim();
 
-  if (
-    cleanEmail === "admin@gnsspices.com" &&
-    cleanPassword === "Admin@123"
-  ) {
-    const res = NextResponse.json({
-      success: true,
-      message: "Login successful",
-    });
+    if (!cleanEmail || !cleanPassword) {
+      return NextResponse.json({ success: false, message: "Missing fields" });
+    }
 
-    res.cookies.set("admin_token", "true", {
-      httpOnly: true,
-      path: "/",
-      maxAge: 60 * 60 * 24,
-      secure: process.env.NODE_ENV === "production", // ✅ Yeh add karo
-      sameSite: "strict", // ✅ Yeh bhi add karo
-    });
+    const user = await User.findOne({ email: cleanEmail });
 
-    return res;
+    if (!user) {
+      return NextResponse.json({ success: false, message: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(cleanPassword, user.password);
+
+    if (!isMatch) {
+      return NextResponse.json({ success: false, message: "Invalid credentials" });
+    }
+
+    return NextResponse.json({ success: true, user });
+
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ success: false, message: "Server error" });
   }
-
-  return NextResponse.json(
-    { success: false, message: "Invalid credentials" },
-    { status: 401 }
-  );
 }
