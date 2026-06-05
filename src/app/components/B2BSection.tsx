@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const cards = [
   {
-    
+
     title: "Wholesale & B2B",
     description:
       "Tiered pricing, credit terms, and a dedicated account manager. From restaurants to national retail chains.",
@@ -38,7 +38,7 @@ export default function B2BCards() {
               />
 
               {/* Small badge on image */}
-             
+
             </div>
 
             {/* Content */}
@@ -56,16 +56,17 @@ export default function B2BCards() {
 
               <Link
                 href={card.href}
-                className="mt-2 inline-flex items-center gap-2"
+                className="mt-2 inline-flex items-center gap-2 group"
               >
                 <span className="underline decoration-white underline-offset-4 text-white">
-  Learn More
-</span>
-                
-                <span className="flex items-center justify-center text-white transition-all duration-300 group-hover:text-black">
+                  Learn More
+                </span>
+
+                <span className="flex items-center justify-center text-white text-lg font-bold transition-all duration-300 group-hover:text-amber-400">
                   →
                 </span>
               </Link>
+
             </div>
           </div>
         ))}
