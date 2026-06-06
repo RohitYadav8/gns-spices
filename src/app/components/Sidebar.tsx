@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Package,
   List,
+  FileText,
   ShoppingCart,
   TicketPercent,
   Users,
   Settings,
+  Briefcase,
   LogOut,
   Menu,
 } from "lucide-react";
@@ -20,9 +22,8 @@ function SidebarItem({ icon, title, href, active, onClick }: any) {
     <Link
       href={href}
       onClick={onClick}
-      className={`flex items-center gap-4 px-5 h-14 rounded-2xl transition-all ${
-        active ? "bg-[#d97f5f] text-white" : "text-[#EDE9E6] hover:bg-white/5"
-      }`}
+      className={`flex items-center gap-4 px-5 h-14 rounded-2xl transition-all ${active ? "bg-[#d97f5f] text-white" : "text-[#EDE9E6] hover:bg-white/5"
+        }`}
     >
       {icon} {title}
     </Link>
@@ -31,6 +32,7 @@ function SidebarItem({ icon, title, href, active, onClick }: any) {
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -40,6 +42,11 @@ export default function Sidebar() {
       document.body.style.overflow = "";
     }
   }, [open]);
+
+  const handleLogout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+  };
 
   return (
     <>
@@ -108,6 +115,13 @@ export default function Sidebar() {
             active={pathname.includes("/admin/customers")}
             onClick={() => setOpen(false)}
           />
+         <SidebarItem
+  icon={<Briefcase size={18} />}
+  title="B2B & Quotes"
+  href="/admin/b2b"
+  active={pathname.includes("/admin/b2b")}
+  onClick={() => setOpen(false)}
+/>
           <SidebarItem
             icon={<Settings size={18} />}
             title="Settings"
@@ -115,17 +129,17 @@ export default function Sidebar() {
             active={pathname.includes("/admin/settings")}
             onClick={() => setOpen(false)}
           />
+
         </nav>
 
         {/* Sign Out */}
         <div className="p-4 border-t border-white/10">
-          <SidebarItem
-            icon={<LogOut size={18} />}
-            title="Sign Out"
-            href="/admin/logout"
-            active={false}
-            onClick={() => setOpen(false)}
-          />
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-4 px-5 h-14 rounded-2xl w-full text-[#EDE9E6] hover:bg-white/5 transition-all"
+          >
+            <LogOut size={18} /> Sign Out
+          </button>
         </div>
       </aside>
     </>

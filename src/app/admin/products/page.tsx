@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 import { PlusCircle, ChevronDown, Plus, Trash2 } from "lucide-react";
+const CATEGORIES = [
+  "Pure Powders",
+  "Whole Seeds",
+  "Signature Masalas",
+  "Indian Pickles",
+  
+];
 
 const TIER_NAMES = ["Home Kitchen", "Professional Choice", "Chef's Reserve", "House Selection"];
 
@@ -26,7 +33,7 @@ export default function AddProductPage() {
   const [tiers, setTiers] = useState<Tier[]>([
     { name: "Home Kitchen", weight: "", desc: "" }
   ]);
-
+const [openCategory, setOpenCategory] = useState(false);
   const [openTierIndex, setOpenTierIndex] = useState<number | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -132,12 +139,53 @@ export default function AddProductPage() {
               <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Title</label>
               <input name="title" value={formData.title} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Red Chilli Powder" />
             </div>
-            <div>
-              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Category</label>
-              <input name="category" value={formData.category} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Pure Powders" />
-            </div>
-          </div>
+        <div>
+  <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">
+    Category
+  </label>
 
+  <div className="relative">
+    <button
+      type="button"
+      onClick={() => setOpenCategory(!openCategory)}
+      className="w-full h-12 px-4 rounded-xl bg-black border border-[#262626] hover:border-[#fbbf24] text-zinc-900 font-semibold flex items-center justify-between transition"
+    >
+      {formData.category || "Select Category"}
+      <ChevronDown
+        size={16}
+        className={`transition-transform ${
+          openCategory ? "rotate-180" : ""
+        }`}
+      />
+    </button>
+
+    {openCategory && (
+      <ul className="absolute z-50 w-full mt-2 rounded-xl border border-[#262626] bg-[#111] overflow-hidden shadow-xl">
+        {CATEGORIES.map((cat) => (
+          <li
+            key={cat}
+            onClick={() => {
+              setFormData({
+                ...formData,
+                category: cat,
+              });
+              setOpenCategory(false);
+            }}
+            className={`px-4 py-3 font-semibold cursor-pointer transition-all
+              ${
+                formData.category === cat
+                  ? "bg-amber-400 text-black"
+                  : "text-white hover:bg-amber-400 hover:text-black"
+              }`}
+          >
+            {cat}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+</div>
           {/* ORIGIN + PRICE */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>

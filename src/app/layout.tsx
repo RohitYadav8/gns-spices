@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// 1. CartProvider ko import karein
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -18,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GNS Spices - Premium Collection",
   description: "Authentic Indian Spices and Masalas",
+  icons: {
+    icon: "/GNS-LOGO.png",  // ← Yeh add kiya
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +33,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {/* 2. Poore children ko CartProvider aur AuthProvider ke andar wrap karein */}
         <AuthProvider>
           <CartProvider>
             {children}
