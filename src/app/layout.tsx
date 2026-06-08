@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "GNS Spices - Premium Collection",
   description: "Authentic Indian Spices and Masalas",
   icons: {
-    icon: "/GNS-LOGO.png",  // ← Yeh add kiya
+    icon: "/favicon.ico",  // ← Yeh add kiya
   },
 };
 
