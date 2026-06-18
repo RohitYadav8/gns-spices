@@ -19,23 +19,22 @@ interface Product {
   price: number;
 }
 
-// Slugs are URL friendly (lowercase with dashes)
-const CATEGORIES = [
-  { name: "All Products", slug: "all" },
-  { name: "Pure Powders", slug: "pure-powders" },
-  { name: "Whole Seeds", slug: "whole-seeds" },
-  { name: "Signature Masalas", slug: "signature-masalas" },
-  { name: "Indian Pickles", slug: "indian-pickels" },
-];
+interface Category {
+  name: string;
+  slug: string;
+}
 
 export default function CategoryPage() {
   const params = useParams();
-  // URL se category ka naam nikalega (e.g., 'whole-seeds')
-  const currentCategorySlug = typeof params?.categoryName === "string" ? params.categoryName : "all";
+  const currentCategorySlug =
+    typeof params?.categoryName === "string" ? params.categoryName : "all";
 
   const { addToCart } = useCart();
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([
+    { name: "All Products", slug: "all" },
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,6 +45,27 @@ export default function CategoryPage() {
 
         if (data.success && data.products) {
           setProducts(data.products);
+
+          // DB se unique categories dynamically nikalo
+          const uniqueCategoryNames = [
+            ...new Set(
+              data.products
+                .map((p: Product) => p.category)
+                .filter(Boolean) as string[]
+            ),
+          ];
+
+          const dynamicCategories: Category[] = uniqueCategoryNames.map(
+            (cat) => ({
+              name: cat,
+              slug: cat.toLowerCase().trim().replace(/\s+/g, "-"),
+            })
+          );
+
+          setCategories([
+            { name: "All Products", slug: "all" },
+            ...dynamicCategories,
+          ]);
         }
       } catch (error) {
         console.error("Error fetching products from MongoDB:", error);
@@ -63,26 +83,30 @@ export default function CategoryPage() {
     return products.filter((item) => {
       if (!item) return false;
 
-      // Convert DB category to slug format (e.g., "Whole Seeds" -> "whole-seeds")
-      const itemCategorySlug = item.category 
-        ? String(item.category).toLowerCase().trim().replace(/\s+/g, "-") 
+      const itemCategorySlug = item.category
+        ? String(item.category).toLowerCase().trim().replace(/\s+/g, "-")
         : "";
 
       const matchCategory =
-        currentCategorySlug === "all" || itemCategorySlug === currentCategorySlug;
+        currentCategorySlug === "all" ||
+        itemCategorySlug === currentCategorySlug;
 
-      const productTitle = item.title ? String(item.title).toLowerCase().trim() : "";
+      const productTitle = item.title
+        ? String(item.title).toLowerCase().trim()
+        : "";
       const matchSearch = productTitle.includes(search.toLowerCase().trim());
 
       return matchCategory && matchSearch;
     });
   }, [currentCategorySlug, search, products]);
 
-  // Current active category ka sunder naam heading me dikhane k liye
+  // Active category ka naam heading mein dikhane ke liye
   const activeCategoryName = useMemo(() => {
-    const found = CATEGORIES.find(c => c.slug === currentCategorySlug);
-    return found ? found.name : currentCategorySlug.replace(/-/g, " ");
-  }, [currentCategorySlug]);
+    const found = categories.find((c) => c.slug === currentCategorySlug);
+    return found
+      ? found.name
+      : currentCategorySlug.replace(/-/g, " ");
+  }, [currentCategorySlug, categories]);
 
   if (loading) {
     return (
@@ -100,7 +124,7 @@ export default function CategoryPage() {
       <Navbar />
 
       <section className="relative min-h-screen overflow-hidden bg-[#FFF6DE] py-32 px-6 md:px-12 text-[#332D20]">
-        
+
         {/* Decorative Background Gradients */}
         <div className="absolute top-0 left-0 h-[600px] w-[600px] bg-[#8BDFDD]/20 blur-[130px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 h-125 w-125 bg-[#F48F68]/10 blur-[150px] pointer-events-none" />
@@ -110,7 +134,7 @@ export default function CategoryPage() {
         </h1>
 
         <div className="relative max-w-7xl mx-auto">
-          
+
           {/* BREADCRUMB & HEADER */}
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-12">
             <div>
@@ -152,17 +176,23 @@ export default function CategoryPage() {
 
           {/* MAIN LAYOUT: SIDEBAR + GRID */}
           <div className="flex flex-col md:flex-row gap-10 items-start">
-            
-            {/* SIDEBAR CATEGORY NAVIGATION */}
+
+            {/* SIDEBAR CATEGORY NAVIGATION — ab DB se dynamic */}
             <div className="w-full md:w-64 bg-white p-6 rounded-[24px] border-2 border-[#FFE394]/40 shadow-sm sticky top-28">
-              <h2 className="text-sm font-black uppercase tracking-wider text-[#F48F68] mb-4">Categories</h2>
+              <h2 className="text-sm font-black uppercase tracking-wider text-[#F48F68] mb-4">
+                Categories
+              </h2>
               <div className="flex flex-col gap-2">
-                {CATEGORIES.map((cat) => {
+                {categories.map((cat) => {
                   const isActive = currentCategorySlug === cat.slug;
                   return (
                     <Link
                       key={cat.slug}
-                      href={cat.slug === "all" ? "/products" : `/category/${cat.slug}`}
+                      href={
+                        cat.slug === "all"
+                          ? "/products"
+                          : `/category/${cat.slug}`
+                      }
                       className={`w-full text-left px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${
                         isActive
                           ? "bg-[#8BDFDD] text-[#332D20]"
@@ -201,15 +231,23 @@ export default function CategoryPage() {
 
                       <div className="mt-5">
                         <div className="flex items-start justify-between gap-3">
-                          <h2 className="text-xl font-black text-[#332D20] tracking-tight">{item.title}</h2>
+                          <h2 className="text-xl font-black text-[#332D20] tracking-tight">
+                            {item.title}
+                          </h2>
                           <span className="text-2xl">{item.badge}</span>
                         </div>
-                        <p className="mt-2 text-sm text-[#332D20]/70 line-clamp-2 min-h-[40px] font-medium leading-relaxed">{item.desc}</p>
+                        <p className="mt-2 text-sm text-[#332D20]/70 line-clamp-2 min-h-[40px] font-medium leading-relaxed">
+                          {item.desc}
+                        </p>
 
                         <div className="mt-5 flex items-center justify-between pt-3 border-t border-[#FFE394]/40">
                           <div>
-                            <span className="text-2xl font-black text-[#332D20]">₹{item.price}</span>
-                            <p className="text-[10px] text-[#F48F68] font-black uppercase tracking-widest mt-0.5">100g Pack</p>
+                            <span className="text-2xl font-black text-[#332D20]">
+                              ₹{item.price}
+                            </span>
+                            <p className="text-[10px] text-[#F48F68] font-black uppercase tracking-widest mt-0.5">
+                              100g Pack
+                            </p>
                           </div>
 
                           <button
@@ -226,8 +264,12 @@ export default function CategoryPage() {
                 </div>
               ) : (
                 <div className="py-24 text-center bg-white rounded-4xl border-2 border-[#FFE394]/40">
-                  <h2 className="text-2xl font-black text-[#332D20]/40">No Spices Found</h2>
-                  <p className="text-[#332D20]/60 mt-2 font-semibold">Is category mein abhi koi naya stock nahi hai.</p>
+                  <h2 className="text-2xl font-black text-[#332D20]/40">
+                    No Spices Found
+                  </h2>
+                  <p className="text-[#332D20]/60 mt-2 font-semibold">
+                    Is category mein abhi koi naya stock nahi hai.
+                  </p>
                 </div>
               )}
             </div>

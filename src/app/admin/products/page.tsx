@@ -1,15 +1,9 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PlusCircle, ChevronDown, Plus, Trash2 } from "lucide-react";
-const CATEGORIES = [
-  "Pure Powders",
-  "Whole Seeds",
-  "Signature Masalas",
-  "Indian Pickles",
-  
-];
 
+// ❌ HARDCODED CATEGORIES HATAYE — ab DB se aayengi
 const TIER_NAMES = ["Home Kitchen", "Professional Choice", "Chef's Reserve", "House Selection"];
 
 const TIER_COLORS: Record<string, string> = {
@@ -25,6 +19,11 @@ interface Tier {
   desc: string;
 }
 
+interface ICategory {
+  _id: string;
+  name: string;
+}
+
 export default function AddProductPage() {
   const [formData, setFormData] = useState({
     title: "", category: "", price: "", mainDesc: "", origin: "",
@@ -33,12 +32,35 @@ export default function AddProductPage() {
   const [tiers, setTiers] = useState<Tier[]>([
     { name: "Home Kitchen", weight: "", desc: "" }
   ]);
-const [openCategory, setOpenCategory] = useState(false);
+
+  // ✅ DB se categories fetch karenge
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+
+  const [openCategory, setOpenCategory] = useState(false);
   const [openTierIndex, setOpenTierIndex] = useState<number | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  // ✅ Component load hote hi categories fetch karo
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch('/api/admin/categories');
+        const data = await res.json();
+        if (data.success) {
+          setCategories(data.categories);
+        }
+      } catch (error) {
+        console.error("Categories fetch error:", error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    }
+    fetchCategories();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -86,6 +108,7 @@ const [openCategory, setOpenCategory] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.category) return setMessage("❌ Please select a category!");
     setLoading(true);
     setMessage("");
     try {
@@ -137,71 +160,102 @@ const [openCategory, setOpenCategory] = useState(false);
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Title</label>
-              <input name="title" value={formData.title} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Red Chilli Powder" />
+              <input
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none"
+                placeholder="Red Chilli Powder"
+              />
             </div>
-        <div>
-  <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">
-    Category
-  </label>
 
-  <div className="relative">
-    <button
-      type="button"
-      onClick={() => setOpenCategory(!openCategory)}
-      className="w-full h-12 px-4 rounded-xl bg-black border border-[#262626] hover:border-[#fbbf24] text-zinc-900 font-semibold flex items-center justify-between transition"
-    >
-      {formData.category || "Select Category"}
-      <ChevronDown
-        size={16}
-        className={`transition-transform ${
-          openCategory ? "rotate-180" : ""
-        }`}
-      />
-    </button>
+            {/* ✅ CATEGORY DROPDOWN — ab DB se */}
+            <div>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">
+                Category
+              </label>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpenCategory(!openCategory)}
+                  className="w-full h-12 px-4 rounded-xl bg-black border border-[#262626] hover:border-[#fbbf24] text-white font-semibold flex items-center justify-between transition"
+                >
+                  <span className={formData.category ? "text-white" : "text-zinc-500"}>
+                    {formData.category || (categoriesLoading ? "Loading categories..." : "Select Category")}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform ${openCategory ? "rotate-180" : ""}`}
+                  />
+                </button>
 
-    {openCategory && (
-      <ul className="absolute z-50 w-full mt-2 rounded-xl border border-[#262626] bg-[#111] overflow-hidden shadow-xl">
-        {CATEGORIES.map((cat) => (
-          <li
-            key={cat}
-            onClick={() => {
-              setFormData({
-                ...formData,
-                category: cat,
-              });
-              setOpenCategory(false);
-            }}
-            className={`px-4 py-3 font-semibold cursor-pointer transition-all
-              ${
-                formData.category === cat
-                  ? "bg-amber-400 text-black"
-                  : "text-white hover:bg-amber-400 hover:text-black"
-              }`}
-          >
-            {cat}
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-</div>
-</div>
+                {openCategory && (
+                  <ul className="absolute z-50 w-full mt-2 rounded-xl border border-[#262626] bg-[#111] overflow-hidden shadow-xl">
+                    {categories.length === 0 ? (
+                      <li className="px-4 py-3 text-zinc-500 text-sm">
+                        Koi category nahi mili — pehle category banao
+                      </li>
+                    ) : (
+                      categories.map((cat) => (
+                        <li
+                          key={cat._id}
+                          onClick={() => {
+                            setFormData({ ...formData, category: cat.name });
+                            setOpenCategory(false);
+                          }}
+                          className={`px-4 py-3 font-semibold cursor-pointer transition-all
+                            ${formData.category === cat.name
+                              ? "bg-amber-400 text-black"
+                              : "text-white hover:bg-amber-400 hover:text-black"
+                            }`}
+                        >
+                          {cat.name}
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* ORIGIN + PRICE */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Origin</label>
-              <input name="origin" value={formData.origin} onChange={handleChange} className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="e.g. KASHMIR, KARNATAKA" />
+              <input
+                name="origin"
+                value={formData.origin}
+                onChange={handleChange}
+                className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none"
+                placeholder="e.g. KASHMIR, KARNATAKA"
+              />
             </div>
             <div>
               <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Price</label>
-              <input type="number" name="price" value={formData.price} onChange={handleChange} required className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" />
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+                className="w-full h-12 px-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none"
+              />
             </div>
           </div>
 
           {/* MAIN DESCRIPTION */}
           <div>
             <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Main Description</label>
-            <textarea name="mainDesc" value={formData.mainDesc} onChange={handleChange} rows={3} className="w-full p-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none" placeholder="Three grades from gentle blush to fiery sting." />
+            <textarea
+              name="mainDesc"
+              value={formData.mainDesc}
+              onChange={handleChange}
+              rows={3}
+              className="w-full p-4 rounded-xl bg-[#1A1A1A] border border-[#262626] focus:border-[#fbbf24] outline-none"
+              placeholder="Three grades from gentle blush to fiery sting."
+            />
           </div>
 
           {/* TIERS */}
@@ -224,8 +278,6 @@ const [openCategory, setOpenCategory] = useState(false);
             <div className="space-y-4">
               {tiers.map((tier, index) => (
                 <div key={index} className="bg-[#1A1A1A] border border-[#262626] rounded-2xl p-5 relative">
-
-                  {/* Delete tier button */}
                   {tiers.length > 1 && (
                     <button
                       type="button"
@@ -236,12 +288,10 @@ const [openCategory, setOpenCategory] = useState(false);
                     </button>
                   )}
 
-                  {/* Tier label */}
                   <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 mb-3">
                     Tier {index + 1}
                   </p>
 
-                  {/* Tier Name Dropdown */}
                   <div className="relative mb-4">
                     <button
                       type="button"
@@ -272,7 +322,6 @@ const [openCategory, setOpenCategory] = useState(false);
                     )}
                   </div>
 
-                  {/* Weight + Desc */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] font-bold uppercase text-zinc-600 mb-2">Weight</label>
@@ -301,13 +350,22 @@ const [openCategory, setOpenCategory] = useState(false);
           {/* IMAGE */}
           <div>
             <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Product Image</label>
-            <input type="file" onChange={handleImageChange} className="w-full text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#fbbf24] file:text-black" />
-            {imagePreview && <img src={imagePreview} className="mt-4 h-32 w-32 object-cover rounded-xl border border-[#262626]" />}
+            <input
+              type="file"
+              onChange={handleImageChange}
+              className="w-full text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#fbbf24] file:text-black"
+            />
+            {imagePreview && (
+              <img src={imagePreview} className="mt-4 h-32 w-32 object-cover rounded-xl border border-[#262626]" />
+            )}
           </div>
 
           {message && <p className="text-center font-bold">{message}</p>}
 
-          <button disabled={loading} className="w-full h-14 bg-[#fbbf24] text-black font-bold rounded-xl hover:bg-[#d9a51e] transition-all">
+          <button
+            disabled={loading}
+            className="w-full h-14 bg-[#fbbf24] text-black font-bold rounded-xl hover:bg-[#d9a51e] transition-all"
+          >
             {loading ? "Adding..." : "Add Product"}
           </button>
 

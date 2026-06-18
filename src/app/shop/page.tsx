@@ -25,7 +25,7 @@ interface Product {
   tiers?: Tier[];
 }
 
-const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickles"];
+const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickles","Whole Spices"];
 
 const TIER_COLORS: Record<string, string> = {
   "Home Kitchen": "border-green-500 text-green-400",

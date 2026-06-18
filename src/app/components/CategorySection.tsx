@@ -22,7 +22,7 @@ export default function CategorySection() {
     const mockCategories = [
       { _id: "1", name: "Whole Spices", description: "Freshly sourced, sun-dried whole seeds directly from the farm.", image: "/whole-spices.png" },
       { _id: "2", name: "Pure Powders", description: "Stone-ground for maximum aroma, texture, and natural flavor.", image: "/pure-powders-1.png" },
-      { _id: "3", name: "Signature Masala", description: "Hand-crafted secret blends passed down through generations.", image: "/signature-masalas.png" },
+      { _id: "3", name: "Signature Masalas", description: "Hand-crafted secret blends passed down through generations.", image: "/signature-masalas.png" },
       { _id: "4", name: "Whole Seeds", description: "Everyday kitchen staples, essential for authentic Indian tadka.", image: "/whole-seeds.png" },
     ];
     setCategories(mockCategories);
