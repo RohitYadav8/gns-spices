@@ -82,10 +82,9 @@ export default function PrivateLabelPage() {
               From formulation and packaging design to QC and export —
               one partner, one price, one shipment.
             </p>
-
-            <button className="mt-12 rounded-xl bg-[#f4ae1c] px-8 py-4 font-semibold text-black transition hover:opacity-90">
-              Start a project
-            </button>
+<Link href="/start-project" className="mt-12 inline-block rounded-xl bg-[#f4ae1c] px-8 py-4 font-semibold text-black transition hover:opacity-90">
+  Start a project
+</Link>
           </div>
         </div>
       </section>
@@ -139,9 +138,9 @@ export default function PrivateLabelPage() {
             considered case-by-case.
           </p>
 
-          <button className="mt-10 rounded-xl bg-[#f4ae1c] px-8 py-4 font-semibold text-black transition hover:opacity-90">
-            Start a project
-          </button>
+         <Link href="/start-project" className="mt-10 inline-block rounded-xl bg-[#f4ae1c] px-8 py-4 font-semibold text-black transition hover:opacity-90">
+  Start a project
+</Link>
         </div>
       </section>
     </main>

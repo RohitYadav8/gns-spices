@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -14,9 +15,9 @@ export default function Footer() {
         <div>
           <div className="mb-8">
             <img
-              src="/GNS-LOGO.png" // यहाँ अपना लोगो पाथ रखें
+              src="/GNS-LOGO.png"
               alt="GNS Spices"
-              className="h-16 w-auto   p-2 "
+              className="h-16 w-auto p-2"
             />
           </div>
           <p className="max-w-sm text-base leading-7 text-zinc-400 font-medium">
@@ -31,13 +32,26 @@ export default function Footer() {
         <div>
           <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Shop</h3>
           <ul className="space-y-3 text-base text-zinc-400 font-medium">
-            {["All spices", "Pure powders", "Whole seeds", "Signature masalas"].map((item, i) => (
-              <li key={i}>
-                <a href="#" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
-                  {item}
-                </a>
-              </li>
-            ))}
+            <li>
+              <Link href="/shop/all" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                All spices
+              </Link>
+            </li>
+            <li>
+              <Link href="/shop/pure-powders" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Pure powders
+              </Link>
+            </li>
+            <li>
+              <Link href="/shop/whole-seeds" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Whole seeds
+              </Link>
+            </li>
+            <li>
+              <Link href="/shop/signature-masalas" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Signature masalas
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -45,13 +59,21 @@ export default function Footer() {
         <div>
           <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Business</h3>
           <ul className="space-y-3 text-base text-zinc-400 font-medium">
-            {["Wholesale", "Private label", "Request a quote"].map((item, i) => (
-              <li key={i}>
-                <a href="#" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
-                  {item}
-                </a>
-              </li>
-            ))}
+            <li>
+              <Link href="/business/wholesale" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Wholesale
+              </Link>
+            </li>
+            <li>
+              <Link href="/business/private-label" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Private Label
+              </Link>
+            </li>
+            <li>
+              <Link href="/business/request-quote" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+                Request a quote
+              </Link>
+            </li>
           </ul>
         </div>
 

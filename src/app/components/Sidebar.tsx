@@ -15,6 +15,7 @@ import {
   Briefcase,
   LogOut,
   Menu,
+  ClipboardList,
 } from "lucide-react";
 
 function SidebarItem({ icon, title, href, active, onClick }: any) {
@@ -72,7 +73,7 @@ export default function Sidebar() {
         </div>
 
         {/* Menu Items */}
-        <nav className="flex-1 flex flex-col gap-2 p-4">
+        <nav className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
           <SidebarItem
             icon={<LayoutDashboard size={18} />}
             title="Dashboard"
@@ -129,6 +130,13 @@ export default function Sidebar() {
             active={pathname.includes("/admin/settings")}
             onClick={() => setOpen(false)}
           />
+          <SidebarItem
+  icon={<ClipboardList size={18} />}
+  title="PL Inquiries"
+  href="/admin/inquiries"
+  active={pathname.includes("/admin/inquiries")}
+  onClick={() => setOpen(false)}
+/>
 
         </nav>
 

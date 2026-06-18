@@ -288,7 +288,10 @@ export default function B2BSection() {
                         type="tel"
                         required
                         value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                 onChange={(e) => {
+  const onlyNums = e.target.value.replace(/[^0-9+]/g, "");
+  setForm({ ...form, phone: onlyNums });
+}}
                         className="w-full rounded-xl bg-black border border-white/10 text-white px-4 py-3 outline-none focus:border-amber-400"
                         placeholder="+91 9876543210"
                       />

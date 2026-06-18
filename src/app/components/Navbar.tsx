@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { Menu, X } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { Menu, X, User } from "lucide-react";
 
 export default function Navbar() {
   const { cart } = useCart();
+  const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const totalItems = cart.reduce(
@@ -50,9 +52,24 @@ export default function Navbar() {
                 )}
               </Link>
             </div>
-            <Link href="/account" className="rounded-full border border-zinc-700 px-6 py-2 text-sm font-medium text-white hover:border-amber-400 hover:text-amber-400 transition-all">
-              Account
-            </Link>
+
+            {/* ✅ User logged in hai toh naam dikhao, warna Account button */}
+            {user ? (
+              <Link
+                href="/account"
+                className="flex items-center gap-2 rounded-full border border-amber-500/50 bg-amber-500/10 px-5 py-2 text-sm font-bold text-amber-400 hover:border-amber-400 hover:bg-amber-500/20 transition-all"
+              >
+                <User size={14} />
+                {user.name.split(" ")[0]}
+              </Link>
+            ) : (
+              <Link
+                href="/account"
+                className="rounded-full border border-zinc-700 px-6 py-2 text-sm font-medium text-white hover:border-amber-400 hover:text-amber-400 transition-all"
+              >
+                Account
+              </Link>
+            )}
           </div>
 
           {/* Mobile — Cart + Hamburger */}
@@ -79,8 +96,21 @@ export default function Navbar() {
             <Link href="/masalas" onClick={() => setMobileOpen(false)} className="hover:text-white transition-colors">Masalas</Link>
             <Link href="/B2B" onClick={() => setMobileOpen(false)} className="hover:text-white transition-colors">B2B</Link>
             <Link href="/PrivateLabel" onClick={() => setMobileOpen(false)} className="hover:text-white transition-colors">Private Label</Link>
-            <Link href="/account" onClick={() => setMobileOpen(false)} className="rounded-full border border-zinc-700 px-6 py-2 text-center text-white hover:bg-white hover:text-black transition-all">
-              Account
+
+            {/* ✅ Mobile mein bhi user naam */}
+            <Link
+              href="/account"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-full border border-zinc-700 px-6 py-2 text-center text-white hover:bg-white hover:text-black transition-all flex items-center justify-center gap-2"
+            >
+              {user ? (
+                <>
+                  <User size={14} />
+                  {user.name.split(" ")[0]}
+                </>
+              ) : (
+                "Account"
+              )}
             </Link>
           </div>
         )}
