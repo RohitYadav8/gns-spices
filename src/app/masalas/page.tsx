@@ -37,7 +37,7 @@ const TIER_COLORS: Record<string, string> = {
 function PageContent() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "All";
+  const initialCategory = searchParams.get("category") || "Signature Masalas";
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");

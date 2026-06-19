@@ -14,18 +14,12 @@ export default function Footer() {
         {/* LEFT - LOGO & DESCRIPTION */}
         <div>
           <div className="mb-8">
-            <img
-              src="/GNS-LOGO.png"
-              alt="GNS Spices"
-              className="h-16 w-auto p-2"
-            />
+            <img src="/GNS-LOGO.png" alt="GNS Spices" className="h-16 w-auto p-2" />
           </div>
           <p className="max-w-sm text-base leading-7 text-zinc-400 font-medium">
             Three generations of farming, sourcing, and slow-roasting. From our family in Kerala to kitchens worldwide.
           </p>
-          <p className="mt-6 text-sm font-black tracking-[6px] text-amber-500">
-            ESTD. 1972
-          </p>
+          <p className="mt-6 text-sm font-black tracking-[6px] text-amber-500">ESTD. 1972</p>
         </div>
 
         {/* SHOP */}
@@ -33,22 +27,22 @@ export default function Footer() {
           <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Shop</h3>
           <ul className="space-y-3 text-base text-zinc-400 font-medium">
             <li>
-              <Link href="/shop/all" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/shop" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 All spices
               </Link>
             </li>
             <li>
-              <Link href="/shop/pure-powders" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/shop?category=Pure Powders" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Pure powders
               </Link>
             </li>
             <li>
-              <Link href="/shop/whole-seeds" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/shop?category=Whole Seeds" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Whole seeds
               </Link>
             </li>
             <li>
-              <Link href="/shop/signature-masalas" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/shop?category=Signature Masalas" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Signature masalas
               </Link>
             </li>
@@ -60,17 +54,17 @@ export default function Footer() {
           <h3 className="mb-5 text-sm font-black uppercase tracking-[4px] text-amber-500">Business</h3>
           <ul className="space-y-3 text-base text-zinc-400 font-medium">
             <li>
-              <Link href="/business/wholesale" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/B2B" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Wholesale
               </Link>
             </li>
             <li>
-              <Link href="/business/private-label" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/PrivateLabel" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Private Label
               </Link>
             </li>
             <li>
-              <Link href="/business/request-quote" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
+              <Link href="/B2B" className="transition-all duration-300 hover:text-white hover:translate-x-1 inline-block">
                 Request a quote
               </Link>
             </li>

@@ -4,10 +4,35 @@ import { useState } from "react";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Subscribed with:", email);
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setEmail("");
+      } else {
+        setError(data.message || "Something went wrong.");
+      }
+    } catch (err) {
+      setError("Server error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,26 +60,52 @@ export default function Newsletter() {
           One letter a month. Never spam. Unsubscribe whenever the soup's on.
         </p>
 
-        {/* Form */}
-        <form 
-          onSubmit={handleSubmit}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto"
-        >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-            className="w-full h-16 px-6 rounded-2xl border border-white/10 bg-white/[0.03] shadow-sm outline-none focus:border-amber-500 transition-all text-white font-medium"
-          />
-          <button
-            type="submit"
-            className="w-full sm:w-auto h-16 px-10 rounded-2xl bg-amber-600 text-white font-bold hover:bg-amber-700 transition-all shadow-lg shadow-amber-900/20 active:scale-95 whitespace-nowrap"
-          >
-            Notify Me
-          </button>
-        </form>
+        {/* ✅ Success State */}
+        {submitted ? (
+          <div className="flex flex-col items-center gap-3 py-6">
+            <div className="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
+              🎉
+            </div>
+            <p className="text-amber-400 font-bold text-lg">You're on the list!</p>
+            <p className="text-zinc-500 text-sm">We'll keep you posted on new harvests & member batches.</p>
+          </div>
+        ) : (
+          <>
+            {/* Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto"
+            >
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+                className="w-full h-16 px-6 rounded-2xl border border-white/10 bg-white/[0.03] shadow-sm outline-none focus:border-amber-500 transition-all text-white font-medium"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full sm:w-auto h-16 px-10 rounded-2xl bg-amber-600 text-white font-bold hover:bg-amber-700 transition-all shadow-lg shadow-amber-900/20 active:scale-95 whitespace-nowrap disabled:opacity-60"
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2 justify-center">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Saving...
+                  </span>
+                ) : (
+                  "Notify Me"
+                )}
+              </button>
+            </form>
+
+            {/* Error */}
+            {error && (
+              <p className="mt-4 text-red-400 text-sm font-semibold">{error}</p>
+            )}
+          </>
+        )}
 
         <p className="mt-6 text-xs font-bold text-zinc-600 uppercase tracking-widest">
           Be the first to know about new harvests & member batches.
