@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import QuoteRequest from "@/models/QuoteRequest";
+import { sendNewB2BApplicationEmail } from "@/lib/b2bEmail";
 
 export async function POST(req: Request) {
   try {
@@ -15,7 +16,13 @@ export async function POST(req: Request) {
       );
     }
 
+    // DB mein save karo
     const quote = await QuoteRequest.create({
+      fullName, businessName, email, phone, businessType, city, message,
+    });
+
+    // ✅ Admin + User dono ko mail bhejo
+    await sendNewB2BApplicationEmail({
       fullName, businessName, email, phone, businessType, city, message,
     });
 

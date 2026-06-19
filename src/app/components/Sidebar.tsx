@@ -123,13 +123,7 @@ export default function Sidebar() {
   active={pathname.includes("/admin/b2b")}
   onClick={() => setOpen(false)}
 />
-          <SidebarItem
-            icon={<Settings size={18} />}
-            title="Settings"
-            href="/admin/settings"
-            active={pathname.includes("/admin/settings")}
-            onClick={() => setOpen(false)}
-          />
+
           <SidebarItem
   icon={<ClipboardList size={18} />}
   title="PL Inquiries"
@@ -137,6 +131,13 @@ export default function Sidebar() {
   active={pathname.includes("/admin/inquiries")}
   onClick={() => setOpen(false)}
 />
+          <SidebarItem
+            icon={<Settings size={18} />}
+            title="Settings"
+            href="/admin/settings"
+            active={pathname.includes("/admin/settings")}
+            onClick={() => setOpen(false)}
+          />
 
         </nav>
 

@@ -221,7 +221,7 @@ function CheckoutPage() {
                                     </label>
 
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="phone"
                                         onChange={handleInputChange}
                                         placeholder="Enter phone number"
