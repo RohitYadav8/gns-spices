@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       resetTokenExpiry,
     });
 
-    const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.NEXT_PUBLIC_URL}/reset-password?token=${resetToken}`;
 
     // Mail bhejo
     await transporter.sendMail({
