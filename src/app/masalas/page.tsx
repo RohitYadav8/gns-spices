@@ -93,7 +93,7 @@ function PageContent() {
                 </span>
                 <span className="h-px w-16 bg-amber-400" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight">Shop</h1>
+              <h1 className="text-3xl md:text-4xl font-black tracking-tight">Masalas</h1>
               <p className="text-zinc-400 mt-2 text-sm">{products.length} products · Shipping to GB.</p>
             </div>
 

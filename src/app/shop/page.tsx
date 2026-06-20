@@ -23,9 +23,10 @@ interface Product {
   price: number;
   origin?: string;
   tiers?: Tier[];
+  inStock: boolean; // ✅ Added
 }
 
-const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickles","Whole Spices"];
+const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickles", "Whole Spices"];
 
 const TIER_COLORS: Record<string, string> = {
   "Home Kitchen": "border-green-500 text-green-400",
@@ -34,7 +35,6 @@ const TIER_COLORS: Record<string, string> = {
   "House Selection": "border-amber-400 text-amber-400",
 };
 
-// ✅ Alag component banao useSearchParams ke liye
 function ShopContent() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
@@ -133,9 +133,29 @@ function ShopContent() {
           {/* GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
             {filteredProducts.map((item) => (
-              <div key={item._id} className="bg-[#110d0b] p-5 rounded-3xl transition-all">
+              <div
+                key={item._id}
+                className={`bg-[#110d0b] p-5 rounded-3xl transition-all relative ${
+                  !item.inStock ? "opacity-60" : ""
+                }`}
+              >
+                {/* ✅ Sold Out Badge */}
+                {!item.inStock && (
+                  <div className="absolute top-4 left-4 z-10 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                    Sold Out
+                  </div>
+                )}
 
+                {/* IMAGE */}
                 <div className="relative h-56 mb-5 bg-white rounded-2xl overflow-hidden">
+                  {/* ✅ Sold Out Overlay */}
+                  {!item.inStock && (
+                    <div className="absolute inset-0 bg-black/40 z-10 flex items-center justify-center">
+                      <span className="text-white font-black text-lg uppercase tracking-widest">
+                        Sold Out
+                      </span>
+                    </div>
+                  )}
                   <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
                 </div>
 
@@ -172,15 +192,28 @@ function ShopContent() {
 
                 <div className="flex items-center justify-between border-t border-zinc-800 pt-4">
                   <div>
-                    <span className="text-xl font-black">£{item.price}</span>
+                    <span className={`text-xl font-black ${!item.inStock ? "text-zinc-500" : ""}`}>
+                      £{item.price}
+                    </span>
                     <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
                   </div>
-                  <button
-                    onClick={() => addToCart({ id: item._id, ...item })}
-                    className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
-                  >
-                    <ShoppingCart size={14} /> Add
-                  </button>
+
+                  {/* ✅ Add to Cart ya Sold Out button */}
+                  {item.inStock ? (
+                    <button
+                      onClick={() => addToCart({ id: item._id, ...item })}
+                      className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
+                    >
+                      <ShoppingCart size={14} /> Add
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="flex items-center gap-2 bg-zinc-800 text-zinc-500 px-5 py-2 rounded-full text-sm font-bold cursor-not-allowed"
+                    >
+                      Sold Out
+                    </button>
+                  )}
                 </div>
 
               </div>
@@ -194,7 +227,6 @@ function ShopContent() {
   );
 }
 
-// ✅ Main export Suspense mein wrap karo
 export default function ProductsPage() {
   return (
     <Suspense fallback={

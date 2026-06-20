@@ -16,6 +16,7 @@ import {
   LogOut,
   Menu,
   ClipboardList,
+    PlusCircle,
 } from "lucide-react";
 
 function SidebarItem({ icon, title, href, active, onClick }: any) {
@@ -81,6 +82,13 @@ export default function Sidebar() {
             active={pathname === "/admin"}
             onClick={() => setOpen(false)}
           />
+            <SidebarItem
+  icon={<PlusCircle size={18} />}
+  title="Add Product"
+  href="/admin/add-product"
+  active={pathname.includes("/admin/add-product")}
+  onClick={() => setOpen(false)}
+/>
           <SidebarItem
             icon={<Package size={18} />}
             title="Products"
@@ -88,6 +96,8 @@ export default function Sidebar() {
             active={pathname.includes("/admin/products")}
             onClick={() => setOpen(false)}
           />
+
+       
           <SidebarItem
             icon={<List size={18} />}
             title="Categories"

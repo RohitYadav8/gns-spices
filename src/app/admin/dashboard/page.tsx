@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import connectDB from "@/lib/db";
 import Order from "@/models/Order";
@@ -50,93 +51,102 @@ export default async function AdminDashboardPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          
           {/* Revenue */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                  Revenue
-                </p>
+          <Link href="/admin/orders?filter=revenue" className="block">
+            <div className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition hover:bg-white/10 hover:border-amber-400/30 sm:p-6 lg:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
+                    Revenue
+                  </p>
 
-                <h2 className="mt-2 text-3xl font-black text-amber-400 sm:text-4xl">
-                  £{totalRevenue}
-                </h2>
-              </div>
+                  <h2 className="mt-2 text-3xl font-black text-amber-400 sm:text-4xl">
+                    £{totalRevenue}
+                  </h2>
+                </div>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 sm:h-14 sm:w-14">
-                <PoundSterling
-                  className="text-amber-400"
-                  size={24}
-                />
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 sm:h-14 sm:w-14">
+                  <PoundSterling
+                    className="text-amber-400"
+                    size={24}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Orders */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                  Orders
-                </p>
+          <Link href="/admin/orders" className="block">
+            <div className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition hover:bg-white/10 hover:border-blue-400/30 sm:p-6 lg:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
+                    Orders
+                  </p>
 
-                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-                  {totalOrders}
-                </h2>
-              </div>
+                  <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+                    {totalOrders}
+                  </h2>
+                </div>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 sm:h-14 sm:w-14">
-                <ShoppingBag
-                  className="text-blue-400"
-                  size={24}
-                />
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 sm:h-14 sm:w-14">
+                  <ShoppingBag
+                    className="text-blue-400"
+                    size={24}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Customers */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                  Customers
-                </p>
+          <Link href="/admin/users" className="block">
+            <div className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition hover:bg-white/10 hover:border-purple-400/30 sm:p-6 lg:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
+                    Customers
+                  </p>
 
-                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-                  {totalUsers}
-                </h2>
-              </div>
+                  <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+                    {totalUsers}
+                  </h2>
+                </div>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/10 sm:h-14 sm:w-14">
-                <Users
-                  className="text-purple-400"
-                  size={24}
-                />
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/10 sm:h-14 sm:w-14">
+                  <Users
+                    className="text-purple-400"
+                    size={24}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Products */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:p-6 lg:p-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                  Products
-                </p>
+          <Link href="/admin/products" className="block">
+            <div className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl transition hover:bg-white/10 hover:border-emerald-400/30 sm:p-6 lg:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
+                    Products
+                  </p>
 
-                <h2 className="mt-2 text-3xl font-black sm:text-4xl">
-                  {totalProducts}
-                </h2>
-              </div>
+                  <h2 className="mt-2 text-3xl font-black sm:text-4xl">
+                    {totalProducts}
+                  </h2>
+                </div>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 sm:h-14 sm:w-14">
-                <Package
-                  className="text-emerald-400"
-                  size={24}
-                />
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 sm:h-14 sm:w-14">
+                  <Package
+                    className="text-emerald-400"
+                    size={24}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Recent Orders */}
@@ -147,30 +157,29 @@ export default async function AdminDashboardPage() {
 
           <div className="space-y-4">
             {pendingOrders.slice(0, 5).map((order: any) => (
-              <div
-                key={order._id}
-                className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition hover:bg-white/5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
-              >
-                <div>
-                  <h3 className="font-black text-white">
-                    {order.shippingAddress?.fullName || "Unknown"}
-                  </h3>
+              <Link href={`/admin/orders/${order._id}`} key={order._id} className="block">
+                <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition hover:bg-white/5 hover:border-white/20 cursor-pointer sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                  <div>
+                    <h3 className="font-black text-white">
+                      {order.shippingAddress?.fullName || "Unknown"}
+                    </h3>
 
-                  <p className="text-sm text-zinc-400">
-                    {order.shippingAddress?.city || "No City"}
-                  </p>
+                    <p className="text-sm text-zinc-400">
+                      {order.shippingAddress?.city || "No City"}
+                    </p>
+                  </div>
+
+                  <div className="text-left sm:text-right">
+                    <p className="font-black text-amber-400">
+                      £{order.totalAmount}
+                    </p>
+
+                    <p className="mt-1 text-xs text-zinc-400">
+                      {order.status}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="text-left sm:text-right">
-                  <p className="font-black text-amber-400">
-                    £{order.totalAmount}
-                  </p>
-
-                  <p className="mt-1 text-xs text-zinc-400">
-                    {order.status}
-                  </p>
-                </div>
-              </div>
+              </Link>
             ))}
 
             {pendingOrders.length === 0 && (

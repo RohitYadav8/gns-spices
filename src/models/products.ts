@@ -15,6 +15,7 @@ const ProductSchema = new Schema({
   price: { type: Number, required: true },
   origin: { type: String, default: "" },
   tiers: { type: [TierSchema], default: [] },
+  inStock: { type: Boolean, default: true }, // ✅ Ye add karo
   createdAt: { type: Date, default: Date.now },
 });
 
