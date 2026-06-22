@@ -83,7 +83,11 @@ function ShopContent() {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
+  
+useEffect(() => {
+  const cat = searchParams.get("category") || "All";
+  setSelectedCategory(cat);
+}, [searchParams]);
   useEffect(() => {
     async function fetchAllProducts() {
       try {

@@ -1,6 +1,19 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Product from "@/models/products";
+import mongoose from "mongoose";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Newsletter model
+const newsletterSchema = new mongoose.Schema(
+  { email: { type: String, required: true, unique: true } },
+  { timestamps: true }
+);
+const Newsletter =
+  mongoose.models.Newsletter ||
+  mongoose.model("Newsletter", newsletterSchema);
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +25,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: "All fields are required" });
     }
 
+    // Product create karo
     const product = await Product.create({
       title,
       category,
@@ -20,8 +34,59 @@ export async function POST(req: Request) {
       image,
       price,
       origin: origin || "",
-      tiers: tiers || [],  // ✅ Array of tiers
+      tiers: tiers || [],
     });
+
+    // Saare subscribers ko email bhejo
+    try {
+      const subscribers = await Newsletter.find({});
+      console.log("Subscribers:", subscribers); // kitne hain?
+      const emails = subscribers.map((s: any) => s.email);
+      console.log("Emails:", emails); // email list
+
+      if (emails.length > 0) {
+        await resend.emails.send({
+          from: "GNS Spices <onboarding@resend.dev>",
+       to: ["evilwork9975@gmail.com"],
+          subject: `🌶️ New Product: ${title}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0503; color: #ffffff; padding: 40px; border-radius: 16px;">
+              
+              <h1 style="color: #f59e0b; font-size: 28px; margin-bottom: 8px;">GNS Spices</h1>
+              <p style="color: #71717a; font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 32px;">New Arrival</p>
+
+              <img src="${image}" alt="${title}" style="width: 100%; border-radius: 12px; margin-bottom: 24px;" />
+
+              <h2 style="font-size: 24px; font-weight: 900; margin-bottom: 8px;">${title}</h2>
+              <p style="color: #f59e0b; font-size: 12px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px;">${category}</p>
+              <p style="color: #a1a1aa; font-size: 16px; line-height: 1.6; margin-bottom: 24px;">${desc}</p>
+
+              ${origin ? `<p style="color: #f59e0b; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px;">Origin: ${origin}</p>` : ""}
+
+              <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #27272a; padding-top: 24px; margin-bottom: 32px;">
+                <div>
+                  <p style="font-size: 28px; font-weight: 900; color: #ffffff; margin: 0;">£${price}</p>
+                  <p style="color: #f59e0b; font-size: 10px; text-transform: uppercase; letter-spacing: 3px; margin: 4px 0 0 0;">100G Pack</p>
+                </div>
+              </div>
+
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://yoursite.com'}/shop" 
+                style="display: inline-block; background: #f59e0b; color: #000000; font-weight: 900; padding: 16px 32px; border-radius: 50px; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">
+                Shop Now
+              </a>
+
+              <p style="color: #3f3f46; font-size: 12px; margin-top: 40px; border-top: 1px solid #27272a; padding-top: 24px;">
+                You're receiving this because you subscribed to GNS Spices updates.<br/>
+              </p>
+
+            </div>
+          `,
+        });
+      }
+    } catch (emailErr) {
+      console.error("Email send failed:", emailErr);
+      // Email fail hone pe bhi product save rahega
+    }
 
     return NextResponse.json({ success: true, product });
   } catch (error: any) {
