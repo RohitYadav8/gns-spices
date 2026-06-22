@@ -160,7 +160,7 @@ function CheckoutPage() {
                                 {/* FULL NAME */}
                                 <div>
                                    <label className="block text-sm font-bold mb-3 text-zinc-300">
-    Full Name
+    Full Name <span className="text-red-500">*</span>
 </label>
 
                                     <input
@@ -189,7 +189,7 @@ function CheckoutPage() {
                                 {/* EMAIL */}
                                 <div>
                                    <label className="block text-sm font-semibold mb-3 text-zinc-300 uppercase tracking-wide">
-    Email Address
+    Email Address <span className="text-red-500">*</span>
 </label>
 
                                     <input
@@ -217,7 +217,7 @@ function CheckoutPage() {
                                 {/* PHONE */}
                                 <div>
                             <label className="block text-sm font-bold mb-3 text-zinc-300">
-                                        Phone Number
+                                        Phone Number <span className="text-red-500">*</span>
                                     </label>
 
                                     <input
@@ -246,7 +246,7 @@ function CheckoutPage() {
                                 {/* ADDRESS */}
                                 <div>
                                    <label className="block text-sm font-bold mb-3 text-zinc-300">
-    Address
+    Address <span className="text-red-500">*</span>
 </label>
 
                                     <input
@@ -275,7 +275,7 @@ function CheckoutPage() {
                                 {/* LANDMARK */}
                                 <div>
                                    <label className="block text-sm font-bold mb-3 text-zinc-300">
-    Landmark
+    Landmark <span className="text-red-500">*</span>
 </label>
 
                                     <input
@@ -306,7 +306,7 @@ function CheckoutPage() {
 
                                     <div>
                                        <label className="block text-sm font-bold mb-3 text-zinc-300">
-    City
+    City <span className="text-red-500">*</span>
 </label>
 
 
@@ -334,7 +334,7 @@ function CheckoutPage() {
 
                                     <div>
                                        <label className="block text-sm font-bold mb-3 text-zinc-300">
-    Pincode
+    Pincode <span className="text-red-500">*</span>
 </label>
 
                                         <input

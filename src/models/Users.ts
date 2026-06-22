@@ -2,34 +2,20 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-    },
-
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-
-    password: {
-      type: String,
-    },
-
-    role: {
-      type: String,
-      default: "customer",
-    },
+    name: { type: String },
+    email: { type: String, required: true, unique: true },
+    password: { type: String },
+    role: { type: String, default: "customer" },
     phone: { type: String, default: "" },
     addressLine: { type: String, default: "" },
     landmark: { type: String, default: "" },
     city: { type: String, default: "" },
     postalCode: { type: String, default: "" },
+    // ✅ Reset password fields
+    resetToken: { type: String, default: null },
+    resetTokenExpiry: { type: Date, default: null },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-export default mongoose.models.User ||
-  mongoose.model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

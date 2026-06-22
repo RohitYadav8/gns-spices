@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
-import mongoose from "mongoose";
-
-const userSchema = new mongoose.Schema({}, { strict: false });
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+import User from "@/models/Users";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -26,23 +23,16 @@ export async function POST(req: Request) {
 
     const user = await User.findOne({ email });
     if (!user) {
-      // Security ke liye same message dikhao
       return NextResponse.json({ success: true, message: "If this email exists, a reset link has been sent." });
     }
 
-    // Reset token generate karo
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
 
-    // DB mein save karo
-    await User.findByIdAndUpdate(user._id, {
-      resetToken,
-      resetTokenExpiry,
-    });
+    await User.findByIdAndUpdate(user._id, { resetToken, resetTokenExpiry });
 
     const resetUrl = `${process.env.NEXT_PUBLIC_URL}/reset-password?token=${resetToken}`;
 
-    // Mail bhejo
     await transporter.sendMail({
       from: `"GNS Spices" <${process.env.EMAIL_USER}>`,
       to: email,
@@ -51,15 +41,12 @@ export async function POST(req: Request) {
         <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px;">
           <h2 style="color: #d97f5f;">Reset Your Password</h2>
           <p>Hi <strong>${user.name || "there"}</strong>,</p>
-          <p>We received a request to reset your password. Click the button below to set a new password:</p>
-          
+          <p>We received a request to reset your password. Click the button below:</p>
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${resetUrl}" 
-               style="background: #f4ae1c; color: #000; padding: 14px 32px; border-radius: 10px; font-weight: bold; text-decoration: none; display: inline-block;">
+            <a href="${resetUrl}" style="background: #f4ae1c; color: #000; padding: 14px 32px; border-radius: 10px; font-weight: bold; text-decoration: none; display: inline-block;">
               Reset Password
             </a>
           </div>
-          
           <p style="color: #888; font-size: 13px;">This link expires in <strong>1 hour</strong>. If you didn't request this, ignore this email.</p>
           <p style="color: #888; font-size: 12px; margin-top: 20px;">GNS Spices Team</p>
         </div>
@@ -69,6 +56,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, message: "If this email exists, a reset link has been sent." });
   } catch (error: any) {
     console.error("Forgot password error:", error);
-    return NextResponse.json({ success: false, message: "Server error." }, { status: 500 });
+    return NextResponse.json({ success: false, message: error.message || "Server error." }, { status: 500 });
   }
 }

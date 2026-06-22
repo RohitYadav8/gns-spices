@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useMemo, useState, useEffect, Suspense } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart, ChevronDown } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 interface Tier {
@@ -33,6 +33,46 @@ const TIER_COLORS: Record<string, string> = {
   "Chef's Reserve": "border-yellow-600 text-yellow-500",
   "House Selection": "border-amber-400 text-amber-400",
 };
+
+function TiersAccordion({ tiers }: { tiers: Tier[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-t border-zinc-800 pt-3 mb-3">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full text-left group"
+      >
+        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 group-hover:text-zinc-300 transition">
+          {tiers.length === 1 ? "One Tier" : tiers.length === 2 ? "Two Tiers" : `${tiers.length} Tiers`}
+        </p>
+        <ChevronDown
+          size={14}
+          className={`text-zinc-500 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="mt-3 space-y-3">
+          {tiers.map((tier, i) => (
+            <div key={i}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={`border px-2 py-0.5 rounded-full text-[10px] font-black uppercase whitespace-nowrap shrink-0 ${TIER_COLORS[tier.name] || "border-zinc-500 text-zinc-400"}`}>
+                  {tier.name}
+                </span>
+                {tier.weight && (
+                  <span className="text-zinc-400 text-xs shrink-0">{tier.weight}</span>
+                )}
+              </div>
+              {tier.desc && (
+                <p className="text-zinc-500 text-xs mt-1">{tier.desc}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function PageContent() {
   const { addToCart } = useCart();
@@ -118,11 +158,10 @@ function PageContent() {
               <button
                 key={item}
                 onClick={() => setSelectedCategory(item)}
-                className={`px-4 py-2 rounded-full border transition-all text-sm ${
-                  selectedCategory === item
+                className={`px-4 py-2 rounded-full border transition-all text-sm ${selectedCategory === item
                     ? "bg-amber-400 text-black font-bold border-amber-400"
                     : "bg-[#110d0b] border-zinc-800 text-zinc-400 hover:border-amber-400 hover:text-amber-400"
-                }`}
+                  }`}
               >
                 {item}
               </button>
@@ -130,56 +169,60 @@ function PageContent() {
           </div>
 
           {/* GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {filteredProducts.map((item) => (
-              <div key={item._id} className="bg-[#110d0b] p-5 rounded-3xl transition-all w-full">
-
-                <div className="relative h-56 mb-5 bg-white rounded-2xl overflow-hidden w-full">
-                  <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+              <div
+                key={item._id}
+                className="bg-[#110d0b] p-5 rounded-3xl transition-all w-full flex flex-col"
+              >
+                {/* IMAGE — sharp fix */}
+                <div className="mb-5 bg-white rounded-2xl overflow-hidden w-full shrink-0 relative">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={400}
+                    height={256}
+                    quality={100}
+                    className="w-full h-64 object-contain p-3"
+                  />
                 </div>
+              
 
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">{item.category}</p>
-                <h2 className="text-xl font-black mb-2">{item.title}</h2>
-                <p className="text-zinc-400 text-sm mb-3">{item.desc}</p>
+                {/* CONTENT */}
+                <div className="flex flex-col flex-1">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">
+                    {item.category}
+                  </p>
+                  <h2 className="text-xl font-black mb-2">{item.title}</h2>
+                  <p className="text-zinc-400 text-sm mb-3 line-clamp-2">{item.desc}</p>
 
-                {item.origin && (
-                  <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-4">{item.origin}</p>
-                )}
-
-                {item.tiers && item.tiers.length > 0 && (
-                  <div className="border-t border-zinc-800 pt-4 mb-4 space-y-3">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
-                      {item.tiers.length === 1 ? "One Tier" : item.tiers.length === 2 ? "Two Tiers" : "Three Tiers"}
+                  {item.origin && (
+                    <p className="text-amber-400 text-xs font-black uppercase tracking-widest mb-3">
+                      {item.origin}
                     </p>
-                    {item.tiers.map((tier, i) => (
-                      <div key={i}>
-                        <div className="flex items-center justify-between gap-2">
-                          <span className={`border px-2 py-0.5 rounded-full text-[10px] font-black uppercase whitespace-nowrap shrink-0 ${TIER_COLORS[tier.name] || 'border-zinc-500 text-zinc-400'}`}>
-                            {tier.name}
-                          </span>
-                          {tier.weight && (
-                            <span className="text-zinc-400 text-xs shrink-0">{tier.weight}</span>
-                          )}
-                        </div>
-                        {tier.desc && (
-                          <p className="text-zinc-500 text-xs mt-1">{tier.desc}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  )}
 
-                <div className="flex items-center justify-between border-t border-zinc-800 pt-4">
-                  <div>
-                    <span className="text-xl font-black">£{item.price}</span>
-                    <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
+                  {/* TIERS ACCORDION */}
+                  {item.tiers && item.tiers.length > 0 && (
+                    <TiersAccordion tiers={item.tiers} />
+                  )}
+
+                  {/* SPACER */}
+                  <div className="flex-1" />
+
+                  {/* PRICE + BUTTON — always at bottom */}
+                  <div className="flex items-center justify-between border-t border-zinc-800 pt-4 mt-3">
+                    <div>
+                      <span className="text-xl font-black">£{item.price}</span>
+                      <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
+                    </div>
+                    <button
+                      onClick={() => addToCart({ id: item._id, ...item })}
+                      className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500 transition"
+                    >
+                      <ShoppingCart size={14} /> Add
+                    </button>
                   </div>
-                  <button
-                    onClick={() => addToCart({ id: item._id, ...item })}
-                    className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500"
-                  >
-                    <ShoppingCart size={14} /> Add
-                  </button>
                 </div>
 
               </div>

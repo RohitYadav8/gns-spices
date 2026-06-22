@@ -22,7 +22,7 @@ const currencies = ['INR (₹)', 'USD ($)', 'EUR (€)', 'GBP (£)'];
   };
 
   return (
-    <section className="relative overflow-hidden min-h-screen bg-black text-white">
+    <section className="relative  min-h-screen bg-black text-white">
 
       <div className="absolute top-0 left-0 w-125 h-125 bg-amber-500/10 blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-125 h-125 bg-amber-400/10 blur-[160px] pointer-events-none" />
@@ -97,7 +97,7 @@ const currencies = ['INR (₹)', 'USD ($)', 'EUR (€)', 'GBP (£)'];
 
                     {/* ✅ FIXED - overflow-y-auto aur max-h-60 */}
                     {currencyOpen && (
-                      <ul className="absolute z-50 w-full mt-2 rounded-2xl border border-amber-400/30 bg-[#110d0b] overflow-y-auto max-h-60 shadow-xl">
+                      <ul className="absolute left-0 top-full mt-2 z-[9999] w-full rounded-2xl border border-amber-400/30 bg-[#110d0b] shadow-2xl overflow-hidden">
                         {currencies.map((c) => (
                           <li
                             key={c}

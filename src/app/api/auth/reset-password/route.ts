@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import bcrypt from "bcryptjs";
-import mongoose from "mongoose";
-
-const userSchema = new mongoose.Schema({}, { strict: false });
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+import User from "@/models/Users";
 
 export async function POST(req: Request) {
   try {
@@ -18,7 +15,7 @@ export async function POST(req: Request) {
     // Token se user dhundo
     const user = await User.findOne({
       resetToken: token,
-      resetTokenExpiry: { $gt: new Date() }, // Expired nahi hona chahiye
+      resetTokenExpiry: { $gt: new Date() },
     });
 
     if (!user) {
@@ -38,6 +35,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, message: "Password reset successfully!" });
   } catch (error: any) {
     console.error("Reset password error:", error);
-    return NextResponse.json({ success: false, message: "Server error." }, { status: 500 });
+    return NextResponse.json({ success: false, message: error.message || "Server error." }, { status: 500 });
   }
 }

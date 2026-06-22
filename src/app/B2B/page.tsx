@@ -245,9 +245,10 @@ export default function B2BSection() {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <p className="text-sm text-zinc-400 mb-4"><span className="text-red-500">*</span> Indicates required fields</p>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">Full Name</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">Full Name <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         required
@@ -258,7 +259,7 @@ export default function B2BSection() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">Business Name</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">Business Name <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         required
@@ -272,7 +273,7 @@ export default function B2BSection() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">Email</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">Email <span className="text-red-500">*</span></label>
                       <input
                         type="email"
                         required
@@ -283,7 +284,7 @@ export default function B2BSection() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">Phone</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">Phone <span className="text-red-500">*</span></label>
                       <input
                         type="tel"
                         required
@@ -300,8 +301,9 @@ export default function B2BSection() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">Business Type</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">Business Type <span className="text-red-500">*</span></label>
                       <select
+                        required
                         value={form.businessType}
                         onChange={(e) => setForm({ ...form, businessType: e.target.value })}
                         className="w-full rounded-xl bg-black border border-white/10 text-white px-4 py-3 outline-none focus:border-amber-400"
@@ -312,7 +314,7 @@ export default function B2BSection() {
                       </select>
                     </div>
                     <div>
-                      <label className="text-sm text-zinc-400 mb-1 block">City</label>
+                      <label className="text-sm text-zinc-400 mb-1 block">City <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         required
