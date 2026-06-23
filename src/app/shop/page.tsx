@@ -26,8 +26,6 @@ interface Product {
   inStock: boolean;
 }
 
-const CATEGORIES = ["All", "Pure Powders", "Whole Seeds", "Signature Masalas", "Indian Pickles", "Whole Spices"];
-
 const TIER_COLORS: Record<string, string> = {
   "Home Kitchen": "border-green-500 text-green-400",
   "Professional Choice": "border-red-500 text-red-400",
@@ -83,11 +81,14 @@ function ShopContent() {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  
-useEffect(() => {
-  const cat = searchParams.get("category") || "All";
-  setSelectedCategory(cat);
-}, [searchParams]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const cat = searchParams.get("category") || "All";
+    setSelectedCategory(cat);
+  }, [searchParams]);
+
   useEffect(() => {
     async function fetchAllProducts() {
       try {
@@ -101,6 +102,21 @@ useEffect(() => {
       }
     }
     fetchAllProducts();
+  }, []);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch("/api/admin/categories");
+        const data = await res.json();
+        if (data.success && data.categories) {
+          setCategories(data.categories.map((c: { name: string }) => c.name));
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+    fetchCategories();
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -123,6 +139,9 @@ useEffect(() => {
 
   return (
     <>
+      {dropdownOpen && (
+        <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
+      )}
       <Navbar />
       <section className="min-h-screen bg-[#0a0503] py-20 px-4 md:px-12 text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto">
@@ -155,21 +174,48 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* CATEGORIES */}
-          <div className="flex flex-wrap gap-3 mb-12">
-            {CATEGORIES.map((item) => (
+          {/* CATEGORIES DROPDOWN */}
+          <div className="flex flex-wrap gap-3 mb-12 items-center">
+            <div className="relative z-50">
               <button
-                key={item}
-                onClick={() => setSelectedCategory(item)}
-                className={`px-5 py-2 rounded-full border transition-all text-sm ${
-                  selectedCategory === item
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full border transition-all text-sm ${
+                  selectedCategory === "All"
                     ? "bg-amber-400 text-black font-bold border-amber-400"
-                    : "bg-[#110d0b] border-zinc-800 text-zinc-400 hover:border-amber-400 hover:text-amber-400"
+                    : "bg-amber-400 text-black font-bold border-amber-400"
                 }`}
               >
-                {item}
+                {selectedCategory === "All" ? "All" : selectedCategory}
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+                />
               </button>
-            ))}
+
+              {dropdownOpen && (
+                <div className="absolute top-full mt-2 left-0 bg-[#110d0b] border border-zinc-800 rounded-2xl overflow-hidden min-w-[200px] shadow-xl">
+                  <button
+                    onClick={() => { setSelectedCategory("All"); setDropdownOpen(false); }}
+                    className={`w-full text-left px-5 py-3 text-sm transition hover:bg-zinc-800 ${
+                      selectedCategory === "All" ? "text-amber-400 font-bold" : "text-zinc-400"
+                    }`}
+                  >
+                    All
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => { setSelectedCategory(cat); setDropdownOpen(false); }}
+                      className={`w-full text-left px-5 py-3 text-sm transition hover:bg-zinc-800 ${
+                        selectedCategory === cat ? "text-amber-400 font-bold" : "text-zinc-400"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* GRID */}
@@ -179,14 +225,12 @@ useEffect(() => {
                 key={item._id}
                 className={`bg-[#110d0b] p-5 rounded-3xl relative flex flex-col transition-all ${!item.inStock ? "opacity-60" : ""}`}
               >
-                {/* Sold Out Badge */}
                 {!item.inStock && (
                   <div className="absolute top-4 left-4 z-10 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
                     Sold Out
                   </div>
                 )}
 
-                {/* IMAGE — fill hata ke width/height fix kiya */}
                 <div className="mb-5 bg-white rounded-2xl overflow-hidden shrink-0 relative">
                   {!item.inStock && (
                     <div className="absolute inset-0 bg-black/40 z-10 flex items-center justify-center rounded-2xl">
@@ -205,7 +249,6 @@ useEffect(() => {
                   />
                 </div>
 
-                {/* CONTENT */}
                 <div className="flex flex-col flex-1">
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-1">
                     {item.category}

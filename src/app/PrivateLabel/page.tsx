@@ -61,19 +61,13 @@ export default function PrivateLabelPage() {
 
           <div className="relative mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-36">
             <div className="max-w-3xl">
-              <div className="mb-8 flex items-center justify-center gap-3">
-                <div className="h-px flex-1 bg-[#d89a23] max-w-12 sm:max-w-16" />
-
-                <span className="text-center text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#d89a23] leading-tight px-2">
-                  PRIVATE LABEL<br className="sm:hidden" />
-                  <span className="sm:inline"> </span>
-                  MANUFACTURING
+              <div className="mb-8 flex items-center gap-3">
+                <div className="h-px w-8 bg-[#d89a23]" />
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d89a23] whitespace-nowrap">
+                  PRIVATE LABEL MANUFACTURING
                 </span>
-
-                <div className="h-px flex-1 bg-[#d89a23] max-w-12 sm:max-w-16" />
+                <div className="h-px w-8 bg-[#d89a23]" />
               </div>
-
-
               <h1 className="text-5xl font-extrabold leading-tight md:text-6xl">
                 Launch your spice brand.
                 <br />
@@ -114,12 +108,10 @@ export default function PrivateLabelPage() {
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#f4ae1c] font-bold text-black">
                     {step.id}
                   </div>
-
                   <div>
                     <h3 className="text-xl font-bold">
                       {step.title}
                     </h3>
-
                     <p className="mt-2 text-zinc-400">
                       {step.description}
                     </p>
@@ -136,12 +128,10 @@ export default function PrivateLabelPage() {
             <h2 className="text-5xl font-bold">
               Minimum order: 500 units per SKU
             </h2>
-
             <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-400">
               Typical lead time 8–12 weeks. Smaller pilot runs
               considered case-by-case.
             </p>
-
             <Link href="/start-project" className="mt-10 inline-block rounded-xl bg-[#f4ae1c] px-8 py-4 font-semibold text-black transition hover:opacity-90">
               Start a project
             </Link>
@@ -151,4 +141,4 @@ export default function PrivateLabelPage() {
       <Footer />
     </>
   );
-};
+}
