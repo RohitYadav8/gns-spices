@@ -3,7 +3,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 
 interface ICustomer {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   role: string;
@@ -51,7 +51,7 @@ export default function CustomersPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        setCustomers((prev) => prev.filter((customer) => customer._id !== id));
+        setCustomers((prev) => prev.filter((customer) => customer.id !== id));
         alert('Customer deleted successfully');
       } else {
         alert(data.message || 'Delete failed');

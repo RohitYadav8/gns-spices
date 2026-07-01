@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 interface OrderItem {
-  _id: string;
+  id: string;
   name: string;
   quantity: number;
   price: number;
@@ -12,7 +12,7 @@ interface OrderItem {
 }
 
 interface OrderType {
-  _id: string;
+  id: string;
   totalAmount: number;
   status: string;
   paymentMethod: string;
@@ -133,10 +133,10 @@ export default function AdminOrders() {
       if (data.success) {
         setOrders((prev) =>
           prev.map((order) =>
-            order._id === orderId ? { ...order, status: newStatus } : order
+            order.id === orderId ? { ...order, status: newStatus } : order
           )
         );
-        if (selectedOrder?._id === orderId) {
+        if (selectedOrder?.id === orderId) {
           setSelectedOrder((prev) =>
             prev ? { ...prev, status: newStatus } : null
           );
@@ -177,17 +177,17 @@ export default function AdminOrders() {
               <div className="space-y-6">
                 <div>
                   <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Order ID</p>
-                  <p className="text-sm font-semibold break-all">{selectedOrder._id}</p>
+                  <p className="text-sm font-semibold break-all">{selectedOrder.id}</p>
                 </div>
 
                 <div>
                   <p className="text-xs text-zinc-400 uppercase tracking-wider mb-2">Status</p>
                   <StatusDropdown
                     value={selectedOrder.status}
-                    onChange={(val) => handleStatusChange(selectedOrder._id, val)}
-                    disabled={updating === selectedOrder._id}
+                    onChange={(val) => handleStatusChange(selectedOrder.id, val)}
+                    disabled={updating === selectedOrder.id}
                   />
-                  {updating === selectedOrder._id && (
+                  {updating === selectedOrder.id && (
                     <p className="text-xs text-amber-400 mt-2">Updating...</p>
                   )}
                 </div>

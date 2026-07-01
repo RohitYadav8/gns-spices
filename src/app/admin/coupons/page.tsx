@@ -3,7 +3,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 
 interface ICoupon {
-  _id: string;
+  id: string;
   code: string;
   discount: number;
   expiryDate: string;
@@ -101,7 +101,7 @@ export default function CouponPage() {
       const data = text ? JSON.parse(text) : {};
 
       if (res.ok) {
-        setCoupons((prev) => prev.filter((c) => c._id !== id));
+        setCoupons((prev) => prev.filter((c) => c.id !== id));
         alert('Coupon deleted successfully');
       } else {
         alert(data.message || 'Delete failed');

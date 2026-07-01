@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
 
 interface Product {
-  _id: string;
+  id: string;
   title: string;
   category: string;
   desc: string;
@@ -48,7 +48,7 @@ export default function AdminProductsPage() {
       const data = await res.json();
       if (data.success) {
         alert("🗑️ Product deleted successfully!");
-        setProducts(products.filter((item) => item._id !== productId));
+        setProducts(products.filter((item) => item.id !== productId));
       } else {
         alert("⚠️ Error: " + data.message);
       }
@@ -68,7 +68,7 @@ export default function AdminProductsPage() {
       const data = await res.json();
       if (data.success) {
         setProducts(products.map((item) =>
-          item._id === productId ? { ...item, inStock: !currentStatus } : item
+          item.id === productId ? { ...item, inStock: !currentStatus } : item
         ));
       } else {
         alert("⚠️ Error: " + data.message);
