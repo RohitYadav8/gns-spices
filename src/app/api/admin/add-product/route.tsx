@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     // Saare subscribers ko email bhejo
     try {
       const subscribers = await prisma.newsletter.findMany();
-      const emails = subscribers.map((s) => s.email);
+      const emails = subscribers.map((s: { email: string }) => s.email);
 
       if (emails.length > 0) {
         await resend.emails.send({
