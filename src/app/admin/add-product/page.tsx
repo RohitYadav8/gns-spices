@@ -19,7 +19,7 @@ interface Tier {
 }
 
 interface ICategory {
-  _id: string;
+  id: string;
   name: string;
 }
 
@@ -195,7 +195,7 @@ export default function AddProductPage() {
                     ) : (
                       categories.map((cat) => (
                         <li
-                          key={cat.id}
+                          key={cat.name}
                           onClick={() => {
                             setFormData({ ...formData, category: cat.name });
                             setOpenCategory(false);
