@@ -1,53 +1,47 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import mongoose from 'mongoose';
-import connectDB from '@/lib/db'; 
-import Order from '@/models/Order';
+import { prisma } from '@/lib/prisma';
 import { sendOrderEmail } from '@/lib/sendEmail';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: undefined, 
+  apiVersion: undefined,
 });
 
 export async function POST(req: Request) {
   try {
-    await connectDB();
     const { items, customerDetails, paymentMethod } = await req.json();
 
-    // 1. Calculations
-    const subtotal = items.reduce((acc: any, item: any) => acc + (item.price * item.quantity), 0);
+    const subtotal = items.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
 
-    // 2. Database mein Order Create karna
-    const newOrder = await Order.create({
-      user: null, 
-      items: items.map((item: any) => ({
-        product: new mongoose.Types.ObjectId(),
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || ""
-      })),
-      merchandiseSubtotal: subtotal,
-      totalAmount: subtotal,
-      shippingAddress: {
-        fullName: customerDetails.fullName,
-        email: customerDetails.email, // <--- YE LINE ADD KARNI HAI
-        phone: customerDetails.phone,
-        addressLine: customerDetails.addressLine,
-        city: customerDetails.city,
-        postalCode: customerDetails.postalCode
+    const newOrder = await prisma.order.create({
+      data: {
+        merchandiseSubtotal: subtotal,
+        totalAmount: subtotal,
+        shippingFullName: customerDetails.fullName,
+        shippingEmail: customerDetails.email,
+        shippingPhone: customerDetails.phone,
+        shippingAddressLine: customerDetails.addressLine,
+        shippingCity: customerDetails.city,
+        shippingPostalCode: customerDetails.postalCode,
+        paymentMethod: paymentMethod || 'Stripe',
+        status: 'Pending',
+        paymentStatus: 'Pending',
+        items: {
+          create: items.map((item: any) => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || "",
+          })),
+        },
       },
-      paymentMethod: paymentMethod || 'Stripe',
-      status: 'Pending',
-      paymentStatus: 'Pending'
     });
 
     const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
 
-    // 3. Stripe Checkout Session (ONLY FOR CARD)
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      customer_email: customerDetails.email, // <--- Stripe par bhi email bhej rahe hain
+      customer_email: customerDetails.email,
       line_items: items.map((item: any) => ({
         price_data: {
           currency: 'gbp',
@@ -60,7 +54,7 @@ export async function POST(req: Request) {
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout`,
       metadata: {
-        orderId: newOrder._id.toString(),
+        orderId: newOrder.id,
       },
     });
 

@@ -1,30 +1,9 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import mongoose from "mongoose";
+import { prisma } from "@/lib/prisma";
+import { sendNewPLInquiryEmail, sendPLStatusEmail } from "@/lib/b2bEmail";
 
-const inquirySchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String },
-    brandName: { type: String, required: true },
-    country: { type: String, required: true },
-    productType: { type: String, required: true },
-    quantity: { type: String, required: true },
-    message: { type: String },
-    status: { type: String, default: "pending" },
-  },
-  { timestamps: true }
-);
-
-const Inquiry =
-  mongoose.models.PrivateLabelInquiry ||
-  mongoose.model("PrivateLabelInquiry", inquirySchema);
-
-// POST — nayi inquiry save karo
 export async function POST(req: Request) {
   try {
-    await connectDB();
     const body = await req.json();
     const { name, email, brandName, country, productType, quantity } = body;
 
@@ -35,7 +14,30 @@ export async function POST(req: Request) {
       );
     }
 
-    const inquiry = await Inquiry.create(body);
+    const inquiry = await prisma.privateLabelInquiry.create({
+      data: {
+        name,
+        email,
+        phone: body.phone || null,
+        brandName,
+        country,
+        productType,
+        quantity,
+        message: body.message || null,
+      },
+    });
+
+    await sendNewPLInquiryEmail({
+      name,
+      email,
+      phone: body.phone,
+      brandName,
+      country,
+      productType,
+      quantity,
+      message: body.message,
+    });
+
     return NextResponse.json({ success: true, inquiry }, { status: 201 });
   } catch (error: any) {
     console.error("Private label inquiry error:", error);
@@ -46,11 +48,11 @@ export async function POST(req: Request) {
   }
 }
 
-// GET — saari inquiries fetch karo
 export async function GET() {
   try {
-    await connectDB();
-    const inquiries = await Inquiry.find().sort({ createdAt: -1 });
+    const inquiries = await prisma.privateLabelInquiry.findMany({
+      orderBy: { createdAt: "desc" },
+    });
     return NextResponse.json({ success: true, inquiries });
   } catch (error: any) {
     return NextResponse.json(
@@ -60,10 +62,8 @@ export async function GET() {
   }
 }
 
-// ✅ PATCH — status update karo
 export async function PATCH(req: Request) {
   try {
-    await connectDB();
     const { id, status } = await req.json();
 
     if (!id || !status) {
@@ -73,18 +73,17 @@ export async function PATCH(req: Request) {
       );
     }
 
-    const updated = await Inquiry.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
+    const updated = await prisma.privateLabelInquiry.update({
+      where: { id },
+      data: { status },
+    });
 
-    if (!updated) {
-      return NextResponse.json(
-        { success: false, message: "Inquiry not found." },
-        { status: 404 }
-      );
-    }
+    await sendPLStatusEmail({
+      name: updated.name,
+      email: updated.email,
+      brandName: updated.brandName,
+      status,
+    });
 
     return NextResponse.json({ success: true, inquiry: updated });
   } catch (error: any) {

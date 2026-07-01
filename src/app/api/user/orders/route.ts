@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import Order from "@/models/Order";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(req: Request) {
   try {
@@ -11,10 +10,11 @@ export async function GET(req: Request) {
       return NextResponse.json({ success: false, message: "Email is required" }, { status: 400 });
     }
 
-    await connectDB();
-
-    // Fetch all orders that belong to this email, sort by newest first
-    const orders = await Order.find({ "shippingAddress.email": email }).sort({ createdAt: -1 });
+    const orders = await prisma.order.findMany({
+      where: { shippingEmail: email },
+      orderBy: { createdAt: "desc" },
+      include: { items: true },
+    });
 
     return NextResponse.json({ success: true, orders });
   } catch (error: any) {

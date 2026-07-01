@@ -276,7 +276,7 @@ export default function AdminOrders() {
               <div className="space-y-3">
                 {orders.map((order) => (
                   <div
-                    key={order._id}
+                    key={order.id}
                     className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1.5fr_1fr] gap-4 items-center px-4 py-4 rounded-2xl border border-white/10 bg-black/40"
                   >
                     {/* Customer */}
@@ -301,8 +301,8 @@ export default function AdminOrders() {
                     {/* Status Custom Dropdown */}
                     <StatusDropdown
                       value={order.status}
-                      onChange={(val) => handleStatusChange(order._id, val)}
-                      disabled={updating === order._id}
+                      onChange={(val) => handleStatusChange(order.id, val)}
+                      disabled={updating === order.id}
                     />
 
                     {/* View Button */}

@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import { ArrowLeft, CheckCircle2, Send } from "lucide-react";
 
 interface ICategory {
-  _id: string;
+  id: string;
   name: string;
 }
 
@@ -224,7 +224,7 @@ export default function StartProjectPage() {
                         {productTypes.length === 0 ? "Loading..." : "Select product type"}
                       </option>
                       {productTypes.map((cat) => (
-                        <option key={cat._id} value={cat.name}>
+                        <option key={cat.id} value={cat.name}>
                           {cat.name}
                         </option>
                       ))}

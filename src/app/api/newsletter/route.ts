@@ -1,21 +1,8 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import mongoose from "mongoose";
-
-const newsletterSchema = new mongoose.Schema(
-  {
-    email: { type: String, required: true, unique: true },
-  },
-  { timestamps: true }
-);
-
-const Newsletter =
-  mongoose.models.Newsletter ||
-  mongoose.model("Newsletter", newsletterSchema);
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
-    await connectDB();
     const { email } = await req.json();
 
     if (!email) {
@@ -25,8 +12,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Already subscribed check
-    const existing = await Newsletter.findOne({ email });
+    const existing = await prisma.newsletter.findUnique({
+      where: { email },
+    });
+
     if (existing) {
       return NextResponse.json(
         { success: false, message: "You are already subscribed!" },
@@ -34,7 +23,9 @@ export async function POST(req: Request) {
       );
     }
 
-    await Newsletter.create({ email });
+    await prisma.newsletter.create({
+      data: { email },
+    });
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

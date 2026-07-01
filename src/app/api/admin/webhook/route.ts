@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import connectDB from '@/lib/db';
-import Order from '@/models/Order';
+import { prisma } from '@/lib/prisma';
 import { sendOrderEmail } from '@/lib/sendEmail';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: undefined });
 
 export async function POST(req: Request) {
@@ -20,26 +20,30 @@ export async function POST(req: Request) {
     const session = event.data.object as any;
     const orderId = session.metadata.orderId;
 
-    await connectDB();
-    
-    // Aapke schema ke hisaab se update
-    const updatedOrder = await Order.findOneAndUpdate(
-      { _id: orderId, paymentStatus: 'Pending' }, 
-      { 
-        paymentStatus: 'Paid',
-        status: 'Processing' // Payment hote hi hum order processing status mein daal sakte hain
-      }, 
-      { returnDocument: 'after' }
-    );
+    const order = await prisma.order.findFirst({
+      where: { id: orderId, paymentStatus: 'Pending' },
+      include: { items: true },
+    });
 
-    if (updatedOrder) {
-      // Send email upon successful payment
+    if (order) {
+      await prisma.order.update({
+        where: { id: order.id },
+        data: { paymentStatus: 'Paid', status: 'Processing' },
+      });
+
       await sendOrderEmail({
-        orderId: updatedOrder._id.toString(),
-        customer: updatedOrder.shippingAddress,
-        items: updatedOrder.items,
-        total: updatedOrder.totalAmount,
-        paymentMethod: updatedOrder.paymentMethod
+        orderId: order.id,
+        customer: {
+          fullName: order.shippingFullName,
+          email: order.shippingEmail,
+          phone: order.shippingPhone,
+          addressLine: order.shippingAddressLine,
+          city: order.shippingCity,
+          postalCode: order.shippingPostalCode,
+        },
+        items: order.items,
+        total: order.totalAmount,
+        paymentMethod: order.paymentMethod,
       });
     }
   }

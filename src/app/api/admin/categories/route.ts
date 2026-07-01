@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import ConnectDB from '@/lib/db';
-import Category from '@/models/Category';
+import { prisma } from '@/lib/prisma';
 
-// Fetch all categories
 export async function GET() {
   try {
-    await ConnectDB();
-    const categories = await Category.find({}).sort({ createdAt: -1 });
+    const categories = await prisma.category.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
     return NextResponse.json({ success: true, categories });
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -14,10 +13,8 @@ export async function GET() {
   }
 }
 
-// Create a new category
 export async function POST(req: Request) {
   try {
-    await ConnectDB();
     const body = await req.json();
     const { name, description, bg, text } = body;
 
@@ -25,21 +22,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: 'Category name is required' }, { status: 400 });
     }
 
-    const newCategory = await Category.create({ name, description, bg, text });
+    const newCategory = await prisma.category.create({
+      data: { name, description, bg, text },
+    });
     return NextResponse.json({ success: true, category: newCategory });
   } catch (error: any) {
     console.error('Error creating category:', error);
-    if (error.code === 11000) {
+    if (error.code === 'P2002') {
       return NextResponse.json({ success: false, message: 'Category already exists' }, { status: 400 });
     }
     return NextResponse.json({ success: false, message: 'Failed to create category' }, { status: 500 });
   }
 }
 
-// Delete a category
 export async function DELETE(req: Request) {
   try {
-    await ConnectDB();
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
@@ -47,7 +44,7 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ success: false, message: 'Category ID is required' }, { status: 400 });
     }
 
-    await Category.findByIdAndDelete(id);
+    await prisma.category.delete({ where: { id } });
     return NextResponse.json({ success: true, message: 'Category deleted successfully' });
   } catch (error) {
     console.error('Error deleting category:', error);

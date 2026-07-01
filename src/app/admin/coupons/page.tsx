@@ -163,11 +163,11 @@ export default function CouponPage() {
                   </thead>
                   <tbody>
                     {coupons.map((c) => (
-                      <tr key={c._id} className="border-b border-white/5 hover:bg-white/5">
+                      <tr key={c.id} className="border-b border-white/5 hover:bg-white/5">
                         <td className="p-5"><span className="px-4 py-2 rounded-full border border-zinc-700 bg-black text-sm font-bold">{c.code}</span></td>
                         <td className="p-5 text-amber-400 font-bold">{c.discount}%</td>
                         <td className="p-5 text-zinc-400">{new Date(c.expiryDate).toLocaleDateString('en-IN')}</td>
-                        <td className="p-5 text-right"><button onClick={() => handleDelete(c._id)} className="px-4 py-2 rounded-full border border-zinc-700 hover:border-amber-400 hover:text-amber-400 transition">Delete</button></td>
+                        <td className="p-5 text-right"><button onClick={() => handleDelete(c.id)} className="px-4 py-2 rounded-full border border-zinc-700 hover:border-amber-400 hover:text-amber-400 transition">Delete</button></td>
                       </tr>
                     ))}
                   </tbody>
@@ -176,13 +176,13 @@ export default function CouponPage() {
                 {/* Mobile List View */}
                 <div className="md:hidden divide-y divide-white/10">
                   {coupons.map((c) => (
-                    <div key={c._id} className="p-5 flex justify-between items-center">
+                    <div key={c.id} className="p-5 flex justify-between items-center">
                       <div>
                         <div className="font-bold text-lg">{c.code}</div>
                         <div className="text-amber-400 text-sm">{c.discount}% Off</div>
                         <div className="text-zinc-500 text-xs">Expires: {new Date(c.expiryDate).toLocaleDateString('en-IN')}</div>
                       </div>
-                      <button onClick={() => handleDelete(c._id)} className="px-3 py-1 text-sm rounded-lg border border-zinc-700 hover:border-red-500 hover:text-red-500 transition">
+                      <button onClick={() => handleDelete(c.id)} className="px-3 py-1 text-sm rounded-lg border border-zinc-700 hover:border-red-500 hover:text-red-500 transition">
                         Delete
                       </button>
                     </div>

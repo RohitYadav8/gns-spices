@@ -1,36 +1,50 @@
-import { MongoClient } from 'mongodb';
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
-  const client = new MongoClient(process.env.MONGODB_URI!);
   try {
     const body = await req.json();
-    await client.connect();
-    const db = client.db(); // Default database
-    
-    const result = await db.collection('orders').insertOne({
-      ...body,
-      createdAt: new Date()
+
+    const order = await prisma.order.create({
+      data: {
+        merchandiseSubtotal: body.merchandiseSubtotal || null,
+        totalAmount: body.totalAmount || null,
+        shippingFullName: body.shippingFullName || null,
+        shippingEmail: body.shippingEmail || null,
+        shippingPhone: body.shippingPhone || null,
+        shippingAddressLine: body.shippingAddressLine || null,
+        shippingLandmark: body.shippingLandmark || null,
+        shippingCity: body.shippingCity || null,
+        shippingPostalCode: body.shippingPostalCode || null,
+        paymentMethod: body.paymentMethod || "Stripe",
+        paymentStatus: body.paymentStatus || "Pending",
+        status: body.status || "Pending",
+        items: {
+          create: (body.items || []).map((item: any) => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || null,
+            productId: item.productId || null,
+          })),
+        },
+      },
     });
-    
-    return NextResponse.json({ success: true, id: result.insertedId });
+
+    return NextResponse.json({ success: true, id: order.id });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
-  } finally {
-    await client.close();
   }
 }
 
 export async function GET() {
-  const client = new MongoClient(process.env.MONGODB_URI!);
   try {
-    await client.connect();
-    const db = client.db();
-    const orders = await db.collection('orders').find({}).sort({ createdAt: -1 }).toArray();
+    const orders = await prisma.order.findMany({
+      orderBy: { createdAt: "desc" },
+      include: { items: true },
+    });
     return NextResponse.json({ success: true, data: orders });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
-  } finally {
-    await client.close();
   }
 }

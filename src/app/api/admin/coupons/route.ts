@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
-import connectDB from "@/lib/db"; // Aapka sahi database import
-import Coupon from '@/models/Coupon';
+import { prisma } from '@/lib/prisma';
 
-// 1. GET: To fetch all coupons
 export async function GET() {
   try {
-    // Sahi function call
-    await connectDB();
-    
-    const coupons = await Coupon.find({}).sort({ createdAt: -1 });
-    
+    const coupons = await prisma.coupon.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
     return NextResponse.json({ success: true, coupons: coupons || [] }, { status: 200 });
   } catch (error: any) {
     console.error("Backend GET Coupons Error:", error);
@@ -17,11 +13,8 @@ export async function GET() {
   }
 }
 
-// 2. POST: To create a new coupon
 export async function POST(request: Request) {
   try {
-    // Sahi function call
-    await connectDB();
     const body = await request.json();
     const { code, discount, expiryDate } = body;
 
@@ -29,15 +22,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: "Saari fields zaroori hain" }, { status: 400 });
     }
 
-    const existingCoupon = await Coupon.findOne({ code: code.toUpperCase().trim() });
+    const existingCoupon = await prisma.coupon.findUnique({
+      where: { code: code.toUpperCase().trim() },
+    });
+
     if (existingCoupon) {
       return NextResponse.json({ success: false, message: "Yeh Coupon Code pehle se maujood hai!" }, { status: 400 });
     }
 
-    const newCoupon = await Coupon.create({
-      code: code.toUpperCase().trim(),
-      discount: Number(discount),
-      expiryDate: new Date(expiryDate),
+    const newCoupon = await prisma.coupon.create({
+      data: {
+        code: code.toUpperCase().trim(),
+        discount: Number(discount),
+        expiryDate: new Date(expiryDate),
+      },
     });
 
     return NextResponse.json({ success: true, coupon: newCoupon }, { status: 201 });
@@ -47,12 +45,8 @@ export async function POST(request: Request) {
   }
 }
 
-// 3. DELETE: To remove a coupon
 export async function DELETE(request: Request) {
   try {
-    // Sahi function call
-    await connectDB();
-    
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -60,7 +54,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ success: false, message: "Coupon ID zaroori hai" }, { status: 400 });
     }
 
-    await Coupon.findByIdAndDelete(id);
+    await prisma.coupon.delete({ where: { id } });
 
     return NextResponse.json({ success: true, message: "Coupon delete ho gaya" }, { status: 200 });
   } catch (error: any) {

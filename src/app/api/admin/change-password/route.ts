@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import User from "@/models/Users";
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
-    await connectDB();
     const { currentPassword, newPassword } = await req.json();
 
-    const admin = await User.findOne({ role: "admin" });
+    const admin = await prisma.user.findFirst({
+      where: { role: "admin" },
+    });
+
     if (!admin) {
       return NextResponse.json(
         { success: false, message: "Admin not found." },
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const isMatch = await bcrypt.compare(currentPassword.trim(), admin.password);
+    const isMatch = await bcrypt.compare(currentPassword.trim(), admin.password!);
     if (!isMatch) {
       return NextResponse.json(
         { success: false, message: "Current password is incorrect." },
@@ -25,8 +26,10 @@ export async function POST(req: Request) {
     }
 
     const hashedPassword = await bcrypt.hash(newPassword.trim(), 10);
-    admin.password = hashedPassword;
-    await admin.save();
+    await prisma.user.update({
+      where: { id: admin.id },
+      data: { password: hashedPassword },
+    });
 
     return NextResponse.json({ success: true, message: "Password changed successfully." });
   } catch (error) {

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
-import User from "@/models/Users";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -14,14 +13,14 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(req: Request) {
   try {
-    await connectDB();
     const { email } = await req.json();
 
     if (!email) {
       return NextResponse.json({ success: false, message: "Email required." }, { status: 400 });
     }
 
-    const user = await User.findOne({ email });
+    const user = await prisma.user.findUnique({ where: { email } });
+
     if (!user) {
       return NextResponse.json({ success: true, message: "If this email exists, a reset link has been sent." });
     }
@@ -29,7 +28,10 @@ export async function POST(req: Request) {
     const resetToken = crypto.randomBytes(32).toString("hex");
     const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
 
-    await User.findByIdAndUpdate(user._id, { resetToken, resetTokenExpiry });
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { resetToken, resetTokenExpiry },
+    });
 
     const resetUrl = `${process.env.NEXT_PUBLIC_URL}/reset-password?token=${resetToken}`;
 

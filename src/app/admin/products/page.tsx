@@ -95,7 +95,7 @@ export default function AdminProductsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((item) => (
             <div
-              key={item._id}
+              key={item.id}
               className="group bg-zinc-950 border border-white/10 rounded-[32px] p-6 transition-all duration-500 hover:border-amber-500/50 hover:shadow-[0_0_40px_rgba(245,158,11,0.15)]"
             >
               {/* IMAGE — badge bilkul nahi andar */}
@@ -141,7 +141,7 @@ export default function AdminProductsPage() {
                 {/* Stock Toggle */}
                 <div className="mt-4 flex gap-0 rounded-2xl overflow-hidden border border-white/10">
                   <button
-                    onClick={() => !item.inStock && handleToggleStock(item._id, item.inStock)}
+                    onClick={() => !item.inStock && handleToggleStock(item.id, item.inStock)}
                     className={`flex-1 py-3 text-xs font-black uppercase tracking-wider transition-all ${
                       item.inStock
                         ? "bg-amber-400 text-black cursor-default"
@@ -152,7 +152,7 @@ export default function AdminProductsPage() {
                   </button>
                   <div className="w-px bg-white/10" />
                   <button
-                    onClick={() => item.inStock && handleToggleStock(item._id, item.inStock)}
+                    onClick={() => item.inStock && handleToggleStock(item.id, item.inStock)}
                     className={`flex-1 py-3 text-xs font-black uppercase tracking-wider transition-all ${
                       !item.inStock
                         ? "bg-red-500/30 text-red-400 cursor-default"
@@ -173,7 +173,7 @@ export default function AdminProductsPage() {
                   </div>
 
                   <button
-                    onClick={() => handleDelete(item._id)}
+                    onClick={() => handleDelete(item.id)}
                     className="flex items-center justify-center gap-2 bg-white/5 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-400 border border-white/10 text-zinc-400 font-extrabold px-5 py-3 rounded-2xl text-xs uppercase tracking-wider transition-all"
                   >
                     <Trash2 size={14} strokeWidth={2.5} />

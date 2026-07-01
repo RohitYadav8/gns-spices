@@ -195,7 +195,7 @@ export default function AddProductPage() {
                     ) : (
                       categories.map((cat) => (
                         <li
-                          key={cat._id}
+                          key={cat.id}
                           onClick={() => {
                             setFormData({ ...formData, category: cat.name });
                             setOpenCategory(false);

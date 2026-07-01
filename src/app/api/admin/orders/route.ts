@@ -1,29 +1,15 @@
 import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
-import Order from '@/models/Order';
-
-// UNIVERSAL ROADMAP FOR DB CONNECTION
-// If relative paths crash, we directly use process environment 
-// and dynamically reuse the mongoose instance here!
-async function forceConnectDB() {
-  if (mongoose.connection.readyState >= 1) {
-    return mongoose.connection;
-  }
-  
-  const URI = process.env.MONGODB_URI;
-  if (!URI) {
-    throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-  }
-  
-  return await mongoose.connect(URI);
-}
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
-    await forceConnectDB();
-    const orders = await Order.find({})
-      .populate('user', 'name email')
-      .sort({ createdAt: -1 });
+    const orders = await prisma.order.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        user: { select: { name: true, email: true } },
+        items: true,
+      },
+    });
 
     return NextResponse.json({ success: true, orders }, { status: 200 });
   } catch (error: any) {
@@ -37,7 +23,6 @@ export async function GET() {
 
 export async function PUT(req: Request) {
   try {
-    await forceConnectDB();
     const { orderId, status } = await req.json();
 
     if (!orderId || !status) {
@@ -47,11 +32,10 @@ export async function PUT(req: Request) {
       );
     }
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-      orderId,
-      { status },
-      { new: true }
-    );
+    const updatedOrder = await prisma.order.update({
+      where: { id: orderId },
+      data: { status },
+    });
 
     if (!updatedOrder) {
       return NextResponse.json(

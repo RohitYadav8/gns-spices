@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import connectDB from '@/lib/db';
-import Order from '@/models/Order';
+import { prisma } from '@/lib/prisma';
 import { sendOrderEmail } from '@/lib/sendEmail';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: undefined });
@@ -12,31 +11,38 @@ export async function POST(req: Request) {
     if (!session_id) return NextResponse.json({ error: "Missing session_id" });
 
     const session = await stripe.checkout.sessions.retrieve(session_id);
-    
+
     if (session.payment_status === 'paid') {
       const orderId = session.metadata?.orderId;
-      
-      await connectDB();
-      
-      // Update the order ONLY if it is still Pending
-      // This prevents sending duplicate emails if Webhook also runs
-      const order = await Order.findOneAndUpdate(
-         { _id: orderId, paymentStatus: 'Pending' },
-         { paymentStatus: 'Paid', status: 'Processing' },
-         { returnDocument: 'after' }
-      );
+
+      const order = await prisma.order.findFirst({
+        where: { id: orderId, paymentStatus: 'Pending' },
+        include: { items: true },
+      });
 
       if (order) {
-         await sendOrderEmail({
-            orderId: order._id.toString(),
-            customer: order.shippingAddress,
-            items: order.items,
-            total: order.totalAmount,
-            paymentMethod: order.paymentMethod
-         });
+        await prisma.order.update({
+          where: { id: order.id },
+          data: { paymentStatus: 'Paid', status: 'Processing' },
+        });
+
+        await sendOrderEmail({
+          orderId: order.id,
+          customer: {
+            fullName: order.shippingFullName,
+            email: order.shippingEmail,
+            phone: order.shippingPhone,
+            addressLine: order.shippingAddressLine,
+            city: order.shippingCity,
+            postalCode: order.shippingPostalCode,
+          },
+          items: order.items,
+          total: order.totalAmount,
+          paymentMethod: order.paymentMethod,
+        });
       }
     }
-    
+
     return NextResponse.json({ success: true });
   } catch (err: any) {
     console.error("Verify Session Error:", err);

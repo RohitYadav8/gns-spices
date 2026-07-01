@@ -14,7 +14,7 @@ interface Tier {
 }
 
 interface Product {
-  _id: string;
+  id: string;
   title: string;
   category: string;
   desc: string;
@@ -172,7 +172,7 @@ function PageContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {filteredProducts.map((item) => (
               <div
-                key={item._id}
+                key={item.id}
                 className="bg-[#110d0b] p-5 rounded-3xl transition-all w-full flex flex-col"
               >
                 {/* IMAGE — sharp fix */}
@@ -217,7 +217,7 @@ function PageContent() {
                       <p className="text-amber-400 text-[10px] font-black uppercase tracking-widest">100G Pack</p>
                     </div>
                     <button
-                      onClick={() => addToCart({ id: item._id, ...item })}
+                      onClick={() => addToCart({  ...item })}
                       className="flex items-center gap-2 bg-amber-400 text-black px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-500 transition"
                     >
                       <ShoppingCart size={14} /> Add

@@ -90,7 +90,7 @@ export default function CustomersPage() {
               </thead>
               <tbody>
                 {customers.map((c) => (
-                  <tr key={c._id} className="border-b border-white/10 hover:bg-white/5">
+                  <tr key={c.id} className="border-b border-white/10 hover:bg-white/5">
                     <td className="p-6 font-bold">{c.name}</td>
                     <td className="p-6 text-zinc-300">{c.email}</td>
                     <td className="p-6 text-right space-x-3">
@@ -104,7 +104,7 @@ export default function CustomersPage() {
             {/* Mobile Card View */}
             <div className="md:hidden divide-y divide-white/10">
               {customers.map((c) => (
-                <div key={c._id} className="p-6 flex flex-col gap-3">
+                <div key={c.id} className="p-6 flex flex-col gap-3">
                   <div className="flex justify-between">
                     <span className="font-bold text-lg">{c.name}</span>
                     <span className="text-xs text-zinc-500 uppercase">{c.role}</span>
@@ -112,7 +112,7 @@ export default function CustomersPage() {
                   <div className="text-sm text-zinc-400">{c.email}</div>
                   <div className="flex gap-3 pt-2">
                     <button onClick={() => setSelectedCustomer(c)} className="flex-1 rounded-xl bg-white/5 py-2 text-sm font-bold border border-white/10">View</button>
-                    <button onClick={() => handleDelete(c._id)} className="flex-1 rounded-xl bg-red-500/10 text-red-500 py-2 text-sm font-bold border border-red-500/20">Delete</button>
+                    <button onClick={() => handleDelete(c.id)} className="flex-1 rounded-xl bg-red-500/10 text-red-500 py-2 text-sm font-bold border border-red-500/20">Delete</button>
                   </div>
                 </div>
               ))}
