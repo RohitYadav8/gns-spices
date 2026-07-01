@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
-
+import { Newsletter } from "@prisma/client";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
@@ -32,10 +32,10 @@ export async function POST(req: Request) {
       const emails = subscribers.map((s: { email: string }) => s.email);
 
       if (emails.length > 0) {
-        await resend.emails.send({
-          from: "GNS Spices <onboarding@resend.dev>",
-          to: ["evilwork9975@gmail.com"],
-          subject: `🌶️ New Product: ${title}`,
+       await resend.emails.send({
+  from: "GNS Spices <onboarding@resend.dev>",
+  to: emails, // Yahan 'emails' array pass karein
+  subject: `🌶️ New Product: ${title}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0503; color: #ffffff; padding: 40px; border-radius: 16px;">
               <h1 style="color: #f59e0b; font-size: 28px; margin-bottom: 8px;">GNS Spices</h1>
